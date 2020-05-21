@@ -29,7 +29,7 @@ slug = re.sub(r'\W+', '-', project.lower())
 release = version = __version__
 copyright = "Copyright 2020 Dominic Davis-Foster"
 language = 'en'
-package_root = sphinxcontrib.extras_require
+package_root = "sphinxcontrib.extras_require"
 
 extensions = [
 		'sphinx.ext.intersphinx',
