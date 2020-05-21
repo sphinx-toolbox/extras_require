@@ -1,48 +1,81 @@
 ****************
-package_name
+extras-require
 ****************
 
-.. image:: https://travis-ci.com/domdfcoding/package_name.svg?branch=master
-    :target: https://travis-ci.com/domdfcoding/package_name
-    :alt: Build Status
-.. image:: https://readthedocs.org/projects/package_name/badge/?version=latest
-    :target: https://package_name.readthedocs.io/en/latest/?badge=latest
-    :alt: Documentation Status
-.. image:: https://img.shields.io/pypi/v/package_name.svg
-    :target: https://pypi.org/project/package_name/
-    :alt: PyPI
-.. image:: https://img.shields.io/pypi/pyversions/package_name.svg
-    :target: https://pypi.org/project/package_name/
-    :alt: PyPI - Python Version
-.. image:: https://img.shields.io/conda/v/domdfcoding/package_name
-    :alt: Conda
-    :target: https://anaconda.org/domdfcoding/package_name
-.. image:: https://coveralls.io/repos/github/domdfcoding/package_name/badge.svg?branch=master
-    :target: https://coveralls.io/github/domdfcoding/package_name?branch=master
-    :alt: Coverage
-.. image:: https://img.shields.io/github/license/domdfcoding/msp2lib
-    :alt: License
-    :target: https://github.com/domdfcoding/package_name/blob/master/LICENSE
+.. start shields
 
-description goes here
+.. image:: https://img.shields.io/travis/com/domdfcoding/extras_require/master?logo=travis
+    :target: https://travis-ci.com/domdfcoding/extras_require
+    :alt: Travis Build Status
+.. image:: https://readthedocs.org/projects/extras_require/badge/?version=latest
+    :target: https://extras_require.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+.. image:: https://img.shields.io/pypi/v/extras_require.svg
+    :target: https://pypi.org/project/extras_require/
+    :alt: PyPI
+.. image:: https://img.shields.io/pypi/pyversions/extras_require.svg
+    :target: https://pypi.org/project/extras_require/
+    :alt: PyPI - Python Version
+.. image:: https://img.shields.io/pypi/wheel/extras_require
+    :target: https://pypi.org/project/extras_require/
+    :alt: PyPI - Wheel
+.. image:: https://img.shields.io/pypi/implementation/extras_require
+    :target: https://pypi.org/project/extras_require/
+    :alt: PyPI - Implementation
+.. image:: https://img.shields.io/github/license/domdfcoding/extras_require
+    :alt: License
+    :target: https://github.com/domdfcoding/extras_require/blob/master/LICENSE
+.. image:: https://img.shields.io/github/languages/top/domdfcoding/extras_require
+    :alt: GitHub top language
+.. image:: https://img.shields.io/github/commits-since/domdfcoding/extras_require/v0.0.0
+    :target: https://github.com/domdfcoding/extras_require/pulse
+    :alt: GitHub commits since tagged version
+.. image:: https://img.shields.io/github/last-commit/domdfcoding/extras_require
+    :target: https://github.com/domdfcoding/extras_require/commit/master
+    :alt: GitHub last commit
+.. image:: https://img.shields.io/maintenance/yes/2020
+    :alt: Maintenance
+.. image:: https://img.shields.io/codefactor/grade/github/domdfcoding/extras_require
+    :target: https://www.codefactor.io/repository/github/domdfcoding/extras_require
+    :alt: CodeFactor Grade
+
+.. end shields
+
+Display a warning at the top of module documentation that it has additional requirements.
 
 |
+
+Overview
+--------
+
+Add a longer description here.
+
+
+For instance, this:
+
+::
+
+    .. extras-require::
+        :file: formulae/requirements.txt
+        :extra: formulae
+
+will look like this:
+
+.. image:: .images/example.png
+
 
 Installation
 --------------
 
-``pkgname`` can be installed from PyPI or Anaconda.
-
-To install with ``pip``:
+``extras_require`` can be installed with ``pip``:
 
 .. code-block:: bash
 
-    $ python -m pip install pkgname
+    $ python -m pip install extras_require
 
-To install with ``conda``:
 
-.. code-block:: bash
+Links
+-----
 
-    $ conda config --add channels http://conda.anaconda.org/domdfcoding
-    $ conda install pkgname
-
+- Source: https://github.com/domdfcoding/extras-require
+- Bugs: https://github.com/domdfcoding/extras-require/issues

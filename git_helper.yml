@@ -1,0 +1,72 @@
+modname: extras_require
+import_name: sphinxcontrib.extras_require
+copyright_years: "2020"
+author: "Dominic Davis-Foster"
+email: "dominic@davis-foster.co.uk"
+version: "0.0.0"
+username: "domdfcoding"
+license: 'BSD'
+short_desc: 'Display a warning at the top of module documentation that it has additional requirements.'
+
+enable_conda: False
+enable_tests: Falses
+
+conda_channels:
+  - domdfcoding
+  - conda-forge
+
+python_deploy_version: 3.6
+
+# Additional lines for .gitignore
+additional_ignore:
+#  pbr
+  - AUTHORS
+  - ChangeLog
+#  Editors
+  - "*~"
+  - ".*.swp"
+  - ".*sw?"
+
+
+# Versions to run tests for
+python_versions:
+  - '3.6'
+  - '3.7'
+  - "3.8"
+
+# travis secure password for PyPI
+travis_pypi_secure: ""
+
+# additional lines for MANIFEST.in
+#manifest_additional:
+#  -
+
+# directory that contains tests
+tests_dir: "tests"
+
+# Additional arguments for setup.py
+#additional_setup_args:
+
+conda_description: "Display a warning at the top of module documentation that it has additional requirements."
+
+classifiers:
+  - 'Development Status :: 4 - Beta'
+#  - "Development Status :: 5 - Production/Stable"
+#  - "Development Status :: 6 - Mature"
+#  - "Development Status :: 7 - Inactive"
+  - 'Intended Audience :: Developers'
+  - 'Operating System :: OS Independent'
+  - 'Programming Language :: Python'
+  - "Framework :: Sphinx :: Extension"
+  - 'Topic :: Software Development :: Libraries :: Python Modules'
+  - "Topic :: Utilities"
+  - "Topic :: Documentation"
+
+
+#keywords:
+#  -
+
+additional_setup_args:
+  namespace_packages: ['sphinxcontrib']
+
+

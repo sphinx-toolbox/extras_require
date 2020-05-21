@@ -1,3 +1,5 @@
+# This file is managed by `git_helper`. Don't edit it directly
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -23,6 +25,8 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+*.egg*
+
 MANIFEST
 
 # PyInstaller
@@ -46,6 +50,8 @@ coverage.xml
 *.cover
 .hypothesis/
 .pytest_cache/
+cover/
+.coverage*
 
 # Translations
 *.mo
@@ -65,6 +71,7 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+doc/build
 
 # PyBuilder
 target/
@@ -137,4 +144,10 @@ fabric.properties
 build
 *.egg-info
 **/__pycache__
-*/conda
+**/conda
+
+AUTHORS
+ChangeLog
+*~
+.*.swp
+.*sw?

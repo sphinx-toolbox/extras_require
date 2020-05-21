@@ -1,2 +1,4 @@
-sphinxcontrib-httpdomain
+extras_require
 sphinx
+sphinx_rtd_theme
+sphinxcontrib-httpdomain

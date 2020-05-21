@@ -1,11 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-#########################################################
-# No need to change anything in this file, except to    #
-# replace `package_name` with the actual name of        #
-# your package.                                         #
-#########################################################
+# This file is managed by `git_helper`. Don't edit it directly
 
 import os
 import re
@@ -16,23 +12,24 @@ sys.path.append(os.path.abspath('..'))
 
 from sphinx.locale import _
 
-from package_name import __author__, __version__, __copyright__
-from __pkginfo__ import github_username, modname, github_url
+from __pkginfo__ import __version__
 
 
-rst_prolog = f""".. |pkgname| replace:: {modname}
-.. |pkgname2| replace:: ``{modname}``
+github_url = f"https://github.com/domdfcoding/extras_require"
+
+rst_prolog = f""".. |pkgname| replace:: extras_require
+.. |pkgname2| replace:: ``extras_require``
 .. |browse_github| replace:: `Browse the GitHub Repository <{github_url}>`__
 .. |ghurl| replace:: {github_url}
 """
 
-project = modname
-slug = re.sub(r'\W+', '-', modname.lower())
-version = __version__
-release = __version__
-author = __author__
-copyright = __copyright__
+author = "Dominic Davis-Foster"
+project = "extras_require"
+slug = re.sub(r'\W+', '-', project.lower())
+release = version = __version__
+copyright = "Copyright 2020 Dominic Davis-Foster"
 language = 'en'
+package_root = sphinxcontrib.extras_require
 
 extensions = [
 		'sphinx.ext.intersphinx',
@@ -40,9 +37,15 @@ extensions = [
 		'sphinx.ext.mathjax',
 		'sphinx.ext.viewcode',
 		'sphinxcontrib.httpdomain',
+		"sphinxcontrib.extras_require",
+		"sphinx.ext.todo",
+
 		]
 
+todo_include_todos = bool(os.environ.get("SHOW_TODOS", False))
+
 templates_path = ['_templates']
+html_static_path = ['_static']
 source_suffix = '.rst'
 exclude_patterns = []
 
@@ -54,11 +57,21 @@ intersphinx_mapping = {
 		'rtd': ('https://docs.readthedocs.io/en/latest/', None),
 		'sphinx': ('http://www.sphinx-doc.org/en/stable/', None),
 		'python': ('https://docs.python.org/3/', None),
+		"NumPy": ('https://numpy.org/doc/stable/', None),
+		"SciPy": ('https://docs.scipy.org/doc/scipy/reference', None),
+		"matplotlib": ('https://matplotlib.org', None),
+		"h5py": ('https://docs.h5py.org/en/latest/', None),
+		"Sphinx": ('https://www.sphinx-doc.org/en/stable/', None),
+		"Django": ('https://docs.djangoproject.com/en/dev/', 'https://docs.djangoproject.com/en/dev/_objects/'),
+		"sarge": ('https://sarge.readthedocs.io/en/latest/', None),
+		"attrs": ('https://www.attrs.org/en/stable/', None),
+
 		}
 
 html_theme = 'sphinx_rtd_theme'
 html_theme_options = {
 		'logo_only': False,  # True will show just the logo
+
 		}
 html_theme_path = ["../.."]
 # html_logo = "logo/pyms.png"
@@ -67,8 +80,8 @@ html_show_sourcelink = False  # True will show link to source
 html_context = {
 		# Github Settings
 		"display_github": True,  # Integrate GitHub
-		"github_user": github_username,  # Username
-		"github_repo": modname,  # Repo name
+		"github_user": "domdfcoding",  # Username
+		"github_repo": "extras_require",  # Repo name
 		"github_version": "master",  # Version
 		"conf_py_path": "/",  # Path in the checkout to the docs root
 		}
@@ -76,15 +89,15 @@ html_context = {
 htmlhelp_basename = slug
 
 latex_documents = [
-		('index', '{0}.tex'.format(slug), modname, author, 'manual'),
+		('index', '{0}.tex'.format(slug), project, author, 'manual'),
 		]
 
 man_pages = [
-		('index', slug, modname, [author], 1)
+		('index', slug, project, [author], 1)
 		]
 
 texinfo_documents = [
-		('index', slug, modname, author, slug, modname, 'Miscellaneous'),
+		('index', slug, project, author, slug, project, 'Miscellaneous'),
 		]
 
 
@@ -92,7 +105,7 @@ texinfo_documents = [
 def setup(app):
 	from sphinx.domains.python import PyField
 	from sphinx.util.docfields import Field
-	
+
 	app.add_object_type(
 			'confval',
 			'confval',
@@ -104,7 +117,7 @@ def setup(app):
 							label=_('Type'),
 							has_arg=False,
 							names=('type',),
-							bodyrolename='class',
+							bodyrolename='class'
 							),
 					Field(
 							'default',
