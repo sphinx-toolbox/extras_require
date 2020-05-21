@@ -95,7 +95,7 @@ The file ``/chemistry_tools/formulae/requirements.txt`` contains the additional 
         }
     )
 
-A message can be displayed in the documentation to indicate that the subpackage has these additional requirements has that must be installed.
+A message can be displayed in the documentation to indicate that the subpackage has these additional requirements that must be installed.
 
 For instance, this:
 
@@ -109,7 +109,7 @@ will look like this:
 
 .. image:: .images/example.png
 
-The path given in ``:file:`` is relative to the ``package_root`` variable given in ``conf.py``, which in turn it relative to the parent directory of the sphinx documentation.
+The path given in ``:file:`` is relative to the ``package_root`` variable given in ``conf.py``, which in turn is relative to the parent directory of the sphinx documentation.
 
 i.e, this line:
 
@@ -128,11 +128,18 @@ Installation
 
     $ python -m pip install extras_require
 
+Enable ``extras_require`` by adding the following line to the ``extensions`` variable in ``conf.py``:
+
+.. code-block:: python
+
+    "sphinxcontrib.extras_require",
+
+For more information see https://www.sphinx-doc.org/en/master/usage/extensions/index.html#third-party-extensions .
 
 Future Enhancements
 ---------------------
 
-* Allow use of different "scopes", e.g. ``package``, ``module``, ``class``, ``function``, depending on what has the additional requirements.
+* Allow use of different "scopes", e.g. ``package``, ``module``, ``class``, ``function``, depending on what the additional requirements are for.
 * Support different methods of defining the requirements, e.g. ``setup.cfg``, ``setup.py``, ``__pkginfo__.py``, ``pyproject.toml``, or typing as entries in the directive itself.
 
 

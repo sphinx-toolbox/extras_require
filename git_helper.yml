@@ -19,9 +19,6 @@ python_deploy_version: 3.6
 
 # Additional lines for .gitignore
 additional_ignore:
-#  pbr
-  - AUTHORS
-  - ChangeLog
 #  Editors
   - "*~"
   - ".*.swp"
@@ -31,8 +28,6 @@ additional_ignore:
 # Versions to run tests for
 python_versions:
   - '3.6'
-  - '3.7'
-  - "3.8"
 
 # travis secure password for PyPI
 travis_pypi_secure: ""

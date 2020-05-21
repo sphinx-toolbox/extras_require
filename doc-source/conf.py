@@ -39,9 +39,11 @@ extensions = [
 		'sphinxcontrib.httpdomain',
 		"sphinxcontrib.extras_require",
 		"sphinx.ext.todo",
+		"sphinxemoji.sphinxemojii",
 
 		]
 
+sphinxemoji_style = 'twemoji'
 todo_include_todos = bool(os.environ.get("SHOW_TODOS", False))
 
 templates_path = ['_templates']
