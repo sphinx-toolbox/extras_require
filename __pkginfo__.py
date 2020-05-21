@@ -46,7 +46,7 @@ __copyright__ = """
 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 """
 
-__version__ = "0.0.0"
+__version__ = "0.0.1"
 
 modname = "extras_require"
 pypi_name = "extras_require"
@@ -73,7 +73,7 @@ project_urls = {
 repo_root = pathlib.Path(__file__).parent
 
 # Get info from files; set: long_description
-long_description = (repo_root / "README.rst").read_text().replace("0.0.0", __version__) + '\n'
+long_description = (repo_root / "README.rst").read_text().replace("0.0.1", __version__) + '\n'
 
 install_requires = (repo_root / "requirements.txt").read_text().split('\n')
 extras_require = {'all': []}
@@ -89,8 +89,6 @@ classifiers = [
 		'Topic :: Documentation',
 		'Programming Language :: Python :: 3.6',
 		'Programming Language :: Python :: Implementation :: CPython',
-		'Programming Language :: Python :: 3.7',
-		'Programming Language :: Python :: 3.8',
 		'Programming Language :: Python :: 3 :: Only',
 		'License :: OSI Approved :: BSD License',
 

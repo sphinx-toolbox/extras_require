@@ -3,13 +3,15 @@ import_name: sphinxcontrib.extras_require
 copyright_years: "2020"
 author: "Dominic Davis-Foster"
 email: "dominic@davis-foster.co.uk"
-version: "0.0.0"
+version: "0.0.1"
 username: "domdfcoding"
 license: 'BSD'
 short_desc: 'Display a warning at the top of module documentation that it has additional requirements.'
 
 enable_conda: False
 enable_tests: Falses
+
+exclude_files: bumpversion
 
 conda_channels:
   - domdfcoding
@@ -19,9 +21,6 @@ python_deploy_version: 3.6
 
 # Additional lines for .gitignore
 additional_ignore:
-#  pbr
-  - AUTHORS
-  - ChangeLog
 #  Editors
   - "*~"
   - ".*.swp"
@@ -31,8 +30,6 @@ additional_ignore:
 # Versions to run tests for
 python_versions:
   - '3.6'
-  - '3.7'
-  - "3.8"
 
 # travis secure password for PyPI
 travis_pypi_secure: ""

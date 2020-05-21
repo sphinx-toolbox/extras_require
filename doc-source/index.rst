@@ -1,14 +1,5 @@
 .. include:: ../README.rst
 
-
-|pkgname2| can be installed with pip:
-
-
-.. parsed-literal::
-
-        $ pip install |pkgname|
-
-
 `Browse the Source Code <_modules/index.html>`__.
 
 |browse_github|
@@ -18,10 +9,10 @@
 
    Home<self>
 
-.. toctree::
+.. .. toctree::
     :maxdepth: 3
     :caption: Documentation
 
-    API Reference<docs>
+..    API Reference<docs>
     Source
     Building
