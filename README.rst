@@ -51,6 +51,7 @@ Overview
 This extension assumes you have a repository laid out like this:
 
 ::
+
     /
     ├── chemistry_tools
     │   ├── __init__.py
