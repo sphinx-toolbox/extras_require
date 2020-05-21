@@ -27,7 +27,7 @@ extras-require
     :target: https://github.com/domdfcoding/extras_require/blob/master/LICENSE
 .. image:: https://img.shields.io/github/languages/top/domdfcoding/extras_require
     :alt: GitHub top language
-.. image:: https://img.shields.io/github/commits-since/domdfcoding/extras_require/v0.0.0
+.. image:: https://img.shields.io/github/commits-since/domdfcoding/extras_require/v0.0.1
     :target: https://github.com/domdfcoding/extras_require/pulse
     :alt: GitHub commits since tagged version
 .. image:: https://img.shields.io/github/last-commit/domdfcoding/extras_require
