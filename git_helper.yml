@@ -9,7 +9,7 @@ license: 'BSD'
 short_desc: 'Display a warning at the top of module documentation that it has additional requirements.'
 
 enable_conda: False
-enable_tests: Falses
+enable_tests: False
 
 exclude_files: bumpversion
 
