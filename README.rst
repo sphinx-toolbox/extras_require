@@ -129,9 +129,8 @@ For instance, this:
 
 ::
 
-    .. extras-require::
+    .. extras-require:: formulae
         :file: formulae/requirements.txt
-        :extra: formulae
 
 will look like this:
 
@@ -147,6 +146,8 @@ i.e, this line:
 
 points to ``/chemistry_tools``, and therefore ``:file: formulae/requirements.txt`` points to ``/chemistry_tools/formulae/requirements.txt``.
 
+Requirements can also be specified in ``__pkginfo__.py`` (using the option ``:__pkginfo__:``), ``setup.cfg`` (using the option ``:setup.cfg::`), or by typing in the requirements manually, one per line.
+
 Installation
 --------------
 
@@ -156,11 +157,14 @@ Installation
 
     $ python -m pip install extras_require
 
-Enable ``extras_require`` by adding the following line to the ``extensions`` variable in ``conf.py``:
+Enable ``extras_require`` by adding ``sphinxcontrib.extras_require`` to the ``extensions`` variable in ``conf.py``:
 
 .. code-block:: python
 
-    "sphinxcontrib.extras_require",
+    extensions = [
+		...
+		"sphinxcontrib.extras_require",
+		]
 
 For more information see https://www.sphinx-doc.org/en/master/usage/extensions/index.html#third-party-extensions .
 

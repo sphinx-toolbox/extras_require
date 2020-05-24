@@ -4,7 +4,7 @@ API Reference
 
 .. contents:: Table of Contents
 
-.. automodule:: package_name
+.. automodule:: extras_require
     :members:
     :private-members:
     :special-members:
@@ -12,11 +12,11 @@ API Reference
     :undoc-members:
 
 ===================================
-:mod:`package_name.__init__`
+:mod:`extras_require.__init__`
 ===================================
 
 
-.. automodule:: package_name.__init__
+.. automodule:: extras_require.__init__
     :members:
     :private-members:
     :special-members:

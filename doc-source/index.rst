@@ -9,6 +9,13 @@
 
    Home<self>
 
+.. toctree::
+    :maxdepth: 3
+    :caption: Demos
+
+    pkginfo_demo
+    requirements_file_demo
+
 .. .. toctree::
     :maxdepth: 3
     :caption: Documentation
