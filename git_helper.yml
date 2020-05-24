@@ -11,7 +11,9 @@ short_desc: 'Display a warning at the top of module documentation that it has ad
 enable_conda: False
 enable_tests: False
 
-exclude_files: bumpversion
+exclude_files:
+  - bumpversion
+  - doc_requirements
 
 conda_channels:
   - domdfcoding
