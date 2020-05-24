@@ -8,18 +8,4 @@
    :hidden:
 
    Home<self>
-
-.. toctree::
-    :maxdepth: 3
-    :caption: Demos
-
-    pkginfo_demo
-    requirements_file_demo
-
-.. .. toctree::
-    :maxdepth: 3
-    :caption: Documentation
-
-..    API Reference<docs>
-    Source
-    Building
+   API Reference<docs>
