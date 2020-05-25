@@ -21,3 +21,5 @@ python:
   install:
     - requirements: requirements.txt
     - requirements: doc-source/requirements.txt
+    - requirements:
+      - extras_require
