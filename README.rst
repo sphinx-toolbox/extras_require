@@ -9,62 +9,62 @@ extras-require
 	:widths: 10 90
 
 	* - Docs
-	  - |docs|
+	  - |docs_|
 	* - Tests
-	  - |travis| |requires| |codefactor|
+	  - |travis_| |requires_| |codefactor_|
 	* - PyPI
-	  - |pypi-version| |supported-versions| |supported-implementations| |wheel|
+	  - |pypi-version_| |supported-versions_| |supported-implementations_| |wheel_|
 	* - Other
-	  - |license| |language| |commits-since| |commits-latest| |maintained| 
+	  - |license_| |language_| |commits-since_| |commits-latest_| |maintained_| 
 	
-.. |docs| image:: https://readthedocs.org/projects/extras_require/badge/?version=latest
+.. |docs_| image:: https://readthedocs.org/projects/extras_require/badge/?version=latest
 	:target: https://extras_require.readthedocs.io/en/latest/?badge=latest
 	:alt: Documentation Status
 
-.. |travis| image:: https://img.shields.io/travis/com/domdfcoding/extras_require/master?logo=travis
+.. |travis_| image:: https://img.shields.io/travis/com/domdfcoding/extras_require/master?logo=travis
 	:target: https://travis-ci.com/domdfcoding/extras_require
 	:alt: Travis Build Status
 	
-.. |requires| image:: https://requires.io/github/domdfcoding/extras_require/requirements.svg?branch=master
+.. |requires_| image:: https://requires.io/github/domdfcoding/extras_require/requirements.svg?branch=master
 	:target: https://requires.io/github/domdfcoding/extras_require/requirements/?branch=master
 	:alt: Requirements Status
 
-.. |codefactor| image:: https://img.shields.io/codefactor/grade/github/domdfcoding/extras_require
+.. |codefactor_| image:: https://img.shields.io/codefactor/grade/github/domdfcoding/extras_require
 	:target: https://www.codefactor.io/repository/github/domdfcoding/extras_require
 	:alt: CodeFactor Grade
 
-.. |pypi-version| image:: https://img.shields.io/pypi/v/extras_require.svg
+.. |pypi-version_| image:: https://img.shields.io/pypi/v/extras_require.svg
 	:target: https://pypi.org/project/extras_require/
 	:alt: PyPI - Package Version
 
-.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/extras_require.svg
+.. |supported-versions_| image:: https://img.shields.io/pypi/pyversions/extras_require.svg
 	:target: https://pypi.org/project/extras_require/
 	:alt: PyPI - Supported Python Versions
 
-.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/extras_require
+.. |supported-implementations_| image:: https://img.shields.io/pypi/implementation/extras_require
 	:target: https://pypi.org/project/extras_require/
 	:alt: PyPI - Supported Implementations
 
-.. |wheel| image:: https://img.shields.io/pypi/wheel/extras_require
+.. |wheel_| image:: https://img.shields.io/pypi/wheel/extras_require
 	:target: https://pypi.org/project/extras_require/
 	:alt: PyPI - Wheel
 
-.. |license| image:: https://img.shields.io/github/license/domdfcoding/extras_require
+.. |license_| image:: https://img.shields.io/github/license/domdfcoding/extras_require
 	:alt: License
 	:target: https://github.com/domdfcoding/extras_require/blob/master/LICENSE
 
-.. |language| image:: https://img.shields.io/github/languages/top/domdfcoding/extras_require
+.. |language_| image:: https://img.shields.io/github/languages/top/domdfcoding/extras_require
 	:alt: GitHub top language
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/domdfcoding/extras_require/v0.0.2
+.. |commits-since_| image:: https://img.shields.io/github/commits-since/domdfcoding/extras_require/v0.0.2
 	:target: https://github.com/domdfcoding/extras_require/pulse
 	:alt: GitHub commits since tagged version
 
-.. |commits-latest| image:: https://img.shields.io/github/last-commit/domdfcoding/extras_require
+.. |commits-latest_| image:: https://img.shields.io/github/last-commit/domdfcoding/extras_require
 	:target: https://github.com/domdfcoding/extras_require/commit/master
 	:alt: GitHub last commit
 
-.. |maintained| image:: https://img.shields.io/maintenance/yes/2020
+.. |maintained_| image:: https://img.shields.io/maintenance/yes/2020
 	:alt: Maintenance
 
 .. end shields
