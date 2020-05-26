@@ -146,7 +146,9 @@ i.e, this line:
 
 points to ``/chemistry_tools``, and therefore ``:file: formulae/requirements.txt`` points to ``/chemistry_tools/formulae/requirements.txt``.
 
-Requirements can also be specified in ``__pkginfo__.py`` (using the option ``:__pkginfo__:``), ``setup.cfg`` (using the option ``:setup.cfg::`), or by typing in the requirements manually, one per line.
+Requirements can also be specified in ``__pkginfo__.py`` (using the option ``:__pkginfo__:``), ``setup.cfg`` (using the option ``:setup.cfg::``), or by typing in the requirements manually, one per line.
+
+The ``:scope:`` option can be used to specify a different scope for additional requirements, such as ``package``, ``module``, ``class`` or ``function``. Any string value can be supplied here.
 
 Installation
 --------------
@@ -157,7 +159,7 @@ Installation
 
     $ python -m pip install extras_require
 
-Enable ``extras_require`` by adding ``sphinxcontrib.extras_require`` to the ``extensions`` variable in ``conf.py``:
+Enable ``extras_require`` by adding "sphinxcontrib.extras_require" to the ``extensions`` variable in ``conf.py``:
 
 .. code-block:: python
 
@@ -171,8 +173,7 @@ For more information see https://www.sphinx-doc.org/en/master/usage/extensions/i
 Future Enhancements
 ---------------------
 
-* Allow use of different "scopes", e.g. ``package``, ``module``, ``class``, ``function``, depending on what the additional requirements are for.
-* Support different methods of defining the requirements, e.g. ``setup.cfg``, ``setup.py``, ``__pkginfo__.py``, ``pyproject.toml``, or typing as entries in the directive itself.
+* Support different methods of defining the requirements, e.g. ``setup.py`` or ``pyproject.toml``.
 
 
 Links

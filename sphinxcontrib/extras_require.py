@@ -38,7 +38,7 @@ from sphinx.util.docutils import SphinxDirective
 
 def requirements_from_file(package_root, options, env, extra):
 	"""
-	Load requirements from the specified file
+	Load requirements from the specified file.
 
 	:param package_root: The path to the package root
 	:type package_root:
@@ -65,7 +65,7 @@ def requirements_from_file(package_root, options, env, extra):
 
 def requirements_from___pkginfo__(package_root, options, env, extra):
 	"""
-	Load requirements from a __pkginfo__.py file in the root of the repository
+	Load requirements from a __pkginfo__.py file in the root of the repository.
 
 	:param package_root: The path to the package root
 	:type package_root:
@@ -94,7 +94,7 @@ def requirements_from___pkginfo__(package_root, options, env, extra):
 
 def requirements_from_setup_cfg(package_root, options, env, extra):
 	"""
-	Load requirements from a setup.cfg file in the root of the repository
+	Load requirements from a setup.cfg file in the root of the repository.
 
 	:param package_root: The path to the package root
 	:type package_root:
@@ -132,10 +132,15 @@ sources = [
 
 
 class ExtrasRequireDirective(SphinxDirective):
-	# this enables content in the directive
+	"""
+	Directive to show a notice to users that a module, class or
+	function has additional requirements.
+	"""
+
 	has_content = True
 	required_arguments = 1
 	option_spec = {source[0]: source[2] for source in sources}
+	option_spec["scope"] = str
 
 	def run(self):
 
@@ -143,6 +148,11 @@ class ExtrasRequireDirective(SphinxDirective):
 
 		if all(source[0] in self.options for source in sources) and self.content:
 			raise ValueError("Please specify only one source for the extra requirements")
+
+		if "scope" in self.options:
+			scope = self.options["scope"]
+		else:
+			scope = "module"
 
 		targetid = f'extras_require-{self.env.new_serialno("extras_require"):d}'
 		targetnode = nodes.target('', '', ids=[targetid])
@@ -167,7 +177,7 @@ class ExtrasRequireDirective(SphinxDirective):
 		requirements = "\n".join(requirements)
 
 		content = f"""\
-This module has the following additional requirements:
+This {scope} has the following additional requirements:
 
 ::
 
@@ -210,6 +220,15 @@ def purge_extras_requires(app, env, docname):
 
 
 def setup(app: Sphinx) -> Dict[str, Any]:
+	"""
+	Setup Sphinx Extension
+
+	:param app:
+	:type app: Sphinx
+
+	:return:
+	:rtype: dict
+	"""
 
 	# Location of package source directory relative to documentation source directory
 	app.add_config_value('package_root', None, 'html')
