@@ -2,69 +2,69 @@
 extras-require
 ****************
 
-.. start shields
+.. start shields 
 
 .. list-table::
 	:stub-columns: 1
 	:widths: 10 90
 
 	* - Docs
-	  - |docs_|
+	  - |docs|
 	* - Tests
-	  - |travis_| |requires_| |codefactor_|
+	  - |travis| |requires| |codefactor|
 	* - PyPI
-	  - |pypi-version_| |supported-versions_| |supported-implementations_| |wheel_|
+	  - |pypi-version| |supported-versions| |supported-implementations| |wheel|
 	* - Other
-	  - |license_| |language_| |commits-since_| |commits-latest_| |maintained_| 
+	  - |license| |language| |commits-since| |commits-latest| |maintained| 
 	
-.. |docs_| image:: https://readthedocs.org/projects/extras_require/badge/?version=latest
+.. |docs| image:: https://readthedocs.org/projects/extras_require/badge/?version=latest
 	:target: https://extras_require.readthedocs.io/en/latest/?badge=latest
 	:alt: Documentation Status
 
-.. |travis_| image:: https://img.shields.io/travis/com/domdfcoding/extras_require/master?logo=travis
+.. |travis| image:: https://img.shields.io/travis/com/domdfcoding/extras_require/master?logo=travis
 	:target: https://travis-ci.com/domdfcoding/extras_require
 	:alt: Travis Build Status
 	
-.. |requires_| image:: https://requires.io/github/domdfcoding/extras_require/requirements.svg?branch=master
+.. |requires| image:: https://requires.io/github/domdfcoding/extras_require/requirements.svg?branch=master
 	:target: https://requires.io/github/domdfcoding/extras_require/requirements/?branch=master
 	:alt: Requirements Status
 
-.. |codefactor_| image:: https://img.shields.io/codefactor/grade/github/domdfcoding/extras_require
+.. |codefactor| image:: https://img.shields.io/codefactor/grade/github/domdfcoding/extras_require
 	:target: https://www.codefactor.io/repository/github/domdfcoding/extras_require
 	:alt: CodeFactor Grade
 
-.. |pypi-version_| image:: https://img.shields.io/pypi/v/extras_require.svg
+.. |pypi-version| image:: https://img.shields.io/pypi/v/extras_require.svg
 	:target: https://pypi.org/project/extras_require/
 	:alt: PyPI - Package Version
 
-.. |supported-versions_| image:: https://img.shields.io/pypi/pyversions/extras_require.svg
+.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/extras_require.svg
 	:target: https://pypi.org/project/extras_require/
 	:alt: PyPI - Supported Python Versions
 
-.. |supported-implementations_| image:: https://img.shields.io/pypi/implementation/extras_require
+.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/extras_require
 	:target: https://pypi.org/project/extras_require/
 	:alt: PyPI - Supported Implementations
 
-.. |wheel_| image:: https://img.shields.io/pypi/wheel/extras_require
+.. |wheel| image:: https://img.shields.io/pypi/wheel/extras_require
 	:target: https://pypi.org/project/extras_require/
 	:alt: PyPI - Wheel
 
-.. |license_| image:: https://img.shields.io/github/license/domdfcoding/extras_require
+.. |license| image:: https://img.shields.io/github/license/domdfcoding/extras_require
 	:alt: License
 	:target: https://github.com/domdfcoding/extras_require/blob/master/LICENSE
 
-.. |language_| image:: https://img.shields.io/github/languages/top/domdfcoding/extras_require
+.. |language| image:: https://img.shields.io/github/languages/top/domdfcoding/extras_require
 	:alt: GitHub top language
 
-.. |commits-since_| image:: https://img.shields.io/github/commits-since/domdfcoding/extras_require/v0.0.2
+.. |commits-since| image:: https://img.shields.io/github/commits-since/domdfcoding/extras_require/v0.0.2
 	:target: https://github.com/domdfcoding/extras_require/pulse
 	:alt: GitHub commits since tagged version
 
-.. |commits-latest_| image:: https://img.shields.io/github/last-commit/domdfcoding/extras_require
+.. |commits-latest| image:: https://img.shields.io/github/last-commit/domdfcoding/extras_require
 	:target: https://github.com/domdfcoding/extras_require/commit/master
 	:alt: GitHub last commit
 
-.. |maintained_| image:: https://img.shields.io/maintenance/yes/2020
+.. |maintained| image:: https://img.shields.io/maintenance/yes/2020
 	:alt: Maintenance
 
 .. end shields

@@ -1,4 +1,4 @@
 sphinx-autodoc-typehints
 sphinx_rtd_theme >=0.4.3
 sphinxcontrib-httpdomain >=1.7.0
-sphinxemoji >=0.1.5
+sphinxemoji >=0.1.6
