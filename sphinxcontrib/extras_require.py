@@ -18,7 +18,6 @@ __license__ = "BSD"
 __version__ = "0.0.2"
 __email__ = "dominic@davis-foster.co.uk"
 
-
 # stdlib
 import configparser
 import importlib.util
@@ -214,8 +213,7 @@ def purge_extras_requires(app, env, docname):
 		return
 
 	env.all_extras_requires = [
-			extras_require for extras_require in env.all_extras_requires
-			if extras_require['docname'] != docname
+			extras_require for extras_require in env.all_extras_requires if extras_require['docname'] != docname
 			]
 
 
