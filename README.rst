@@ -1,6 +1,6 @@
-****************
+================
 extras-require
-****************
+================
 
 .. start shields 
 
@@ -153,11 +153,17 @@ The ``:scope:`` option can be used to specify a different scope for additional r
 Installation
 --------------
 
-``extras_require`` can be installed with ``pip``:
+.. start installation
+
+``extras_require`` can be installed from PyPI.
+
+To install with ``pip``:
 
 .. code-block:: bash
 
-    $ python -m pip install extras_require
+	$ python -m pip install extras_require
+
+.. end installation
 
 Enable ``extras_require`` by adding "sphinxcontrib.extras_require" to the ``extensions`` variable in ``conf.py``:
 
