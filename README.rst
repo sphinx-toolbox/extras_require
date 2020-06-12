@@ -16,28 +16,28 @@ extras-require
 	  - |pypi-version| |supported-versions| |supported-implementations| |wheel|
 	* - Other
 	  - |license| |language| |commits-since| |commits-latest| |maintained| 
-	
-.. |docs| image:: https://readthedocs.org/projects/extras_require/badge/?version=latest
+
+.. |docs| image:: https://img.shields.io/readthedocs/extras_require/latest?logo=read-the-docs
 	:target: https://extras_require.readthedocs.io/en/latest/?badge=latest
 	:alt: Documentation Status
 
 .. |travis| image:: https://img.shields.io/travis/com/domdfcoding/extras_require/master?logo=travis
 	:target: https://travis-ci.com/domdfcoding/extras_require
 	:alt: Travis Build Status
-	
+
 .. |requires| image:: https://requires.io/github/domdfcoding/extras_require/requirements.svg?branch=master
 	:target: https://requires.io/github/domdfcoding/extras_require/requirements/?branch=master
 	:alt: Requirements Status
 
-.. |codefactor| image:: https://img.shields.io/codefactor/grade/github/domdfcoding/extras_require
+.. |codefactor| image:: https://img.shields.io/codefactor/grade/github/domdfcoding/extras_require?logo=codefactor
 	:target: https://www.codefactor.io/repository/github/domdfcoding/extras_require
 	:alt: CodeFactor Grade
 
-.. |pypi-version| image:: https://img.shields.io/pypi/v/extras_require.svg
+.. |pypi-version| image:: https://img.shields.io/pypi/v/extras_require
 	:target: https://pypi.org/project/extras_require/
 	:alt: PyPI - Package Version
 
-.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/extras_require.svg
+.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/extras_require
 	:target: https://pypi.org/project/extras_require/
 	:alt: PyPI - Supported Python Versions
 
