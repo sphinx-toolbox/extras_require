@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 sphinxcontrib.extras_require
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -25,17 +24,25 @@ import mimetypes
 import pathlib
 import textwrap
 import warnings
-from typing import Any, Dict
+from typing import Any, Callable, Dict, List, Tuple
 
 # 3rd party
+import sphinx.environment
 from docutils import nodes
 from docutils.parsers.rst import directives
 from docutils.statemachine import ViewList
 from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
 
+# For type hinting install docutils-stubs
 
-def requirements_from_file(package_root, options, env, extra):
+
+def requirements_from_file(
+		package_root: pathlib.Path,
+		options: Dict,
+		env: sphinx.environment.BuildEnvironment,
+		extra: str,
+		) -> List[str]:
 	"""
 	Load requirements from the specified file.
 
@@ -44,25 +51,31 @@ def requirements_from_file(package_root, options, env, extra):
 	:param options:
 	:type options: dict
 	:param env:
-	:type env: sphinx.environment.BuildEnvironment
 	:param extra: The name of the "extra" that the requirements are for
 	:type extra: str
 
 	:return: List of requirements
-	:rtype: List[str]
 	"""
 
 	requirements_file = package_root / options["file"]
 
 	assert requirements_file.is_file()
-	assert mimetypes.guess_type(str(requirements_file))[0].startswith("text/")
+
+	mime_type = mimetypes.guess_type(str(requirements_file))[0]
+	if mime_type:
+		assert mime_type.startswith("text/")
 
 	requirements = requirements_file.read_text().split("\n")
 
 	return requirements
 
 
-def requirements_from___pkginfo__(package_root, options, env, extra):
+def requirements_from___pkginfo__(
+		package_root: pathlib.Path,
+		options: Dict,
+		env: sphinx.environment.BuildEnvironment,
+		extra: str,
+		) -> List[str]:
 	"""
 	Load requirements from a __pkginfo__.py file in the root of the repository.
 
@@ -71,27 +84,38 @@ def requirements_from___pkginfo__(package_root, options, env, extra):
 	:param options:
 	:type options: dict
 	:param env:
-	:type env: sphinx.environment.BuildEnvironment
 	:param extra: The name of the "extra" that the requirements are for
 	:type extra: str
 
 	:return: List of requirements
-	:rtype: List[str]
 	"""
 
 	__pkginfo___file = pathlib.Path(env.srcdir).parent / "__pkginfo__.py"
 	assert __pkginfo___file.is_file()
-	assert mimetypes.guess_type(str(__pkginfo___file))[0].startswith("text/")
+
+	mime_type = mimetypes.guess_type(str(__pkginfo___file))[0]
+	if mime_type:
+		assert mime_type.startswith("text/")
 
 	spec = importlib.util.spec_from_file_location("__pkginfo__", str(__pkginfo___file))
-	__pkginfo__ = importlib.util.module_from_spec(spec)
-	spec.loader.exec_module(__pkginfo__)
-	requirements = __pkginfo__.extras_require[extra]
 
-	return requirements
+	if spec is not None:
+		__pkginfo__ = importlib.util.module_from_spec(spec)
+
+		if spec.loader:
+			spec.loader.exec_module(__pkginfo__)  # type: ignore
+			requirements = __pkginfo__.extras_require[extra]  # type: ignore
+			return requirements
+
+	raise ImportError("Could not import __pkginfo__.py")
 
 
-def requirements_from_setup_cfg(package_root, options, env, extra):
+def requirements_from_setup_cfg(
+		package_root: pathlib.Path,
+		options: Dict,
+		env: sphinx.environment.BuildEnvironment,
+		extra: str,
+		) -> List[str]:
 	"""
 	Load requirements from a setup.cfg file in the root of the repository.
 
@@ -100,12 +124,10 @@ def requirements_from_setup_cfg(package_root, options, env, extra):
 	:param options:
 	:type options: dict
 	:param env:
-	:type env: sphinx.environment.BuildEnvironment
 	:param extra: The name of the "extra" that the requirements are for
 	:type extra: str
 
 	:return: List of requirements
-	:rtype: List[str]
 	"""
 
 	setup_cfg_file = pathlib.Path(env.srcdir).parent / "setup.cfg"
@@ -122,7 +144,7 @@ def requirements_from_setup_cfg(package_root, options, env, extra):
 		raise ValueError("'options.extras_require' section not found in 'setup.cfg")
 
 
-sources = [
+sources: List[Tuple[str, Callable, Callable]] = [
 		# (option_name, getter_function, validator_function),
 		("__pkginfo__", requirements_from___pkginfo__, bool),
 		("file", requirements_from_file, directives.unchanged),
@@ -136,14 +158,14 @@ class ExtrasRequireDirective(SphinxDirective):
 	function has additional requirements.
 	"""
 
-	has_content = True
-	required_arguments = 1
-	option_spec = {source[0]: source[2] for source in sources}
+	has_content: bool = True
+	required_arguments: int = 1
+	option_spec = {source[0]: source[2] for source in sources}  # type: ignore
 	option_spec["scope"] = str
 
 	def run(self):
 
-		extra = self.arguments[0]
+		extra: str = self.arguments[0]
 
 		if all(source[0] in self.options for source in sources) and self.content:
 			raise ValueError("Please specify only one source for the extra requirements")
@@ -208,7 +230,7 @@ These can be installed as follows:
 		return [targetnode, extras_require_node]
 
 
-def purge_extras_requires(app, env, docname):
+def purge_extras_requires(app: Sphinx, env, docname) -> None:
 	if not hasattr(env, 'all_extras_requires'):
 		return
 
@@ -222,10 +244,8 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	Setup Sphinx Extension
 
 	:param app:
-	:type app: Sphinx
 
 	:return:
-	:rtype: dict
 	"""
 
 	# Location of package source directory relative to documentation source directory
