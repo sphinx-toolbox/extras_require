@@ -168,7 +168,7 @@ Installation
 
 		.. prompt:: bash
 
-			pip install git+https://github.com//extras_require@master
+			pip install git+https://github.com/domdfcoding/extras_require@master
 
 .. end installation
 
