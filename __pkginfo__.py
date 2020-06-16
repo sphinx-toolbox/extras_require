@@ -93,4 +93,4 @@ classifiers = [
 
 		]
 
-keywords = ""
+keywords = "sphinx sphinx-extension requirements"
