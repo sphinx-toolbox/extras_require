@@ -11,11 +11,14 @@ extras-require
 	* - Docs
 	  - |docs|
 	* - Tests
-	  - |travis| |requires| |codefactor|
+	  - |travis| |actions_windows| |actions_macos|
+	    |codefactor|
 	* - PyPI
 	  - |pypi-version| |supported-versions| |supported-implementations| |wheel|
+	* - Activity
+	  - |commits-latest| |commits-since| |maintained|
 	* - Other
-	  - |license| |language| |commits-since| |commits-latest| |maintained| 
+	  - |license| |language| |requires|
 
 .. |docs| image:: https://img.shields.io/readthedocs/extras_require/latest?logo=read-the-docs
 	:target: https://extras_require.readthedocs.io/en/latest/?badge=latest
@@ -24,6 +27,14 @@ extras-require
 .. |travis| image:: https://img.shields.io/travis/com/domdfcoding/extras_require/master?logo=travis
 	:target: https://travis-ci.com/domdfcoding/extras_require
 	:alt: Travis Build Status
+
+.. |actions_windows| image:: https://github.com/domdfcoding/extras_require/workflows/Windows%20Tests/badge.svg
+	:target: https://github.com/domdfcoding/extras_require/actions?query=workflow%3A%22Windows+Tests%22
+	:alt: Windows Tests Status
+	
+.. |actions_macos| image:: https://github.com/domdfcoding/extras_require/workflows/macOS%20Tests/badge.svg
+	:target: https://github.com/domdfcoding/extras_require/actions?query=workflow%3A%22macOS+Tests%22
+	:alt: macOS Tests Status
 
 .. |requires| image:: https://requires.io/github/domdfcoding/extras_require/requirements.svg?branch=master
 	:target: https://requires.io/github/domdfcoding/extras_require/requirements/?branch=master
