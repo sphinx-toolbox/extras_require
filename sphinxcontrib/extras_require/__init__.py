@@ -163,7 +163,7 @@ class ExtrasRequireDirective(SphinxDirective):
 	option_spec = {source[0]: source[2] for source in sources}  # type: ignore
 	option_spec["scope"] = str
 
-	def run(self):
+	def run(self) -> None:
 
 		extra: str = self.arguments[0]
 
