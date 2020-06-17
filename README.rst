@@ -9,7 +9,7 @@ extras-require
 	:widths: 10 90
 
 	* - Docs
-	  - |docs|
+	  - |docs| |docs_check|
 	* - Tests
 	  - |travis| |actions_windows| |actions_macos|
 	    |codefactor|
@@ -23,6 +23,10 @@ extras-require
 .. |docs| image:: https://img.shields.io/readthedocs/extras_require/latest?logo=read-the-docs
 	:target: https://extras_require.readthedocs.io/en/latest/?badge=latest
 	:alt: Documentation Status
+	
+.. |docs| image:: [Docs Check](https://github.com/domdfcoding/extras_require/workflows/Docs%20Check/badge.svg
+	:target: https://github.com/domdfcoding/extras_require/actions?query=workflow%3A%22Docs+Check%22
+	:alt: Docs Check Status
 
 .. |travis| image:: https://img.shields.io/travis/com/domdfcoding/extras_require/master?logo=travis
 	:target: https://travis-ci.com/domdfcoding/extras_require
