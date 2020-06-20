@@ -119,7 +119,7 @@ def requirements_from_setup_cfg(
 
 	if "options.extras_require" in setup_cfg:
 		raw_requirements = dict(setup_cfg["options.extras_require"])[extra]
-		requirements = [x.strip() for x in raw_requirements.split(";")]
+		requirements = [x.strip() for x in raw_requirements.split(';')]
 		return requirements
 	else:
 		raise ValueError("'options.extras_require' section not found in 'setup.cfg")

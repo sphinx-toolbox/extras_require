@@ -66,6 +66,8 @@ class ExtrasRequireDirective(SphinxDirective):
 
 		requirements = "\n".join(requirements)
 
+		# TODO: Fix grammar for cases when there's only one requirement
+
 		content = f"""\
 This {scope} has the following additional requirements:
 
@@ -86,14 +88,14 @@ These can be installed as follows:
 		extras_require_node = nodes.attention(rawsource=content)
 		self.state.nested_parse(view, self.content_offset, extras_require_node)  # type: ignore
 
-		if not hasattr(self.env, 'all_extras_requires'):
+		if not hasattr(self.env, "all_extras_requires"):
 			self.env.all_extras_requires = []  # type: ignore
 
 		self.env.all_extras_requires.append({  # type: ignore
-			'docname': self.env.docname,
-			'lineno': self.lineno,
-			'extras_require': extras_require_node.deepcopy(),
-			'target': targetnode,
+			"docname": self.env.docname,
+			"lineno": self.lineno,
+			"extras_require": extras_require_node.deepcopy(),
+			"target": targetnode,
 			})
 
 		return [targetnode, extras_require_node]

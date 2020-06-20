@@ -31,12 +31,13 @@ from sphinxcontrib.extras_require.sources import sources
 
 
 def purge_extras_requires(app: Sphinx, env, docname) -> None:
-	if not hasattr(env, 'all_extras_requires'):
+	if not hasattr(env, "all_extras_requires"):
 		return
 
-	env.all_extras_requires = [
-			extras_require for extras_require in env.all_extras_requires if extras_require['docname'] != docname
-			]
+	env.all_extras_requires = []
+	for extras_require in env.all_extras_requires:
+		if extras_require["docname"] != docname:
+			env.all_extras_requires.append(extras_require)
 
 
 def setup(app: Sphinx) -> Dict[str, Any]:
@@ -49,13 +50,13 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	"""
 
 	# Location of package source directory relative to documentation source directory
-	app.add_config_value('package_root', None, 'html')
+	app.add_config_value("package_root", None, "html")
 
-	app.add_directive('extras-require', ExtrasRequireDirective)
-	app.connect('env-purge-doc', purge_extras_requires)
+	app.add_directive("extras-require", ExtrasRequireDirective)
+	app.connect("env-purge-doc", purge_extras_requires)
 
 	return {
-			'version': __version__,
-			'parallel_read_safe': True,
-			'parallel_write_safe': True,
+			"version": __version__,
+			"parallel_read_safe": True,
+			"parallel_write_safe": True,
 			}
