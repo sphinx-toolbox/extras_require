@@ -77,19 +77,19 @@ extras_require = {'all': []}
 
 classifiers = [
 		'Development Status :: 4 - Beta',
+		'Framework :: Sphinx :: Extension',
 		'Intended Audience :: Developers',
+		'License :: OSI Approved :: BSD License',
 		'Operating System :: OS Independent',
 		'Programming Language :: Python',
-		'Framework :: Sphinx :: Extension',
-		'Topic :: Software Development :: Libraries :: Python Modules',
-		'Topic :: Utilities',
-		'Topic :: Documentation',
+		'Programming Language :: Python :: 3 :: Only',
 		'Programming Language :: Python :: 3.6',
-		'Programming Language :: Python :: Implementation :: CPython',
 		'Programming Language :: Python :: 3.7',
 		'Programming Language :: Python :: 3.8',
-		'Programming Language :: Python :: 3 :: Only',
-		'License :: OSI Approved :: BSD License',
+		'Programming Language :: Python :: Implementation :: CPython',
+		'Topic :: Documentation',
+		'Topic :: Software Development :: Libraries :: Python Modules',
+		'Topic :: Utilities',
 		'Typing :: Typed',
 
 		]
