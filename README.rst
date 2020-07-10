@@ -2,7 +2,7 @@
 extras-require
 ================
 
-.. start shields 
+.. start shields
 
 .. list-table::
 	:stub-columns: 1
@@ -22,7 +22,7 @@ extras-require
 .. |docs| image:: https://img.shields.io/readthedocs/extras_require/latest?logo=read-the-docs
 	:target: https://extras_require.readthedocs.io/en/latest/?badge=latest
 	:alt: Documentation Status
-	
+
 .. |docs_check| image:: https://github.com/domdfcoding/extras_require/workflows/Docs%20Check/badge.svg
 	:target: https://github.com/domdfcoding/extras_require/actions?query=workflow%3A%22Docs+Check%22
 	:alt: Docs Check Status
@@ -51,7 +51,7 @@ extras-require
 	:target: https://pypi.org/project/extras_require/
 	:alt: PyPI - Package Version
 
-.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/extras_require
+.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/extras_require?logo=python&logoColor=white
 	:target: https://pypi.org/project/extras_require/
 	:alt: PyPI - Supported Python Versions
 
@@ -64,8 +64,8 @@ extras-require
 	:alt: PyPI - Wheel
 
 .. |license| image:: https://img.shields.io/github/license/domdfcoding/extras_require
-	:alt: License
 	:target: https://github.com/domdfcoding/extras_require/blob/master/LICENSE
+	:alt: License
 
 .. |language| image:: https://img.shields.io/github/languages/top/domdfcoding/extras_require
 	:alt: GitHub top language

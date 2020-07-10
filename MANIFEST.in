@@ -3,4 +3,4 @@ include LICENSE
 include requirements.txt
 recursive-exclude **/__pycache__ *
 recursive-include sphinxcontrib.extras_require/ *.pyi
-recursive-include sphinxcontrib.extras_require/ py.typed
+include sphinxcontrib.extras_require/py.typed
