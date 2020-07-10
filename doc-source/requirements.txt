@@ -5,3 +5,4 @@ sphinx_autodoc_typehints >=1.10.3
 sphinx_rtd_theme
 sphinxcontrib-httpdomain >=1.7.0
 sphinxemoji >=0.1.6
+autodocsumm
