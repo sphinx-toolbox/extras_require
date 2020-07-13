@@ -50,7 +50,7 @@ pypi_name = "extras_require"
 import_name = "sphinxcontrib.extras_require"
 py_modules = []
 entry_points = {
-		"console_scripts": []
+		"console_scripts": [],
 		}
 
 __license__ = "BSD License"
