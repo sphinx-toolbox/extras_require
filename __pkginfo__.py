@@ -19,8 +19,6 @@ __all__ = [
 		"__version__",
 		"modname",
 		"pypi_name",
-		"py_modules",
-		"entry_points",
 		"__license__",
 		"__author__",
 		"short_desc",
@@ -29,13 +27,11 @@ __all__ = [
 		"github_username",
 		"web",
 		"github_url",
-		"project_urls",
 		"repo_root",
-		"long_description",
 		"install_requires",
 		"extras_require",
-		"classifiers",
-		"keywords",
+		"project_urls",
+
 		"import_name",
 		]
 
@@ -44,54 +40,23 @@ __copyright__ = """
 """
 
 __version__ = "0.1.1"
-
 modname = "extras_require"
 pypi_name = "extras_require"
 import_name = "sphinxcontrib.extras_require"
-py_modules = []
-entry_points = {
-		"console_scripts": [],
-		}
-
 __license__ = "BSD License"
-
 short_desc = "Display a warning at the top of module documentation that it has additional requirements."
-
 __author__ = author = "Dominic Davis-Foster"
 author_email = "dominic@davis-foster.co.uk"
 github_username = "domdfcoding"
-web = github_url = f"https://github.com/domdfcoding/extras_require"
-project_urls = {
-		"Documentation": f"https://extras_require.readthedocs.io",
-		"Issue Tracker": f"{github_url}/issues",
-		"Source Code": github_url,
-		}
-
+web = github_url = "https://github.com/domdfcoding/extras_require"
 repo_root = pathlib.Path(__file__).parent
-
-# Get info from files; set: long_description
-long_description = (repo_root / "README.rst").read_text(encoding="utf-8").replace("0.1.1", __version__) + '\n'
-
 install_requires = (repo_root / "requirements.txt").read_text(encoding="utf-8").split('\n')
 extras_require = {'all': []}
 
-classifiers = [
-		'Development Status :: 4 - Beta',
-		'Framework :: Sphinx :: Extension',
-		'Intended Audience :: Developers',
-		'License :: OSI Approved :: BSD License',
-		'Operating System :: OS Independent',
-		'Programming Language :: Python',
-		'Programming Language :: Python :: 3 :: Only',
-		'Programming Language :: Python :: 3.6',
-		'Programming Language :: Python :: 3.7',
-		'Programming Language :: Python :: 3.8',
-		'Programming Language :: Python :: Implementation :: CPython',
-		'Topic :: Documentation',
-		'Topic :: Software Development :: Libraries :: Python Modules',
-		'Topic :: Utilities',
-		'Typing :: Typed',
 
-		]
 
-keywords = "sphinx sphinx-extension requirements"
+project_urls = {
+		"Documentation": "https://extras_require.readthedocs.io",
+		"Issue Tracker": f"{github_url}/issues",
+		"Source Code": github_url,
+		}
