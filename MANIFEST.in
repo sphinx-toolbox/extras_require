@@ -2,5 +2,5 @@ include __pkginfo__.py
 include LICENSE
 include requirements.txt
 recursive-exclude **/__pycache__ *
-recursive-include sphinxcontrib.extras_require/ *.pyi
-include sphinxcontrib.extras_require/py.typed
+recursive-include sphinxcontrib/extras_require *.pyi
+include sphinxcontrib/extras_require/py.typed

@@ -68,9 +68,6 @@ classifiers:
 #keywords:
 #  -
 
-additional_setup_args:
-  namespace_packages: ['sphinxcontrib']
-
 extra_sphinx_extensions:
   - "sphinx.ext.autosummary"
 
