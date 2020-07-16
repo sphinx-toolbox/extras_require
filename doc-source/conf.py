@@ -49,11 +49,13 @@ extensions = [
 		"sphinx.ext.autosummary",
 		"autodocsumm",
 		"sphinx_copybutton",
+		"sphinx_gitstamp",
 		'sphinx.ext.autosummary',
 		]
 
 sphinxemoji_style = 'twemoji'
 todo_include_todos = bool(os.environ.get("SHOW_TODOS", False))
+gitstamp_fmt = "%d %b %Y"
 
 templates_path = ['_templates']
 html_static_path = ['_static']

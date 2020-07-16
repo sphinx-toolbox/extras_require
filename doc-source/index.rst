@@ -145,14 +145,14 @@ A message can be displayed in the documentation to indicate that the subpackage 
 
 For instance, this:
 
-::
+.. code-block:: rest
 
     .. extras-require:: formulae
         :file: formulae/requirements.txt
 
-will look like this:
+will produce this:
 
-.. image:: .images/example.png
+.. image:: example.png
 
 The path given in ``:file:`` is relative to the ``package_root`` variable given in ``conf.py``, which in turn is relative to the parent directory of the sphinx documentation.
 
@@ -208,11 +208,18 @@ Future Enhancements
 
 
 .. toctree::
-   :hidden:
+	:hidden:
 
-   Home<self>
-   API Reference<docs>
+	Home<self>
 
+
+.. toctree::
+	:maxdepth: 3
+	:caption: Documentation
+
+	API Reference<docs>
+	Source
+	Building
 
 .. start links
 

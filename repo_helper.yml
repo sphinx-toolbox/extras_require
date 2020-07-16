@@ -13,7 +13,7 @@ enable_tests: False
 
 exclude_files:
   - bumpversion
-  - doc_requirements
+#  - doc_requirements
   - rtfd
 
 conda_channels:
