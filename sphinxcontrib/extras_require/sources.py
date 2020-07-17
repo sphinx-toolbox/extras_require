@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 """
-Supported sources for the requirements are implemented here
+Supported sources for the requirements are implemented here.
 
 :copyright: Copyright (c) 2020 by Dominic Davis-Foster <dominic@davis-foster.co.uk>
 :license: BSD, see LICENSE for details.
 """
 
 # stdlib
-import configparser
 import importlib.util
 import mimetypes
 import pathlib
@@ -16,6 +15,7 @@ from typing import Callable, Dict, List, Tuple
 # 3rd party
 import sphinx.environment
 from docutils.parsers.rst import directives
+from setuptools.config import read_configuration
 
 
 def requirements_from_file(
@@ -114,13 +114,10 @@ def requirements_from_setup_cfg(
 	setup_cfg_file = pathlib.Path(env.srcdir).parent / "setup.cfg"
 	assert setup_cfg_file.is_file()
 
-	setup_cfg = configparser.ConfigParser()
-	setup_cfg.read(setup_cfg_file)
+	setup_cfg = read_configuration(setup_cfg_file)
 
-	if "options.extras_require" in setup_cfg:
-		raw_requirements = dict(setup_cfg["options.extras_require"])[extra]
-		requirements = [x.strip() for x in raw_requirements.split(';')]
-		return requirements
+	if "options" in setup_cfg and "extras_require" in setup_cfg["options"]:
+		return setup_cfg["options"]["extras_require"][extra]
 	else:
 		raise ValueError("'options.extras_require' section not found in 'setup.cfg")
 

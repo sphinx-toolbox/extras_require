@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-The extras_require directive
+The "extras_require" directive.
 
 :copyright: Copyright (c) 2020 by Dominic Davis-Foster <dominic@davis-foster.co.uk>
 :license: BSD, see LICENSE for details.
@@ -15,6 +15,7 @@ from typing import List
 # 3rd party
 from docutils import nodes
 from docutils.statemachine import ViewList
+from packaging.requirements import InvalidRequirement, Requirement
 from sphinx.util.docutils import SphinxDirective
 
 # this package
@@ -23,8 +24,7 @@ from sphinxcontrib.extras_require.sources import sources
 
 class ExtrasRequireDirective(SphinxDirective):
 	"""
-	Directive to show a notice to users that a module, class or
-	function has additional requirements.
+	Directive to show a notice to users that a module, class or	function has additional requirements.
 	"""
 
 	has_content: bool = True
@@ -33,6 +33,11 @@ class ExtrasRequireDirective(SphinxDirective):
 	option_spec["scope"] = str
 
 	def run(self) -> List[nodes.Node]:
+		"""
+		Create the extras_require node.
+
+		:return:
+		"""
 
 		extra: str = self.arguments[0]
 
@@ -64,16 +69,27 @@ class ExtrasRequireDirective(SphinxDirective):
 			warnings.warn("No requirements specified! No notice will be shown in the documentation.")
 			return [targetnode]
 
-		requirements = "\n".join(requirements)
+		valid_requirements = []
+
+		for req in requirements:
+			try:
+				valid_requirements.append(str(Requirement(req)))
+			except InvalidRequirement as e:
+				raise ValueError(f"Invalid requirement '{req}': {str(e)}")
+
+		if not valid_requirements:
+			raise ValueError("Please supply at least one requirement.")
+
+		requirements_string = textwrap.indent("\n".join(valid_requirements), "    ")
 
 		# TODO: Fix grammar for cases when there's only one requirement
 
 		content = f"""\
-This {scope} has the following additional requirements:
+This {scope} has the following additional requirement{'s' if len(valid_requirements) > 1 else ''}:
 
-::
+.. code-block:: text
 
-{textwrap.indent(requirements, "    ")}
+{requirements_string}
 
 These can be installed as follows:
 
