@@ -82,8 +82,6 @@ class ExtrasRequireDirective(SphinxDirective):
 
 		requirements_string = textwrap.indent("\n".join(valid_requirements), "    ")
 
-		# TODO: Fix grammar for cases when there's only one requirement
-
 		content = f"""\
 This {scope} has the following additional requirement{'s' if len(valid_requirements) > 1 else ''}:
 

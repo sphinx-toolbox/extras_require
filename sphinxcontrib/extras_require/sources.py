@@ -17,6 +17,8 @@ import sphinx.environment
 from docutils.parsers.rst import directives
 from setuptools.config import read_configuration
 
+from sphinxcontrib.extras_require.flit_config import read_flit_config
+
 
 def requirements_from_file(
 		package_root: pathlib.Path,
@@ -87,6 +89,7 @@ def requirements_from___pkginfo__(
 			spec.loader.exec_module(__pkginfo__)  # type: ignore
 			requirements = __pkginfo__.extras_require[extra]  # type: ignore
 			return requirements
+			# TODO: handle extra not found
 
 	raise ImportError("Could not import __pkginfo__.py")
 
@@ -117,9 +120,44 @@ def requirements_from_setup_cfg(
 	setup_cfg = read_configuration(setup_cfg_file)
 
 	if "options" in setup_cfg and "extras_require" in setup_cfg["options"]:
-		return setup_cfg["options"]["extras_require"][extra]
+		if extra in setup_cfg["options"]["extras_require"]:
+			return setup_cfg["options"]["extras_require"][extra]
+		else:
+			raise ValueError(f"'{extra}' not found in '[options.extras_require]'")
 	else:
 		raise ValueError("'options.extras_require' section not found in 'setup.cfg")
+
+
+def requirements_from_flit(
+		package_root: pathlib.Path,
+		options: Dict,
+		env: sphinx.environment.BuildEnvironment,
+		extra: str,
+		) -> List[str]:
+	"""
+	Load requirements from the [tool.flit.metadata.requires-extra] section of
+	a pyproject.toml file in the root of the repository.
+
+	:param package_root: The path to the package root
+	:type package_root:
+	:param options:
+	:type options: dict
+	:param env:
+	:param extra: The name of the "extra" that the requirements are for
+	:type extra: str
+
+	:return: List of requirements
+	"""
+
+	pyproject_file = pathlib.Path(env.srcdir).parent / "pyproject.toml"
+	assert pyproject_file.is_file()
+
+	flit_extras = read_flit_config(pyproject_file).reqs_by_extra
+
+	if extra in flit_extras:
+		return flit_extras[extra]
+	else:
+		raise ValueError(f"'{extra}' not found in '[tool.flit.metadata.requires-extra]'")
 
 
 sources: List[Tuple[str, Callable, Callable]] = [
