@@ -217,6 +217,7 @@ Future Enhancements
 	:maxdepth: 3
 	:caption: Documentation
 
+	usage
 	API Reference<docs>
 	Source
 	Building

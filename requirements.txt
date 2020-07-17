@@ -1,2 +1,4 @@
 docutils
+packaging>=20.4
+setuptools>=49.2.0
 sphinx>=3.0.0

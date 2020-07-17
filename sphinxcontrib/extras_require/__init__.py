@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 """
-sphinxcontrib.extras_require
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-A Sphinx directive to specify that a module has extra requirements, and show how to install them
-Display a warning at the top of module documentation that it has additional requirements.
+A Sphinx directive to specify that a module has extra requirements, and show how to install them.
 
 :copyright: Copyright (c) 2020 by Dominic Davis-Foster <dominic@davis-foster.co.uk>
 :license: BSD, see LICENSE for details.
@@ -31,6 +27,19 @@ from sphinxcontrib.extras_require.sources import sources
 
 
 def purge_extras_requires(app: Sphinx, env, docname) -> None:
+	"""
+	Remove all extras_require nodes.
+
+	:param app:
+	:type app:
+	:param env:
+	:type env:
+	:param docname:
+	:type docname:
+
+	:return:
+	"""
+
 	if not hasattr(env, "all_extras_requires"):
 		return
 
@@ -42,7 +51,7 @@ def purge_extras_requires(app: Sphinx, env, docname) -> None:
 
 def setup(app: Sphinx) -> Dict[str, Any]:
 	"""
-	Setup Sphinx Extension
+	Setup Sphinx Extension.
 
 	:param app:
 
