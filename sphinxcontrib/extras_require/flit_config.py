@@ -30,7 +30,6 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
 import difflib
 import errno
 import logging
@@ -46,26 +45,22 @@ class ConfigError(ValueError):
 	pass
 
 
-metadata_list_fields = {
-		'classifiers',
-		'requires',
-		'dev-requires'
-		}
+metadata_list_fields = {'classifiers', 'requires', 'dev-requires'}
 
 metadata_allowed_fields = {
-								  'module',
-								  'author',
-								  'author-email',
-								  'maintainer',
-								  'maintainer-email',
-								  'home-page',
-								  'license',
-								  'keywords',
-								  'requires-python',
-								  'dist-name',
-								  'description-file',
-								  'requires-extra',
-								  } | metadata_list_fields
+		'module',
+		'author',
+		'author-email',
+		'maintainer',
+		'maintainer-email',
+		'home-page',
+		'license',
+		'keywords',
+		'requires-python',
+		'dist-name',
+		'description-file',
+		'requires-extra',
+		} | metadata_list_fields
 
 metadata_required_fields = {
 		'module',
@@ -82,9 +77,9 @@ def read_flit_config(path):
 
 
 class EntryPointsConflict(ConfigError):
+
 	def __str__(self):
-		return ('Please specify console_scripts entry points, or [scripts] in '
-				'flit config, not both.')
+		return 'Please specify console_scripts entry points, or [scripts] in ' 'flit config, not both.'
 
 
 def prep_toml_config(d, path):
@@ -92,8 +87,7 @@ def prep_toml_config(d, path):
 
 	Returns a LoadedConfig object.
 	"""
-	if ('tool' not in d) or ('flit' not in d['tool']) \
-			or (not isinstance(d['tool']['flit'], dict)):
+	if (('tool' not in d) or ('flit' not in d['tool']) or (not isinstance(d['tool']['flit'], dict))):
 		raise ConfigError("TOML file missing [tool.flit] table.")
 
 	d = d['tool']['flit']
@@ -116,16 +110,10 @@ def prep_toml_config(d, path):
 	if 'sdist' in d:
 		unknown_keys = set(d['sdist']) - {'include', 'exclude'}
 		if unknown_keys:
-			raise ConfigError(
-					"Unknown keys in [tool.flit.sdist]:" + ", ".join(unknown_keys)
-					)
+			raise ConfigError("Unknown keys in [tool.flit.sdist]:" + ", ".join(unknown_keys))
 
-		loaded_cfg.sdist_include_patterns = _check_glob_patterns(
-				d['sdist'].get('include', []), 'include'
-				)
-		loaded_cfg.sdist_exclude_patterns = _check_glob_patterns(
-				d['sdist'].get('exclude', []), 'exclude'
-				)
+		loaded_cfg.sdist_include_patterns = _check_glob_patterns(d['sdist'].get('include', []), 'include')
+		loaded_cfg.sdist_exclude_patterns = _check_glob_patterns(d['sdist'].get('exclude', []), 'exclude')
 
 	return loaded_cfg
 
@@ -151,8 +139,7 @@ def flatten_entrypoints(ep):
 		d1 = {}
 		for k, v in d.items():
 			if isinstance(v, dict):
-				for flattened in _flatten(v, prefix + '.' + k):
-					yield flattened
+				yield from _flatten(v, prefix + '.' + k)
 			else:
 				d1[k] = v
 
@@ -168,7 +155,7 @@ def flatten_entrypoints(ep):
 def _check_glob_patterns(pats, clude):
 	"""Check and normalise glob patterns for sdist include/exclude"""
 	if not isinstance(pats, list):
-		raise ConfigError("sdist {} patterns must be a list".format(clude))
+		raise ConfigError(f"sdist {clude} patterns must be a list")
 
 	# Windows filenames can't contain these (nor * or ?, but they are part of
 	# glob patterns) - https://stackoverflow.com/a/31976060/434217
@@ -178,33 +165,23 @@ def _check_glob_patterns(pats, clude):
 
 	for p in pats:
 		if bad_chars.search(p):
-			raise ConfigError(
-					'{} pattern {!r} contains bad characters (<>:\"\\ or control characters)'
-						.format(clude, p)
-					)
+			raise ConfigError(f'{clude} pattern {p!r} contains bad characters (<>:\"\\ or control characters)')
 		if '**' in p:
-			raise ConfigError(
-					"Recursive globbing (**) is not supported yet (in {} pattern {!r})"
-						.format(clude, p)
-					)
+			raise ConfigError(f"Recursive globbing (**) is not supported yet (in {clude} pattern {p!r})")
 
 		normp = osp.normpath(p)
 
 		if osp.isabs(normp):
-			raise ConfigError(
-					'{} pattern {!r} is an absolute path'.format(clude, p)
-					)
+			raise ConfigError(f'{clude} pattern {p!r} is an absolute path')
 		if osp.normpath(p).startswith('..' + os.sep):
-			raise ConfigError(
-					'{} pattern {!r} points out of the directory containing pyproject.toml'
-						.format(clude, p)
-					)
+			raise ConfigError(f'{clude} pattern {p!r} points out of the directory containing pyproject.toml')
 		normed.append(normp)
 
 	return normed
 
 
-class LoadedConfig(object):
+class LoadedConfig:
+
 	def __init__(self):
 		self.module = None
 		self.metadata = {}
@@ -257,19 +234,16 @@ def _prep_metadata(md_sect, path):
 		try:
 			with description_file.open('r', encoding='utf-8') as f:
 				raw_desc = f.read()
-		except IOError as e:
+		except OSError as e:
 			if e.errno == errno.ENOENT:
-				raise ConfigError(
-						"Description file {} does not exist".format(description_file)
-						)
+				raise ConfigError(f"Description file {description_file} does not exist")
 			raise
 		ext = description_file.suffix
 		try:
 			mimetype = readme_ext_to_content_type[ext]
 		except KeyError:
 			log.warning("Unknown extension %r for description file.", ext)
-			log.warning("  Recognised extensions: %s",
-						" ".join(readme_ext_to_content_type))
+			log.warning("  Recognised extensions: %s", " ".join(readme_ext_to_content_type))
 			mimetype = None
 
 		md_dict['description'] = raw_desc
@@ -278,42 +252,36 @@ def _prep_metadata(md_sect, path):
 	if 'urls' in md_sect:
 		project_urls = md_dict['project_urls'] = []
 		for label, url in sorted(md_sect.pop('urls').items()):
-			project_urls.append("{}, {}".format(label, url))
+			project_urls.append(f"{label}, {url}")
 
 	for key, value in md_sect.items():
 		if key in {'description-file', 'module'}:
 			continue
 		if key not in metadata_allowed_fields:
-			closest = difflib.get_close_matches(key, metadata_allowed_fields,
-												n=1, cutoff=0.7)
-			msg = "Unrecognised metadata key: {!r}".format(key)
+			closest = difflib.get_close_matches(key, metadata_allowed_fields, n=1, cutoff=0.7)
+			msg = f"Unrecognised metadata key: {key!r}"
 			if closest:
-				msg += " (did you mean {!r}?)".format(closest[0])
+				msg += f" (did you mean {closest[0]!r}?)"
 			raise ConfigError(msg)
 
 		k2 = key.replace('-', '_')
 		md_dict[k2] = value
 		if key in metadata_list_fields:
 			if not isinstance(value, list):
-				raise ConfigError('Expected a list for {} field, found {!r}'
-								  .format(key, value))
+				raise ConfigError(f'Expected a list for {key} field, found {value!r}')
 			if not all(isinstance(a, str) for a in value):
-				raise ConfigError('Expected a list of strings for {} field'
-								  .format(key))
+				raise ConfigError(f"Expected a list of strings for {key} field")
 		elif key == 'requires-extra':
 			if not isinstance(value, dict):
-				raise ConfigError('Expected a dict for requires-extra field, found {!r}'
-								  .format(value))
+				raise ConfigError(f"Expected a dict for requires-extra field, found {value!r}")
 			if not all(isinstance(e, list) for e in value.values()):
-				raise ConfigError('Expected a dict of lists for requires-extra field')
+				raise ConfigError("Expected a dict of lists for requires-extra field")
 			for e, reqs in value.items():
 				if not all(isinstance(a, str) for a in reqs):
-					raise ConfigError('Expected a string list for requires-extra. (extra {})'
-									  .format(e))
+					raise ConfigError(f"Expected a string list for requires-extra. (extra {e})")
 		else:
 			if not isinstance(value, str):
-				raise ConfigError('Expected a string for {} field, found {!r}'
-								  .format(key, value))
+				raise ConfigError(f"Expected a string for {key} field, found {value!r}")
 
 	# What we call requires in the ini file is technically requires_dist in
 	# the metadata.
@@ -330,16 +298,13 @@ def _prep_metadata(md_sect, path):
 	dev_requires = md_dict.pop('dev_requires', None)
 	if dev_requires is not None:
 		if 'dev' in res.reqs_by_extra:
-			raise ConfigError(
-					'dev-requires occurs together with its replacement requires-extra.dev.')
+			raise ConfigError('dev-requires occurs together with its replacement requires-extra.dev.')
 		else:
-			log.warning(
-					'"dev-requires = ..." is obsolete. Use "requires-extra = {"dev" = ...}" instead.')
+			log.warning('"dev-requires = ..." is obsolete. Use "requires-extra = {"dev" = ...}" instead.')
 			res.reqs_by_extra['dev'] = dev_requires
 
 	# Add requires-extra requirements into requires_dist
-	md_dict['requires_dist'] = \
-		reqs_noextra + list(_expand_requires_extra(res.reqs_by_extra))
+	md_dict['requires_dist'] = reqs_noextra + list(_expand_requires_extra(res.reqs_by_extra))
 
 	md_dict['provides_extra'] = sorted(res.reqs_by_extra.keys())
 
@@ -354,6 +319,6 @@ def _expand_requires_extra(re):
 		for req in reqs:
 			if ';' in req:
 				name, envmark = req.split(';', 1)
-				yield '{} ; extra == "{}" and ({})'.format(name, extra, envmark)
+				yield f'{name} ; extra == "{extra}" and ({envmark})'
 			else:
-				yield '{} ; extra == "{}"'.format(req, extra)
+				yield f'{req} ; extra == "{extra}"'
