@@ -42,11 +42,12 @@ def requirements_from_file(
 
 	requirements_file = package_root / options["file"]
 
-	assert requirements_file.is_file()
+	if not requirements_file.is_file():
+		raise FileNotFoundError(f"Cannot find requirements file '{requirements_file}'")
 
 	mime_type = mimetypes.guess_type(str(requirements_file))[0]
-	if mime_type:
-		assert mime_type.startswith("text/")
+	if not mime_type or not mime_type.startswith("text/"):
+		raise ValueError(f"'{requirements_file}' is not a text file.")
 
 	requirements = requirements_file.read_text().split("\n")
 
@@ -74,22 +75,24 @@ def requirements_from___pkginfo__(
 	"""
 
 	__pkginfo___file = pathlib.Path(env.srcdir).parent / "__pkginfo__.py"
-	assert __pkginfo___file.is_file()
 
-	mime_type = mimetypes.guess_type(str(__pkginfo___file))[0]
-	if mime_type:
-		assert mime_type.startswith("text/")
+	if not __pkginfo___file.is_file():
+		raise FileNotFoundError(f"Cannot find __pkginfo__.py in '{env.srcdir}'")
 
-	spec = importlib.util.spec_from_file_location("__pkginfo__", str(__pkginfo___file))
+	try:
+		spec = importlib.util.spec_from_file_location("__pkginfo__", str(__pkginfo___file))
 
-	if spec is not None:
-		__pkginfo__ = importlib.util.module_from_spec(spec)
+		if spec is not None:
+			__pkginfo__ = importlib.util.module_from_spec(spec)
 
-		if spec.loader:
-			spec.loader.exec_module(__pkginfo__)  # type: ignore
-			requirements = __pkginfo__.extras_require[extra]  # type: ignore
-			return requirements
-			# TODO: handle extra not found
+			if spec.loader:
+				spec.loader.exec_module(__pkginfo__)  # type: ignore
+				requirements = __pkginfo__.extras_require[extra]  # type: ignore
+				return requirements
+				# TODO: handle extra not found
+
+	except ValueError:
+		pass
 
 	raise ImportError("Could not import __pkginfo__.py")
 

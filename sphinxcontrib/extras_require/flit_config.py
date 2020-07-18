@@ -72,12 +72,6 @@ def read_flit_config(path):
 	return prep_toml_config(d, path)
 
 
-class EntryPointsConflict(ConfigError):
-
-	def __str__(self):
-		return 'Please specify console_scripts entry points, or [scripts] in ' 'flit config, not both.'
-
-
 def prep_toml_config(d, path):
 	"""Validate config loaded from pyproject.toml and prepare common metadata
 
@@ -110,13 +104,6 @@ class LoadedConfig:
 		self.referenced_files = []
 		self.sdist_include_patterns = []
 		self.sdist_exclude_patterns = []
-
-	def add_scripts(self, scripts_dict):
-		if scripts_dict:
-			if 'console_scripts' in self.entrypoints:
-				raise EntryPointsConflict
-			else:
-				self.entrypoints['console_scripts'] = scripts_dict
 
 
 readme_ext_to_content_type = {

@@ -26,16 +26,14 @@ from sphinxcontrib.extras_require.sources import sources
 # For type hinting install docutils-stubs
 
 
-def purge_extras_requires(app: Sphinx, env, docname) -> None:
+def purge_extras_requires(app: Sphinx, env, docname: str) -> None:
 	"""
 	Remove all redundant extras_require nodes.
 
 	:param app:
-	:type app:
 	:param env:
 	:type env:
-	:param docname:
-	:type docname:
+	:param docname: The name of the document to remove nodes for.
 
 	:return:
 	"""
@@ -43,10 +41,7 @@ def purge_extras_requires(app: Sphinx, env, docname) -> None:
 	if not hasattr(env, "all_extras_requires"):
 		return
 
-	env.all_extras_requires = []
-	for extras_require in env.all_extras_requires:
-		if extras_require["docname"] != docname:
-			env.all_extras_requires.append(extras_require)
+	env.all_extras_requires = [todo for todo in env.all_extras_requires if todo['docname'] != docname]
 
 
 def setup(app: Sphinx) -> Dict[str, Any]:

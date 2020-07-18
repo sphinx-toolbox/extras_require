@@ -71,7 +71,7 @@ class ExtrasRequireDirective(SphinxDirective):
 			warnings.warn("No requirements specified! No notice will be shown in the documentation.")
 			return [targetnode]
 
-		valid_requirements = validate_requirements(requirements)
+		valid_requirements = sorted(validate_requirements(requirements))
 
 		content = make_node_content(valid_requirements, self.env.config.project, extra, scope=scope)
 		view = ViewList(content.split("\n"))
