@@ -28,7 +28,7 @@ from sphinxcontrib.extras_require.sources import sources
 
 def purge_extras_requires(app: Sphinx, env, docname) -> None:
 	"""
-	Remove all extras_require nodes.
+	Remove all redundant extras_require nodes.
 
 	:param app:
 	:type app:

@@ -15,7 +15,7 @@ from typing import Callable, Dict, List, Tuple
 # 3rd party
 import sphinx.environment
 from docutils.parsers.rst import directives
-from setuptools.config import read_configuration
+from setuptools.config import read_configuration  # type: ignore
 
 from sphinxcontrib.extras_require.flit_config import read_flit_config
 

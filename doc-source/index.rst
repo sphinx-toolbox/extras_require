@@ -11,7 +11,7 @@ extras-require
 	* - Docs
 	  - |docs| |docs_check|
 	* - Tests
-	  - |travis| |actions_windows| |actions_macos| |codefactor|
+	  - |travis| |actions_windows| |actions_macos| |coveralls| |codefactor|
 	* - PyPI
 	  - |pypi-version| |supported-versions| |supported-implementations| |wheel|
 	* - Activity
@@ -42,6 +42,10 @@ extras-require
 .. |requires| image:: https://requires.io/github/domdfcoding/extras_require/requirements.svg?branch=master
 	:target: https://requires.io/github/domdfcoding/extras_require/requirements/?branch=master
 	:alt: Requirements Status
+
+.. |coveralls| image:: https://img.shields.io/coveralls/github/domdfcoding/extras_require/master?logo=coveralls
+	:target: https://coveralls.io/github/domdfcoding/extras_require?branch=master
+	:alt: Coverage
 
 .. |codefactor| image:: https://img.shields.io/codefactor/grade/github/domdfcoding/extras_require?logo=codefactor
 	:target: https://www.codefactor.io/repository/github/domdfcoding/extras_require

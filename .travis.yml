@@ -13,10 +13,12 @@ install:
 
   - pip install pip  --upgrade
   - pip install tox tox-travis
-
+  - pip install coveralls coverage_pyver_pragma
 
 script:
   - tox
+after_success:
+  - coveralls
 
 
 stages:

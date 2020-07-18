@@ -55,13 +55,15 @@ class ExtrasRequireDirective(SphinxDirective):
 		src_dir = pathlib.Path(self.env.srcdir)
 		package_root = src_dir.parent / self.env.config.package_root
 
+		requirements: List[str]
+
 		for option_name, getter_function, validator_function in sources:
 			if option_name in self.options:
 				requirements = getter_function(package_root, self.options, self.env, extra)
 				break
 		else:
 			if self.content:
-				requirements = self.content
+				requirements = list(self.content)
 			else:
 				raise ValueError("Please specify a source for the extra requirements")
 
@@ -69,34 +71,9 @@ class ExtrasRequireDirective(SphinxDirective):
 			warnings.warn("No requirements specified! No notice will be shown in the documentation.")
 			return [targetnode]
 
-		valid_requirements = []
+		valid_requirements = validate_requirements(requirements)
 
-		for req in requirements:
-			try:
-				valid_requirements.append(str(Requirement(req)))
-			except InvalidRequirement as e:
-				raise ValueError(f"Invalid requirement '{req}': {str(e)}")
-
-		if not valid_requirements:
-			raise ValueError("Please supply at least one requirement.")
-
-		requirements_string = textwrap.indent("\n".join(valid_requirements), "    ")
-
-		content = f"""\
-This {scope} has the following additional requirement{'s' if len(valid_requirements) > 1 else ''}:
-
-.. code-block:: text
-
-{requirements_string}
-
-These can be installed as follows:
-
-	.. code-block:: bash
-
-		$ python -m pip install {self.env.config.project}[{extra}]
-
-"""
-		content = content.replace("\t", "    ")
+		content = make_node_content(valid_requirements, self.env.config.project, extra, scope=scope)
 		view = ViewList(content.split("\n"))
 
 		extras_require_node = nodes.attention(rawsource=content)
@@ -113,3 +90,72 @@ These can be installed as follows:
 			})
 
 		return [targetnode, extras_require_node]
+
+
+def validate_requirements(requirements_list: List[str]) -> List[str]:
+	"""
+	Validate a list of :pep:`508` requirements and format them consistently.
+
+	:param requirements_list: List of :pep:`508` requirements.
+
+	:return: List of :pep:`508` requirements with consistent formatting.
+
+	:raises: Value error if one of the requirements is invalid, or if no requirements are supplied (i.e. an empty list).
+	"""
+
+	valid_requirements = []
+
+	for req in requirements_list:
+		if req:
+			try:
+				valid_requirements.append(str(Requirement(req)))
+			except InvalidRequirement as e:
+				raise ValueError(f"Invalid requirement '{req}': {str(e)}") from None
+
+	if not valid_requirements:
+		raise ValueError("Please supply at least one requirement.")
+
+	return valid_requirements
+
+
+def make_node_content(
+		requirements: List[str],
+		package_name: str,
+		extra: str,
+		scope: str = "module",
+		) -> str:
+	"""
+	Create the content of an extras_require node.
+
+	:param requirements: List of additional :pep:`508` requirements.
+	:param package_name: The name of the module/package on PyPI.
+	:type package_name: str
+	:param extra: The name of the "extra".
+	:type extra: str
+	:param scope: The scope of the additional requirements, e.g. ``"module"``, ``"package"``.
+	:type scope: str
+
+	:return: The content of an extras_require node.
+	:rtype:
+	"""
+
+	requirements_string = textwrap.indent("\n".join(requirements), "    ")
+
+	content = f"""\
+This {scope} has the following additional requirement{'s' if len(requirements) > 1 else ''}:
+
+.. code-block:: text
+
+{requirements_string}
+
+These can be installed as follows:
+
+	.. code-block:: bash
+
+		$ python -m pip install {package_name}[{extra}]
+
+"""
+
+	content = content.replace("\t", "    ")
+
+	return content

@@ -31,12 +31,8 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import difflib
-import errno
 import logging
-import os
-import os.path as osp
-import pytoml as toml
-import re
+import pytoml as toml  # type: ignore
 
 log = logging.getLogger(__name__)
 
@@ -101,83 +97,7 @@ def prep_toml_config(d, path):
 
 	loaded_cfg = _prep_metadata(d['metadata'], path)
 
-	if 'entrypoints' in d:
-		loaded_cfg.entrypoints = flatten_entrypoints(d['entrypoints'])
-
-	if 'scripts' in d:
-		loaded_cfg.add_scripts(dict(d['scripts']))
-
-	if 'sdist' in d:
-		unknown_keys = set(d['sdist']) - {'include', 'exclude'}
-		if unknown_keys:
-			raise ConfigError("Unknown keys in [tool.flit.sdist]:" + ", ".join(unknown_keys))
-
-		loaded_cfg.sdist_include_patterns = _check_glob_patterns(d['sdist'].get('include', []), 'include')
-		loaded_cfg.sdist_exclude_patterns = _check_glob_patterns(d['sdist'].get('exclude', []), 'exclude')
-
 	return loaded_cfg
-
-
-def flatten_entrypoints(ep):
-	"""Flatten nested entrypoints dicts.
-
-	Entry points group names can include dots. But dots in TOML make nested
-	dictionaries:
-
-	[entrypoints.a.b]    # {'entrypoints': {'a': {'b': {}}}}
-
-	The proper way to avoid this is:
-
-	[entrypoints."a.b"]  # {'entrypoints': {'a.b': {}}}
-
-	But since there isn't a need for arbitrarily nested mappings in entrypoints,
-	flit allows you to use the former. This flattens the nested dictionaries
-	from loading pyproject.toml.
-	"""
-
-	def _flatten(d, prefix):
-		d1 = {}
-		for k, v in d.items():
-			if isinstance(v, dict):
-				yield from _flatten(v, prefix + '.' + k)
-			else:
-				d1[k] = v
-
-		if d1:
-			yield prefix, d1
-
-	res = {}
-	for k, v in ep.items():
-		res.update(_flatten(v, k))
-	return res
-
-
-def _check_glob_patterns(pats, clude):
-	"""Check and normalise glob patterns for sdist include/exclude"""
-	if not isinstance(pats, list):
-		raise ConfigError(f"sdist {clude} patterns must be a list")
-
-	# Windows filenames can't contain these (nor * or ?, but they are part of
-	# glob patterns) - https://stackoverflow.com/a/31976060/434217
-	bad_chars = re.compile(r'[\000-\037<>:"\\]')
-
-	normed = []
-
-	for p in pats:
-		if bad_chars.search(p):
-			raise ConfigError(f'{clude} pattern {p!r} contains bad characters (<>:\"\\ or control characters)')
-		if '**' in p:
-			raise ConfigError(f"Recursive globbing (**) is not supported yet (in {clude} pattern {p!r})")
-
-		normp = osp.normpath(p)
-
-		if osp.isabs(normp):
-			raise ConfigError(f'{clude} pattern {p!r} is an absolute path')
-		if osp.normpath(p).startswith('..' + os.sep):
-			raise ConfigError(f'{clude} pattern {p!r} points out of the directory containing pyproject.toml')
-		normed.append(normp)
-
-	return normed
 
 
 class LoadedConfig:
@@ -225,34 +145,6 @@ def _prep_metadata(md_sect, path):
 		raise ConfigError("Module name %r is not a valid identifier" % res.module)
 
 	md_dict = res.metadata
-
-	# Description file
-	if 'description-file' in md_sect:
-		desc_path = md_sect.get('description-file')
-		res.referenced_files.append(desc_path)
-		description_file = path.parent / desc_path
-		try:
-			with description_file.open('r', encoding='utf-8') as f:
-				raw_desc = f.read()
-		except OSError as e:
-			if e.errno == errno.ENOENT:
-				raise ConfigError(f"Description file {description_file} does not exist")
-			raise
-		ext = description_file.suffix
-		try:
-			mimetype = readme_ext_to_content_type[ext]
-		except KeyError:
-			log.warning("Unknown extension %r for description file.", ext)
-			log.warning("  Recognised extensions: %s", " ".join(readme_ext_to_content_type))
-			mimetype = None
-
-		md_dict['description'] = raw_desc
-		md_dict['description_content_type'] = mimetype
-
-	if 'urls' in md_sect:
-		project_urls = md_dict['project_urls'] = []
-		for label, url in sorted(md_sect.pop('urls').items()):
-			project_urls.append(f"{label}, {url}")
 
 	for key, value in md_sect.items():
 		if key in {'description-file', 'module'}:
