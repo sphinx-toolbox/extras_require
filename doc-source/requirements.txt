@@ -1,5 +1,4 @@
 autodocsumm
-sphinx >=3.0.3
 sphinx-copybutton >=0.2.12
 sphinx-gitstamp
 sphinx-notfound-page
