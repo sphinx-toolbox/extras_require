@@ -1,4 +1,5 @@
 autodocsumm
+gitpython
 sphinx-copybutton >=0.2.12
 sphinx-gitstamp
 sphinx-notfound-page
