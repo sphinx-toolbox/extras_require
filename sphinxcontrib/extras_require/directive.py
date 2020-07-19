@@ -10,7 +10,7 @@ The "extras_require" directive.
 import pathlib
 import textwrap
 import warnings
-from typing import List
+from typing import Any, Dict, Iterable, List, Union
 
 # 3rd party
 from docutils import nodes
@@ -41,37 +41,21 @@ class ExtrasRequireDirective(SphinxDirective):
 
 		extra: str = self.arguments[0]
 
-		if all(source[0] in self.options for source in sources) and self.content:
-			raise ValueError("Please specify only one source for the extra requirements")
-
-		if "scope" in self.options:
-			scope = self.options["scope"]
-		else:
-			scope = "module"
-
 		targetid = f'extras_require-{self.env.new_serialno("extras_require"):d}'
 		targetnode = nodes.target('', '', ids=[targetid])
 
-		src_dir = pathlib.Path(self.env.srcdir)
-		package_root = src_dir.parent / self.env.config.package_root
+		valid_requirements = get_requirements(
+				env=self.env,
+				extra=extra,
+				options=self.options,
+				content=self.content,
+				)
 
-		requirements: List[str]
-
-		for option_name, getter_function, validator_function in sources:
-			if option_name in self.options:
-				requirements = getter_function(package_root, self.options, self.env, extra)
-				break
-		else:
-			if self.content:
-				requirements = list(self.content)
-			else:
-				raise ValueError("Please specify a source for the extra requirements")
-
-		if not requirements:
+		if not valid_requirements:
 			warnings.warn("No requirements specified! No notice will be shown in the documentation.")
 			return [targetnode]
 
-		valid_requirements = validate_requirements(requirements)
+		scope = self.options.get("scope", "module")
 
 		content = make_node_content(valid_requirements, self.env.config.project, extra, scope=scope)
 		view = ViewList(content.split("\n"))
@@ -99,8 +83,6 @@ def validate_requirements(requirements_list: List[str]) -> List[str]:
 	:param requirements_list: List of :pep:`508` requirements.
 
 	:return: List of :pep:`508` requirements with consistent formatting.
-
-	:raises: Value error if one of the requirements is invalid, or if no requirements are supplied (i.e. an empty list).
 	"""
 
 	valid_requirements = []
@@ -111,9 +93,6 @@ def validate_requirements(requirements_list: List[str]) -> List[str]:
 				valid_requirements.append(Requirement(req))
 			except InvalidRequirement as e:
 				raise ValueError(f"Invalid requirement '{req}': {str(e)}") from None
-
-	if not valid_requirements:
-		raise ValueError("Please supply at least one requirement.")
 
 	valid_requirements.sort(key=lambda r: r.name)
 
@@ -166,3 +145,47 @@ These can be installed as follows:
 	content = content.replace("\t", "    ")
 
 	return content
+
+
+def get_requirements(env, extra: str, options: Dict[str, Any], content: Union[Iterable, ViewList]) -> List[str]:
+	"""
+	Get the requirements for the extras_require node.
+
+	:param env:
+	:type env:
+	:param extra:
+	:type extra: str
+	:param options:
+	:param content:
+
+	:return:
+	"""
+
+	n_sources = 0
+	if list(content):
+		n_sources += 1
+	for source in sources:
+		if (source[0] in options) and options[source[0]]:
+			n_sources += 1
+
+	if n_sources > 1:
+		raise ValueError("Please specify only one source for the extra requirements")
+	elif n_sources == 0:
+		raise ValueError(f"Please specify a source for the extra requirements {extra}")
+
+	src_dir = pathlib.Path(env.srcdir)
+	package_root = src_dir.parent / env.config.package_root
+
+	requirements: List[str]
+
+	for option_name, getter_function, validator_function in sources:
+
+		if option_name in options:
+			requirements = getter_function(package_root, options, env, extra)
+			break
+	else:
+		requirements = list(content)
+
+	valid_requirements = validate_requirements(requirements)
+
+	return valid_requirements

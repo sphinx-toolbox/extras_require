@@ -10,7 +10,7 @@ Supported sources for the requirements are implemented here.
 import importlib.util
 import mimetypes
 import pathlib
-from typing import Callable, Dict, List, Tuple
+from typing import Any, Callable, Dict, List, Tuple
 
 # 3rd party
 import sphinx.environment
@@ -141,7 +141,7 @@ def requirements_from_flit(
 	Load requirements from the [tool.flit.metadata.requires-extra] section of
 	a pyproject.toml file in the root of the repository.
 
-	:param package_root: The path to the package root
+	:param package_root: The path to the package root.
 	:type package_root:
 	:param options:
 	:type options: dict
@@ -165,10 +165,23 @@ def requirements_from_flit(
 		raise ValueError(f"'{extra}' not found in '[tool.flit.metadata.requires-extra]'")
 
 
+def flag(argument: Any) -> bool:
+	"""
+	Check for a valid flag option (no argument) and return ``True``.
+
+	Raise ``ValueError`` if an argument is given.
+	"""
+
+	if argument and argument.strip():
+		raise ValueError(f'No argument is allowed; "{argument}" supplied')
+	else:
+		return True
+
+
 sources: List[Tuple[str, Callable, Callable]] = [
 		# (option_name, getter_function, validator_function),
-		("__pkginfo__", requirements_from___pkginfo__, bool),
+		("__pkginfo__", requirements_from___pkginfo__, flag),
 		("file", requirements_from_file, directives.unchanged),
-		("setup.cfg", requirements_from_setup_cfg, bool),
-		("flit", requirements_from_flit, bool),
+		("setup.cfg", requirements_from_setup_cfg, flag),
+		("flit", requirements_from_flit, flag),
 		]

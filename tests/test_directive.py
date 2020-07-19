@@ -3,7 +3,7 @@ from typing import List
 
 import pytest
 
-from sphinxcontrib.extras_require.directive import make_node_content, validate_requirements
+from sphinxcontrib.extras_require.directive import get_requirements, make_node_content, validate_requirements
 from bs4.element import Tag  # type: ignore
 
 
@@ -86,12 +86,6 @@ def test_validate_requirements(requirements, valid_requirements):
 		)
 def test_validate_requirements_invalid(requirements):
 	with pytest.raises(ValueError, match="Invalid requirement"):
-		validate_requirements(requirements)
-
-
-@pytest.mark.parametrize("requirements", [[], ["", '', 0, None]])
-def test_validate_requirements_empty(requirements):
-	with pytest.raises(ValueError, match="Please supply at least one requirement."):
 		validate_requirements(requirements)
 
 
@@ -283,3 +277,59 @@ def test_scopes_demo(page):
 		div_count += 1
 
 	assert div_count == 3
+
+
+@pytest.mark.parametrize("page", ["no_requirements_demo.html"], indirect=True)
+def test_no_requirements_demo(page):
+	# Make sure the page title is what you expect
+	title = page.find('h1').contents[0].strip()
+	assert 'No Requirements Demo' == title
+
+	# Now test the directive
+	for div in page.findAll("div"):
+		assert not div.get("id", '').startswith("extras_require")
+
+
+@pytest.mark.parametrize(
+		"options, content",
+		[
+				(
+						{"__pkginfo__": True, "setup.cfg": True},
+						["pytest"],
+						),
+				(
+						{"setup.cfg": True},
+						["pytest"],
+						),
+				(
+						{"flit": True, "setup.cfg": True},
+						[],
+						),
+				]
+		)
+def test_directive_multiple_sources(options, content):
+	with pytest.raises(ValueError, match="Please specify only one source for the extra requirements"):
+		get_requirements(
+				env=None,
+				extra="foo",
+				options=options,
+				content=content,
+				)
+
+
+@pytest.mark.parametrize(
+		"options, content", [
+				({}, []),
+				({"setup_cfg": True}, []),
+				({"pkginfo": True}, []),
+				({"flit": False}, []),
+				]
+		)
+def test_directive_no_sources(options, content):
+	with pytest.raises(ValueError, match="Please specify a source for the extra requirements"):
+		get_requirements(
+				env=None,
+				extra="foo",
+				options=options,
+				content=content,
+				)

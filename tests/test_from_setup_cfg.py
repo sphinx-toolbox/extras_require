@@ -53,7 +53,7 @@ extra_c =
     pytest
     tox; python<=3.6
 """,
-						"testing", ["faker", "pytest", "tox; python<=3.6"]
+						"test", ["faker", "pytest", "tox; python<=3.6"]
 						),
 				]
 		)

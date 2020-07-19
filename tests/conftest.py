@@ -75,13 +75,21 @@ pandas>=0.25.0, !=1.0.0
 """
 			)
 
+	(fake_repo_root / "dummy_package" / "empty_requirements.txt"
+		).write_text("""\
+# a comment
+# numpy>=1.18.4
+# scipy==1.4.1
+# pandas>=0.25.0, !=1.0.0
+""")
+
 	return app
 
 
 @pytest.fixture()
 def content(the_app):
+	the_app.build(force_all=True)
 
-	the_app.build()
 	yield the_app
 
 

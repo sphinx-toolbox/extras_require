@@ -10,3 +10,4 @@ extras_require Demo
 	setup_cfg_demo
 	flit_demo
 	scopes_demo
+	no_requirements_demo
