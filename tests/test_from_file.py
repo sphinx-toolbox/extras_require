@@ -15,7 +15,7 @@ from sphinxcontrib.extras_require.sources import requirements_from_file
 faker
 pytest
 tox; python<=3.6
-""", "extra_c", ["faker", "pytest", "tox; python<=3.6", '']),
+""", "extra_c", ["faker", "pytest", "tox; python<=3.6"]),
 				]
 		)
 def test_from_file(requirements, extra, expects):

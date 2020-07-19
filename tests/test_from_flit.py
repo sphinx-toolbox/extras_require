@@ -106,3 +106,11 @@ module = "FooBar"
 					env=MockBuildEnvironment(tmpdir_p),
 					extra=extra,
 					)
+
+		with pytest.raises(FileNotFoundError, match=f"Cannot find pyproject.toml in"):
+			requirements_from_flit(
+					package_root=None,
+					options={},
+					env=MockBuildEnvironment(pathlib.Path("/home/user/demo")),
+					extra=extra,
+					)

@@ -24,7 +24,7 @@ from sphinxcontrib.extras_require.sources import sources
 
 class ExtrasRequireDirective(SphinxDirective):
 	"""
-	Directive to show a notice to users that a module, class or	function has additional requirements.
+	Directive to show a notice to users that a module, class or function has additional requirements.
 	"""
 
 	has_content: bool = True
@@ -71,7 +71,7 @@ class ExtrasRequireDirective(SphinxDirective):
 			warnings.warn("No requirements specified! No notice will be shown in the documentation.")
 			return [targetnode]
 
-		valid_requirements = sorted(validate_requirements(requirements))
+		valid_requirements = validate_requirements(requirements)
 
 		content = make_node_content(valid_requirements, self.env.config.project, extra, scope=scope)
 		view = ViewList(content.split("\n"))
@@ -108,14 +108,16 @@ def validate_requirements(requirements_list: List[str]) -> List[str]:
 	for req in requirements_list:
 		if req:
 			try:
-				valid_requirements.append(str(Requirement(req)))
+				valid_requirements.append(Requirement(req))
 			except InvalidRequirement as e:
 				raise ValueError(f"Invalid requirement '{req}': {str(e)}") from None
 
 	if not valid_requirements:
 		raise ValueError("Please supply at least one requirement.")
 
-	return valid_requirements
+	valid_requirements.sort(key=lambda r: r.name)
+
+	return [str(x) for x in valid_requirements]
 
 
 def make_node_content(
@@ -141,8 +143,13 @@ def make_node_content(
 
 	requirements_string = textwrap.indent("\n".join(requirements), "    ")
 
+	if len(requirements) > 1:
+		plural = 's'
+	else:
+		plural = ''
+
 	content = f"""\
-This {scope} has the following additional requirement{'s' if len(requirements) > 1 else ''}:
+This {scope} has the following additional requirement{plural}:
 
 .. code-block:: text
 

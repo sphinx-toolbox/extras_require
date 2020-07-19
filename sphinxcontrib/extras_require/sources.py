@@ -49,7 +49,7 @@ def requirements_from_file(
 	if not mime_type or not mime_type.startswith("text/"):
 		raise ValueError(f"'{requirements_file}' is not a text file.")
 
-	requirements = requirements_file.read_text().split("\n")
+	requirements = [x for x in requirements_file.read_text().split("\n") if x and not x.startswith("#")]
 
 	return requirements
 
@@ -77,7 +77,7 @@ def requirements_from___pkginfo__(
 	__pkginfo___file = pathlib.Path(env.srcdir).parent / "__pkginfo__.py"
 
 	if not __pkginfo___file.is_file():
-		raise FileNotFoundError(f"Cannot find __pkginfo__.py in '{env.srcdir}'")
+		raise FileNotFoundError(f"Cannot find __pkginfo__.py in '{__pkginfo___file.parent}'")
 
 	try:
 		spec = importlib.util.spec_from_file_location("__pkginfo__", str(__pkginfo___file))
@@ -153,7 +153,9 @@ def requirements_from_flit(
 	"""
 
 	pyproject_file = pathlib.Path(env.srcdir).parent / "pyproject.toml"
-	assert pyproject_file.is_file()
+
+	if not pyproject_file.is_file():
+		raise FileNotFoundError(f"Cannot find pyproject.toml in '{pyproject_file.parent}'")
 
 	flit_extras = read_flit_config(pyproject_file).reqs_by_extra
 
@@ -168,4 +170,5 @@ sources: List[Tuple[str, Callable, Callable]] = [
 		("__pkginfo__", requirements_from___pkginfo__, bool),
 		("file", requirements_from_file, directives.unchanged),
 		("setup.cfg", requirements_from_setup_cfg, bool),
+		("flit", requirements_from_flit, bool),
 		]

@@ -145,13 +145,8 @@ def _prep_metadata(md_sect, path):
 
 		k2 = key.replace('-', '_')
 		md_dict[k2] = value
-		if key in metadata_list_fields:
-			if not isinstance(value, list):
-				raise ConfigError(f'Expected a list for {key} field, found {value!r}')
-			if not all(isinstance(a, str) for a in value):
-				raise ConfigError(f"Expected a list of strings for {key} field")
-		elif key == 'requires-extra':
-			if not isinstance(value, dict):
+		if key == 'requires-extra':
+			if not isinstance(value, dict):  # pragma: no cover
 				raise ConfigError(f"Expected a dict for requires-extra field, found {value!r}")
 			if not all(isinstance(e, list) for e in value.values()):
 				raise ConfigError("Expected a dict of lists for requires-extra field")
@@ -161,15 +156,6 @@ def _prep_metadata(md_sect, path):
 		else:
 			if not isinstance(value, str):
 				raise ConfigError(f"Expected a string for {key} field, found {value!r}")
-
-	# What we call requires in the ini file is technically requires_dist in
-	# the metadata.
-	if 'requires' in md_dict:
-		md_dict['requires_dist'] = md_dict.pop('requires')
-
-	# And what we call dist-name is name in the metadata
-	if 'dist_name' in md_dict:
-		md_dict['name'] = md_dict.pop('dist_name')
 
 	# Move dev-requires into requires-extra
 	reqs_noextra = md_dict.pop('requires_dist', [])
