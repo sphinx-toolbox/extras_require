@@ -49,7 +49,7 @@ extensions = [
 		"sphinx.ext.autosummary",
 		"autodocsumm",
 		"sphinx_copybutton",
-		"sphinx_gitstamp",
+		# "sphinx_gitstamp",
 		'sphinx.ext.autosummary',
 		]
 
