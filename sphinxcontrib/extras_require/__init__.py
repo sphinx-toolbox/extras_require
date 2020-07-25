@@ -6,13 +6,6 @@ A Sphinx directive to specify that a module has extra requirements, and show how
 :license: BSD, see LICENSE for details.
 """
 
-__author__ = "Dominic Davis-Foster"
-__copyright__ = "2020 Dominic Davis-Foster"
-
-__license__ = "BSD"
-__version__ = "0.1.1"
-__email__ = "dominic@davis-foster.co.uk"
-
 # stdlib
 from typing import Any, Dict
 
@@ -22,6 +15,13 @@ from sphinx.application import Sphinx
 # this package
 from sphinxcontrib.extras_require.directive import ExtrasRequireDirective
 from sphinxcontrib.extras_require.sources import sources
+
+__author__: str = "Dominic Davis-Foster"
+__copyright__: str = "2020 Dominic Davis-Foster"
+
+__license__: str = "BSD"
+__version__: str = "0.1.1"
+__email__: str = "dominic@davis-foster.co.uk"
 
 # For type hinting install docutils-stubs
 

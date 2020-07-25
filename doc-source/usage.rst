@@ -2,6 +2,19 @@
 Usage
 ============
 
+Enable ``extras_require`` by adding "sphinxcontrib.extras_require" to the ``extensions`` variable in ``conf.py``:
+
+.. code-block:: python
+
+	extensions = [
+		...
+		"sphinxcontrib.extras_require",
+		]
+
+For more information see https://www.sphinx-doc.org/en/master/usage/extensions/index.html#third-party-extensions .
+
+|
+
 This extension provides a single directive, ``.. extras-require::``. The requirements can be specified in several ways:
 
 * The ``:file:`` option, which takes a path to a :pep:`508` ``requirements.txt`` file. The path is relative to the ``package_root`` variable given in ``conf.py``, which in turn is relative to the parent directory of the sphinx documentation.
