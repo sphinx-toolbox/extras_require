@@ -54,7 +54,7 @@ extensions = [
 		]
 
 sphinxemoji_style = 'twemoji'
-todo_include_todos = bool(os.environ.get("SHOW_TODOS", False))
+todo_include_todos = bool(os.environ.get("SHOW_TODOS", 0))
 gitstamp_fmt = "%d %b %Y"
 
 templates_path = ['_templates']
@@ -96,6 +96,8 @@ html_context = {
 		}
 
 htmlhelp_basename = slug
+
+typehints_fully_qualified = True
 
 latex_documents = [('index', f'{slug}.tex', project, author, 'manual')]
 man_pages = [('index', slug, project, [author], 1)]
