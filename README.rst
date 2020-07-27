@@ -2,6 +2,12 @@
 extras-require
 ================
 
+.. start short_desc
+
+**Display a warning at the top of module documentation that it has additional requirements.**
+
+.. end short_desc
+
 .. start shields
 
 .. list-table::
