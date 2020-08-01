@@ -15,7 +15,7 @@ from __pkginfo__ import *  # pylint: disable=wildcard-import
 
 
 setup(
-		description="Display a warning at the top of module documentation that it has additional requirements.",
+		description='Display a warning at the top of module documentation that it has additional requirements.',
 		extras_require=extras_require,
 		install_requires=install_requires,
 		py_modules=[],

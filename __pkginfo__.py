@@ -44,9 +44,9 @@ modname = "extras_require"
 pypi_name = "extras_require"
 import_name = "sphinxcontrib.extras_require"
 __license__ = "BSD License"
-short_desc = "Display a warning at the top of module documentation that it has additional requirements."
-__author__ = author = "Dominic Davis-Foster"
-author_email = "dominic@davis-foster.co.uk"
+short_desc = 'Display a warning at the top of module documentation that it has additional requirements.'
+__author__ = author = 'Dominic Davis-Foster'
+author_email = 'dominic@davis-foster.co.uk'
 github_username = "domdfcoding"
 web = github_url = "https://github.com/domdfcoding/extras_require"
 repo_root = pathlib.Path(__file__).parent
