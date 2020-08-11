@@ -1,7 +1,11 @@
-import pytest
-import tempfile
+# stdlib
 import pathlib
+import tempfile
 
+# 3rd party
+import pytest
+
+# this package
 from sphinxcontrib.extras_require.sources import requirements_from_flit
 
 
@@ -52,9 +56,9 @@ module = "FooBar"
 				)
 
 		assert requirements_from_flit(
-				package_root=None,
+				package_root=pathlib.Path('.'),
 				options={},
-				env=MockBuildEnvironment(tmpdir_p),
+				env=MockBuildEnvironment(tmpdir_p),  # type: ignore
 				extra=extra,
 				) == expects
 
@@ -101,16 +105,16 @@ module = "FooBar"
 
 		with pytest.raises(ValueError, match=f"'{extra}' not found in '\\[tool.flit.metadata.requires-extra\\]"):
 			requirements_from_flit(
-					package_root=None,
+					package_root=pathlib.Path('.'),
 					options={},
-					env=MockBuildEnvironment(tmpdir_p),
+					env=MockBuildEnvironment(tmpdir_p),  # type: ignore
 					extra=extra,
 					)
 
 		with pytest.raises(FileNotFoundError, match=f"Cannot find pyproject.toml in"):
 			requirements_from_flit(
-					package_root=None,
+					package_root=pathlib.Path('.'),
 					options={},
-					env=MockBuildEnvironment(pathlib.Path("/home/user/demo")),
+					env=MockBuildEnvironment(pathlib.Path("/home/user/demo")),  # type: ignore
 					extra=extra,
 					)

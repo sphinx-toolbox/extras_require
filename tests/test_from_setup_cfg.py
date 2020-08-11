@@ -1,7 +1,11 @@
-import pytest
-import tempfile
+# stdlib
 import pathlib
+import tempfile
 
+# 3rd party
+import pytest
+
+# this package
 from sphinxcontrib.extras_require.sources import requirements_from_setup_cfg
 
 
@@ -35,9 +39,9 @@ def test_from_setup_cfg(setup, extra, expects):
 {setup}""")
 
 		assert requirements_from_setup_cfg(
-				package_root=None,
+				package_root=pathlib.Path(),
 				options={},
-				env=MockBuildEnvironment(tmpdir_p),
+				env=MockBuildEnvironment(tmpdir_p),  # type: ignore
 				extra=extra,
 				) == expects
 
@@ -67,9 +71,9 @@ def test_from_setup_cfg_errors(setup, extra, expects):
 
 		with pytest.raises(ValueError, match=f"'{extra}' not found in '\\[options.extras_require\\]'"):
 			requirements_from_setup_cfg(
-					package_root=None,
+					package_root=pathlib.Path(),
 					options={},
-					env=MockBuildEnvironment(tmpdir_p),
+					env=MockBuildEnvironment(tmpdir_p),  # type: ignore
 					extra=extra,
 					)
 
@@ -86,8 +90,8 @@ author = Joe Bloggs
 
 		with pytest.raises(ValueError, match="'options.extras_require' section not found in 'setup.cfg"):
 			requirements_from_setup_cfg(
-					package_root=None,
+					package_root=pathlib.Path(),
 					options={},
-					env=MockBuildEnvironment(tmpdir_p),
+					env=MockBuildEnvironment(tmpdir_p),  # type: ignore
 					extra="docs",
 					)

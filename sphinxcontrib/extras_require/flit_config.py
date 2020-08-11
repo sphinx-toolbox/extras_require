@@ -30,8 +30,11 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+# stdlib
 import difflib
 import logging
+
+# 3rd party
 import pytoml as toml  # type: ignore
 
 log = logging.getLogger(__name__)
@@ -81,8 +84,8 @@ def prep_toml_config(d, path):
 		raise ConfigError("TOML file missing [tool.flit] table.")
 
 	d = d['tool']['flit']
-	unknown_sections = set(d) - {'metadata', 'scripts', 'entrypoints', 'sdist'}
-	unknown_sections = [s for s in unknown_sections if not s.lower().startswith('x-')]
+	unknown_sections_ = set(d) - {'metadata', 'scripts', 'entrypoints', 'sdist'}
+	unknown_sections = [s for s in unknown_sections_ if not s.lower().startswith('x-')]
 	if unknown_sections:
 		raise ConfigError('Unknown sections: ' + ', '.join(unknown_sections))
 

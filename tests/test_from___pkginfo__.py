@@ -1,10 +1,13 @@
+# stdlib
 import json
-import shutil
-
-import pytest
-import tempfile
 import pathlib
+import shutil
+import tempfile
 
+# 3rd party
+import pytest
+
+# this package
 from sphinxcontrib.extras_require.sources import requirements_from___pkginfo__
 
 
@@ -31,7 +34,7 @@ def test_from___pkginfo__(requirements, extra, expects):
 		assert requirements_from___pkginfo__(
 				package_root=tmpdir_p,
 				options={},
-				env=MockBuildEnvironment(tmpdir_p),
+				env=MockBuildEnvironment(tmpdir_p),  # type: ignore
 				extra=extra,
 				) == expects
 
@@ -44,7 +47,7 @@ def test_from___pkginfo___not_found():
 			requirements_from___pkginfo__(
 					package_root=tmpdir_p,
 					options={},
-					env=MockBuildEnvironment(tmpdir_p),
+					env=MockBuildEnvironment(tmpdir_p),  # type: ignore
 					extra='extra',
 					)
 
@@ -60,6 +63,6 @@ def test_from___pkginfo___wrong_mime():
 			requirements_from___pkginfo__(
 					package_root=tmpdir_p,
 					options={},
-					env=MockBuildEnvironment(tmpdir_p),
+					env=MockBuildEnvironment(tmpdir_p),  # type: ignore
 					extra='extra',
 					)

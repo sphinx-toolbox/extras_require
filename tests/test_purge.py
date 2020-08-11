@@ -1,5 +1,7 @@
+# 3rd party
 import pytest
 
+# this package
 from sphinxcontrib.extras_require import purge_extras_requires
 
 
@@ -22,7 +24,7 @@ def test_purge_extras_require(nodes, output):
 	purge_extras_requires('', env, "document")  # type: ignore
 	assert not hasattr(env, "all_extras_requires")
 
-	env.all_extras_requires = nodes
+	env.all_extras_requires = nodes  # type: ignore
 	purge_extras_requires('', env, "document")  # type: ignore
 	assert hasattr(env, "all_extras_requires")
-	assert env.all_extras_requires == output
+	assert env.all_extras_requires == output  # type: ignore

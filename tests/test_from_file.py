@@ -1,9 +1,12 @@
-import shutil
-
-import pytest
-import tempfile
+# stdlib
 import pathlib
+import shutil
+import tempfile
 
+# 3rd party
+import pytest
+
+# this package
 from sphinxcontrib.extras_require.sources import requirements_from_file
 
 
@@ -30,7 +33,7 @@ def test_from_file(requirements, extra, expects):
 		assert requirements_from_file(
 				package_root=tmpdir_p,
 				options={"file": "a_subdirectory/another_subdir/requirements_list.txt"},
-				env=None,
+				env=None,  # type: ignore
 				extra=extra,
 				) == expects
 
@@ -48,7 +51,7 @@ def test_from_file_errors():
 			requirements_from_file(
 					package_root=tmpdir_p,
 					options={"file": "a_subdirectory/another_subdir/Example.png"},
-					env=None,
+					env=None,  # type: ignore
 					extra='extra',
 					)
 
@@ -56,6 +59,6 @@ def test_from_file_errors():
 			requirements_from_file(
 					package_root=tmpdir_p,
 					options={"file": "a_subdirectory/nonexistant_file.txt"},
-					env=None,
+					env=None,  # type: ignore
 					extra='extra',
 					)
