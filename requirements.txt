@@ -1,4 +1,5 @@
 docutils
+domdf_python_tools
 packaging>=20.4
 pytoml
 setuptools>=49.2.0
