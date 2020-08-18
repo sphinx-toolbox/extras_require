@@ -1,8 +1,11 @@
+# stdlib
 import tempfile
-import pathlib
 
+# 3rd party
 import pytest
+from domdf_python_tools.paths import PathPlus
 
+# this package
 from sphinxcontrib.extras_require.flit_config import ConfigError, read_flit_config
 
 
@@ -43,7 +46,7 @@ doc = ["sphinx"]
 		)
 def test_missing_metadata(toml, missing):
 	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = pathlib.Path(tmpdir)
+		tmpdir_p = PathPlus(tmpdir)
 
 		(tmpdir_p / "pyproject.toml").write_text(toml)
 
@@ -71,7 +74,7 @@ doc = ["sphinx"]
 		)
 def test_wrong_types_str(toml):
 	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = pathlib.Path(tmpdir)
+		tmpdir_p = PathPlus(tmpdir)
 
 		(tmpdir_p / "pyproject.toml").write_text(toml)
 
@@ -106,7 +109,7 @@ dev-requres = "pytest; pytest-cov"
 		)
 def test_unknown_meta_key(toml):
 	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = pathlib.Path(tmpdir)
+		tmpdir_p = PathPlus(tmpdir)
 
 		(tmpdir_p / "pyproject.toml").write_text(toml)
 
@@ -116,7 +119,7 @@ def test_unknown_meta_key(toml):
 
 def test_wrong_type_extras():
 	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = pathlib.Path(tmpdir)
+		tmpdir_p = PathPlus(tmpdir)
 
 		(tmpdir_p / "pyproject.toml").write_text(
 				"""\
@@ -135,7 +138,7 @@ bar=456
 			read_flit_config(tmpdir_p / "pyproject.toml")
 
 	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = pathlib.Path(tmpdir)
+		tmpdir_p = PathPlus(tmpdir)
 
 		(tmpdir_p / "pyproject.toml").write_text(
 				"""\
@@ -158,7 +161,7 @@ test = [
 
 def test_bad_config():
 	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = pathlib.Path(tmpdir)
+		tmpdir_p = PathPlus(tmpdir)
 
 		(tmpdir_p / "pyproject.toml").write_text(
 				"""\
@@ -174,7 +177,7 @@ classifiers = [
 			read_flit_config(tmpdir_p / "pyproject.toml")
 
 	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = pathlib.Path(tmpdir)
+		tmpdir_p = PathPlus(tmpdir)
 
 		(tmpdir_p / "pyproject.toml").write_text(
 				"""\
@@ -195,7 +198,7 @@ test = [
 			read_flit_config(tmpdir_p / "pyproject.toml")
 
 	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = pathlib.Path(tmpdir)
+		tmpdir_p = PathPlus(tmpdir)
 
 		(tmpdir_p / "pyproject.toml").write_text("""\
 [tool.flit.scripts]
@@ -208,7 +211,7 @@ flit = "flit:main"
 
 def test_dev_requires():
 	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = pathlib.Path(tmpdir)
+		tmpdir_p = PathPlus(tmpdir)
 
 		(tmpdir_p / "pyproject.toml").write_text(
 				"""\
@@ -232,7 +235,7 @@ dev = [
 			read_flit_config(tmpdir_p / "pyproject.toml")
 
 	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = pathlib.Path(tmpdir)
+		tmpdir_p = PathPlus(tmpdir)
 
 		(tmpdir_p / "pyproject.toml").write_text(
 				"""\
@@ -251,7 +254,7 @@ dev-requires = "pytest >=2.7.3; pytest-cov"
 @pytest.mark.parametrize("identifier", ["--???foo", "12--", "repo-helper", "py.test"])
 def test_invalid_identifier(identifier):
 	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = pathlib.Path(tmpdir)
+		tmpdir_p = PathPlus(tmpdir)
 
 		(tmpdir_p / "pyproject.toml").write_text(
 				f"""\

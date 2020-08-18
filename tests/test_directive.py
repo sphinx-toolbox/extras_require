@@ -1,10 +1,13 @@
 # Some text strings from https://github.com/pypa/packaging/blob/master/tests/test_requirements.py
+# stdlib
 from typing import List
 
+# 3rd party
 import pytest
-
-from sphinxcontrib.extras_require.directive import get_requirements, make_node_content, validate_requirements
 from bs4.element import Tag  # type: ignore
+
+# this package
+from sphinxcontrib.extras_require.directive import get_requirements, make_node_content, validate_requirements
 
 
 @pytest.mark.parametrize(
@@ -122,7 +125,7 @@ This module has the following additional requirement{plural}:"""
 
 
 def test(the_app):
-	# app is a Sphinx application object for default sphinx project (`tests/roots/test-root`).
+	# app is a Sphinx application object for default sphinx project (`tests/doc-test/test-root`).
 	the_app.build()
 
 

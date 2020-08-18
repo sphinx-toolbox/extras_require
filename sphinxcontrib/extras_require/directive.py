@@ -15,6 +15,7 @@ from typing import Any, Dict, Iterable, List, Union
 # 3rd party
 from docutils import nodes
 from docutils.statemachine import ViewList
+from domdf_python_tools.paths import PathPlus
 from packaging.requirements import InvalidRequirement, Requirement
 from sphinx.util.docutils import SphinxDirective
 
@@ -173,7 +174,7 @@ def get_requirements(env, extra: str, options: Dict[str, Any], content: Union[It
 	elif n_sources == 0:
 		raise ValueError(f"Please specify a source for the extra requirements {extra}")
 
-	src_dir = pathlib.Path(env.srcdir)
+	src_dir = PathPlus(env.srcdir)
 	package_root = src_dir.parent / env.config.package_root
 
 	requirements: List[str]

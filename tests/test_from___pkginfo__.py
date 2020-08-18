@@ -6,6 +6,7 @@ import tempfile
 
 # 3rd party
 import pytest
+from domdf_python_tools.paths import PathPlus
 
 # this package
 from sphinxcontrib.extras_require.sources import requirements_from___pkginfo__
@@ -27,7 +28,7 @@ class MockBuildEnvironment:
 		)
 def test_from___pkginfo__(requirements, extra, expects):
 	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = pathlib.Path(tmpdir)
+		tmpdir_p = PathPlus(tmpdir)
 		pkginfo_file = tmpdir_p / "__pkginfo__.py"
 		pkginfo_file.write_text(f"extras_require = {json.dumps(requirements)}")
 
@@ -42,7 +43,7 @@ def test_from___pkginfo__(requirements, extra, expects):
 def test_from___pkginfo___not_found():
 
 	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = pathlib.Path(tmpdir)
+		tmpdir_p = PathPlus(tmpdir)
 		with pytest.raises(FileNotFoundError, match="Cannot find __pkginfo__.py in"):
 			requirements_from___pkginfo__(
 					package_root=tmpdir_p,
@@ -55,9 +56,9 @@ def test_from___pkginfo___not_found():
 def test_from___pkginfo___wrong_mime():
 
 	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = pathlib.Path(tmpdir)
+		tmpdir_p = PathPlus(tmpdir)
 		pkginfo_file = tmpdir_p / "__pkginfo__.py"
-		shutil.copy2(pathlib.Path(__file__).parent / "Example.png", pkginfo_file)
+		shutil.copy2(PathPlus(__file__).parent / "Example.png", pkginfo_file)
 
 		with pytest.raises(ImportError, match="Could not import __pkginfo__.py"):
 			requirements_from___pkginfo__(

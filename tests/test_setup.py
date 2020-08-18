@@ -1,5 +1,6 @@
-from sphinxcontrib.extras_require import __version__, ExtrasRequireDirective, purge_extras_requires
+# this package
 import sphinxcontrib.extras_require
+from sphinxcontrib.extras_require import ExtrasRequireDirective, __version__, purge_extras_requires
 
 
 class MockApp:

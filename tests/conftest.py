@@ -6,18 +6,18 @@
 	:license: BSD, see LICENSE for details.
 """
 
+# 3rd party
 import pytest
 from bs4 import BeautifulSoup  # type: ignore
-
+from domdf_python_tools.paths import PathPlus
 from sphinx.testing.path import path
-import pathlib
 
 pytest_plugins = 'sphinx.testing.fixtures'
 
 
 @pytest.fixture(scope='session')
 def rootdir():
-	rdir = pathlib.Path(__file__).parent.absolute() / "doc-test"
+	rdir = PathPlus(__file__).parent.absolute() / "doc-test"
 	if not (rdir / "test-root").is_dir():
 		(rdir / "test-root").mkdir(parents=True)
 	return path(rdir)
@@ -25,9 +25,9 @@ def rootdir():
 
 @pytest.fixture()
 def the_app(app):
-	fake_repo_root = pathlib.Path(app.env.srcdir).parent
+	fake_repo_root = PathPlus(app.env.srcdir).parent
 
-	(fake_repo_root / "__pkginfo__.py").write_text(
+	PathPlus(fake_repo_root / "__pkginfo__.py").write_text(
 			"""\
 extras_require = {
 		'extra_b': [
@@ -39,7 +39,7 @@ extras_require = {
 """
 			)
 
-	(fake_repo_root / "pyproject.toml").write_text(
+	PathPlus(fake_repo_root / "pyproject.toml").write_text(
 			"""\
 [tool.flit.metadata]
 author = "Joe Bloggs"

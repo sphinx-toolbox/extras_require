@@ -15,8 +15,10 @@ from typing import Any, Callable, Dict, List, Tuple
 # 3rd party
 import sphinx.environment
 from docutils.parsers.rst import directives
+from domdf_python_tools.paths import PathPlus
 from setuptools.config import read_configuration  # type: ignore
 
+# this package
 from sphinxcontrib.extras_require.flit_config import read_flit_config
 
 
@@ -74,7 +76,7 @@ def requirements_from___pkginfo__(
 	:return: List of requirements
 	"""
 
-	__pkginfo___file = pathlib.Path(env.srcdir).parent / "__pkginfo__.py"
+	__pkginfo___file = PathPlus(env.srcdir).parent / "__pkginfo__.py"
 
 	if not __pkginfo___file.is_file():
 		raise FileNotFoundError(f"Cannot find __pkginfo__.py in '{__pkginfo___file.parent}'")
@@ -117,7 +119,7 @@ def requirements_from_setup_cfg(
 	:return: List of requirements
 	"""
 
-	setup_cfg_file = pathlib.Path(env.srcdir).parent / "setup.cfg"
+	setup_cfg_file = PathPlus(env.srcdir).parent / "setup.cfg"
 	assert setup_cfg_file.is_file()
 
 	setup_cfg = read_configuration(setup_cfg_file)
@@ -152,7 +154,7 @@ def requirements_from_flit(
 	:return: List of requirements
 	"""
 
-	pyproject_file = pathlib.Path(env.srcdir).parent / "pyproject.toml"
+	pyproject_file = PathPlus(env.srcdir).parent / "pyproject.toml"
 
 	if not pyproject_file.is_file():
 		raise FileNotFoundError(f"Cannot find pyproject.toml in '{pyproject_file.parent}'")

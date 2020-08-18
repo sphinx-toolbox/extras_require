@@ -1,5 +1,8 @@
-from sphinxcontrib.extras_require.sources import flag
+# 3rd party
 import pytest
+
+# this package
+from sphinxcontrib.extras_require.sources import flag
 
 
 @pytest.mark.parametrize("value", [

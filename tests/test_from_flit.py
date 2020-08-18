@@ -4,6 +4,7 @@ import tempfile
 
 # 3rd party
 import pytest
+from domdf_python_tools.paths import PathPlus
 
 # this package
 from sphinxcontrib.extras_require.sources import requirements_from_flit
@@ -90,7 +91,7 @@ doc = ["sphinx"]
 		)
 def test_from_flit_errors(toml, extra, expects):
 	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = pathlib.Path(tmpdir)
+		tmpdir_p = PathPlus(tmpdir)
 		pyproject_file = tmpdir_p / "pyproject.toml"
 		pyproject_file.write_text(
 				f"""\

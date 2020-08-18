@@ -5,6 +5,7 @@ import tempfile
 
 # 3rd party
 import pytest
+from domdf_python_tools.paths import PathPlus
 
 # this package
 from sphinxcontrib.extras_require.sources import requirements_from_file
@@ -23,7 +24,7 @@ tox; python<=3.6
 		)
 def test_from_file(requirements, extra, expects):
 	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = pathlib.Path(tmpdir)
+		tmpdir_p = PathPlus(tmpdir)
 		(tmpdir_p / "a_subdirectory" / "another_subdir").mkdir(parents=True)
 
 		# to demonstrate the filename doesn't matter
@@ -40,12 +41,12 @@ def test_from_file(requirements, extra, expects):
 
 def test_from_file_errors():
 	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = pathlib.Path(tmpdir)
+		tmpdir_p = PathPlus(tmpdir)
 		(tmpdir_p / "a_subdirectory" / "another_subdir").mkdir(parents=True)
 
 		# to demonstrate the filename doesn't matter
 		requirements_file = tmpdir_p / "a_subdirectory" / "another_subdir" / "Example.png"
-		shutil.copy2(pathlib.Path(__file__).parent / "Example.png", requirements_file)
+		shutil.copy2(PathPlus(__file__).parent / "Example.png", requirements_file)
 
 		with pytest.raises(ValueError, match="'.*' is not a text file."):
 			requirements_from_file(

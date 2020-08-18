@@ -4,6 +4,7 @@ import tempfile
 
 # 3rd party
 import pytest
+from domdf_python_tools.paths import PathPlus
 
 # this package
 from sphinxcontrib.extras_require.sources import requirements_from_setup_cfg
@@ -32,14 +33,14 @@ extra_c =
 		)
 def test_from_setup_cfg(setup, extra, expects):
 	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = pathlib.Path(tmpdir)
+		tmpdir_p = PathPlus(tmpdir)
 		setup_cfg_file = tmpdir_p / "setup.cfg"
 		setup_cfg_file.write_text(f"""\
 [options.extras_require]
 {setup}""")
 
 		assert requirements_from_setup_cfg(
-				package_root=pathlib.Path(),
+				package_root=PathPlus(),
 				options={},
 				env=MockBuildEnvironment(tmpdir_p),  # type: ignore
 				extra=extra,
@@ -63,7 +64,7 @@ extra_c =
 		)
 def test_from_setup_cfg_errors(setup, extra, expects):
 	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = pathlib.Path(tmpdir)
+		tmpdir_p = PathPlus(tmpdir)
 		setup_cfg_file = tmpdir_p / "setup.cfg"
 		setup_cfg_file.write_text(f"""\
 [options.extras_require]
@@ -71,7 +72,7 @@ def test_from_setup_cfg_errors(setup, extra, expects):
 
 		with pytest.raises(ValueError, match=f"'{extra}' not found in '\\[options.extras_require\\]'"):
 			requirements_from_setup_cfg(
-					package_root=pathlib.Path(),
+					package_root=PathPlus(),
 					options={},
 					env=MockBuildEnvironment(tmpdir_p),  # type: ignore
 					extra=extra,
@@ -80,7 +81,7 @@ def test_from_setup_cfg_errors(setup, extra, expects):
 
 def test_from_setup_cfg_missing_section():
 	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = pathlib.Path(tmpdir)
+		tmpdir_p = PathPlus(tmpdir)
 		setup_cfg_file = tmpdir_p / "setup.cfg"
 		setup_cfg_file.write_text(f"""\
 [metadata]
@@ -90,7 +91,7 @@ author = Joe Bloggs
 
 		with pytest.raises(ValueError, match="'options.extras_require' section not found in 'setup.cfg"):
 			requirements_from_setup_cfg(
-					package_root=pathlib.Path(),
+					package_root=PathPlus(),
 					options={},
 					env=MockBuildEnvironment(tmpdir_p),  # type: ignore
 					extra="docs",
