@@ -68,7 +68,7 @@ def purge_extras_requires(app: Sphinx, env: BuildEnvironment, docname: str) -> N
 
 	env.all_extras_requires = [  # type: ignore
 		todo for todo in env.all_extras_requires  # type: ignore
-		if todo['docname'] != docname
+		if todo["docname"] != docname
 		]
 
 

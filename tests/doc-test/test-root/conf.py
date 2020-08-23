@@ -1,5 +1,5 @@
 extensions = [
-		'sphinx.ext.autodoc',
+		"sphinx.ext.autodoc",
 		"sphinxcontrib.extras_require",
 		]
 

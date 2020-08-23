@@ -53,7 +53,7 @@ def test_from_file_errors():
 					package_root=tmpdir_p,
 					options={"file": "a_subdirectory/another_subdir/Example.png"},
 					env=None,  # type: ignore
-					extra='extra',
+					extra="extra",
 					)
 
 		with pytest.raises(FileNotFoundError, match="Cannot find requirements file"):
@@ -61,5 +61,5 @@ def test_from_file_errors():
 					package_root=tmpdir_p,
 					options={"file": "a_subdirectory/nonexistant_file.txt"},
 					env=None,  # type: ignore
-					extra='extra',
+					extra="extra",
 					)

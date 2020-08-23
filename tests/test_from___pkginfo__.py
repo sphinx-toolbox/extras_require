@@ -49,7 +49,7 @@ def test_from___pkginfo___not_found():
 					package_root=tmpdir_p,
 					options={},
 					env=MockBuildEnvironment(tmpdir_p),  # type: ignore
-					extra='extra',
+					extra="extra",
 					)
 
 
@@ -65,5 +65,5 @@ def test_from___pkginfo___wrong_mime():
 					package_root=tmpdir_p,
 					options={},
 					env=MockBuildEnvironment(tmpdir_p),  # type: ignore
-					extra='extra',
+					extra="extra",
 					)

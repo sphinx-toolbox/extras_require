@@ -13,42 +13,58 @@ from sphinxcontrib.extras_require.directive import get_requirements, make_node_c
 @pytest.mark.parametrize(
 		"requirements, valid_requirements",
 		[
-				pytest.param(['name[bar]>=3; python_version == "2.7"'], ['name[bar]>=3; python_version == "2.7"'],
-								id="string_specifier_marker"),
+				pytest.param(
+						['name[bar]>=3; python_version == "2.7"'],
+						['name[bar]>=3; python_version == "2.7"'],
+						id="string_specifier_marker",
+						),
 				pytest.param(["name@ http://foo.com"], ["name@ http://foo.com"], id="string_url"),
-				pytest.param(['name@ http://foo.com ; extra == "feature"'],
-								['name@ http://foo.com ; extra == "feature"'],
-								id="string_url_with_marker"),
+				pytest.param(
+						['name@ http://foo.com ; extra == "feature"'],
+						['name@ http://foo.com ; extra == "feature"'],
+						id="string_url_with_marker",
+						),
 				pytest.param(["foo-bar.quux_baz"], ["foo-bar.quux_baz"], id="name_with_other_characters"),
 				pytest.param(["name>=3"], ["name>=3"], id="name_with_version"),
 				pytest.param(["name==1.0.org1"], ["name==1.0.org1"], id="with_legacy_version"),
-				pytest.param(["name>=1.x.y;python_version=='2.6'"], ['name>=1.x.y; python_version == "2.6"'],
-								id="with_legacy_version_and_marker"),
+				pytest.param(
+						["name>=1.x.y;python_version=='2.6'"],
+						['name>=1.x.y; python_version == "2.6"'],
+						id="with_legacy_version_and_marker",
+						),
 				pytest.param(["name (==4)"], ["name==4"], id="version_with_parens_and_whitespace"),
 				pytest.param(["name>=3,<2"], ["name<2,>=3"], id="name_with_multiple_versions"),
 				pytest.param(["name >=2, <3"], ["name<3,>=2"], id="name_with_multiple_versions_and_whitespace"),
 				pytest.param(["foobar [quux,bar]"], ["foobar[bar,quux]"], id="extras"),
 				pytest.param(["foo[]"], ["foo"], id="empty_extras"),
 				pytest.param(["foo @ http://example.com"], ["foo@ http://example.com"], id="url"),
-				pytest.param(["foo @ http://example.com ; os_name=='a'"],
-								['foo@ http://example.com ; os_name == "a"'],
-								id="url_and_marker"),
-				pytest.param(["name @ file:///absolute/path"], ['name@ file:///absolute/path'], id="file_url"),
-				pytest.param(["name [fred, bar] @ http://foo.com ; python_version=='2.7'"],
-								['name[bar,fred]@ http://foo.com ; python_version == "2.7"'],
-								id="extras_and_url_and_marker"),
+				pytest.param(
+						["foo @ http://example.com ; os_name=='a'"],
+						['foo@ http://example.com ; os_name == "a"'],
+						id="url_and_marker",
+						),
+				pytest.param(["name @ file:///absolute/path"], ["name@ file:///absolute/path"], id="file_url"),
+				pytest.param(
+						["name [fred, bar] @ http://foo.com ; python_version=='2.7'"],
+						['name[bar,fred]@ http://foo.com ; python_version == "2.7"'],
+						id="extras_and_url_and_marker",
+						),
 				pytest.param(
 						["foo @ https://example.com/name;v=1.1/?query=foo&bar=baz#blah ; python_version=='3.4'"],
 						['foo@ https://example.com/name;v=1.1/?query=foo&bar=baz#blah ; python_version == "3.4"'],
-						id="complex_url_and_marker"
+						id="complex_url_and_marker",
 						),
-				pytest.param(["name[strange, quux];python_version<'2.7' and "
-								"platform_version=='2'"],
-								['name[quux,strange]; python_version < "2.7" and platform_version == "2"'],
-								id="multiple_markers"),
-				pytest.param(["name; os_name=='a' and os_name=='b' or os_name=='c'"],
-								['name; os_name == "a" and os_name == "b" or os_name == "c"'],
-								id="multiple_comparsion_markers"),
+				pytest.param(
+						["name[strange, quux];python_version<'2.7' and "
+							"platform_version=='2'"],
+						['name[quux,strange]; python_version < "2.7" and platform_version == "2"'],
+						id="multiple_markers",
+						),
+				pytest.param(
+						["name; os_name=='a' and os_name=='b' or os_name=='c'"],
+						['name; os_name == "a" and os_name == "b" or os_name == "c"'],
+						id="multiple_comparsion_markers",
+						),
 				pytest.param(["pygame"], ["pygame"], id="pygame"),
 				pytest.param(["six"], ["six"], id="six"),
 				pytest.param(["urllib3"], ["urllib3"], id="urllib3"),
@@ -64,9 +80,11 @@ from sphinxcontrib.extras_require.directive import get_requirements, make_node_c
 				pytest.param(["urllib3>1.2.4, !=1.2.6"], ["urllib3!=1.2.6,>1.2.4"], id="> and !="),
 				pytest.param(["setuptools   ==32.2"], ["setuptools==32.2"], id="== and excess space"),
 				pytest.param(["docutils", "pip", "wheel"], ["docutils", "pip", "wheel"], id="three requirements"),
-				pytest.param(["pytz<1.2", "certifi>0.1,!=2.0.1,<3.0", "numpy; platform_system!='Darwin'"],
-								["certifi!=2.0.1,<3.0,>0.1", 'numpy; platform_system != "Darwin"', "pytz<1.2"],
-								id="complex requirements"),
+				pytest.param(
+						["pytz<1.2", "certifi>0.1,!=2.0.1,<3.0", "numpy; platform_system!='Darwin'"],
+						["certifi!=2.0.1,<3.0,>0.1", 'numpy; platform_system != "Darwin"', "pytz<1.2"],
+						id="complex requirements",
+						),
 				]
 		)
 def test_validate_requirements(requirements, valid_requirements):
@@ -116,7 +134,7 @@ These can be installed as follows:
 			[
 					pytest.param(["pip", "wheel", "setuptools"], "s", id="3 requirements"),
 					pytest.param(["numpy", "scipy"], "s", id="2 requirements"),
-					pytest.param(["sphinx"], "", id="1 requirement"),
+					pytest.param(["sphinx"], '', id="1 requirement"),
 					]
 			)
 	def test_plural(self, requirements, plural):
@@ -171,18 +189,18 @@ def _do_test_directive(page, requirements: List[str], extra: str):
 @pytest.mark.parametrize("page", ["manual_demo.html"], indirect=True)
 def test_manual_demo(page):
 	# Make sure the page title is what you expect
-	title = page.find('h1').contents[0].strip()
-	assert 'Manual Demo' == title
+	title = page.find("h1").contents[0].strip()
+	assert "Manual Demo" == title
 
 	# Now test the directive
-	_do_test_directive(page, ['pytz>=2019.1', 'typing_extensions; python_version <= "3.7"'], "extra_d")
+	_do_test_directive(page, ["pytz>=2019.1", 'typing_extensions; python_version <= "3.7"'], "extra_d")
 
 
 @pytest.mark.parametrize("page", ["pkginfo_demo.html"], indirect=True)
 def test_pkginfo_demo(page):
 	# Make sure the page title is what you expect
-	title = page.find('h1').contents[0].strip()
-	assert '__pkginfo__ Demo' == title
+	title = page.find("h1").contents[0].strip()
+	assert "__pkginfo__ Demo" == title
 
 	# Now test the directive
 	_do_test_directive(page, ["click<7.1.2", "flask>=1.1.2", "sphinx==3.0.3"], "extra_b")
@@ -191,8 +209,8 @@ def test_pkginfo_demo(page):
 @pytest.mark.parametrize("page", ["requirements_file_demo.html"], indirect=True)
 def test_requirements_file_demo(page):
 	# Make sure the page title is what you expect
-	title = page.find('h1').contents[0].strip()
-	assert 'requirements.txt Demo' == title
+	title = page.find("h1").contents[0].strip()
+	assert "requirements.txt Demo" == title
 
 	# Now test the directive
 	_do_test_directive(page, [
@@ -205,8 +223,8 @@ def test_requirements_file_demo(page):
 @pytest.mark.parametrize("page", ["setup_cfg_demo.html"], indirect=True)
 def test_setup_cfg_demo(page):
 	# Make sure the page title is what you expect
-	title = page.find('h1').contents[0].strip()
-	assert 'setup.cfg Demo' == title
+	title = page.find("h1").contents[0].strip()
+	assert "setup.cfg Demo" == title
 
 	# Now test the directive
 	_do_test_directive(page, ["faker", "pytest", "tox"], "extra_c")
@@ -215,8 +233,8 @@ def test_setup_cfg_demo(page):
 @pytest.mark.parametrize("page", ["flit_demo.html"], indirect=True)
 def test_flit_demo(page):
 	# Make sure the page title is what you expect
-	title = page.find('h1').contents[0].strip()
-	assert 'flit Demo' == title
+	title = page.find("h1").contents[0].strip()
+	assert "flit Demo" == title
 
 	# Now test the directive
 	_do_test_directive(page, [
@@ -228,8 +246,8 @@ def test_flit_demo(page):
 @pytest.mark.parametrize("page", ["scopes_demo.html"], indirect=True)
 def test_scopes_demo(page):
 	# Make sure the page title is what you expect
-	title = page.find('h1').contents[0].strip()
-	assert 'Scopes Demo' == title
+	title = page.find("h1").contents[0].strip()
+	assert "Scopes Demo" == title
 
 	# Now test the directive
 
@@ -285,8 +303,8 @@ def test_scopes_demo(page):
 @pytest.mark.parametrize("page", ["no_requirements_demo.html"], indirect=True)
 def test_no_requirements_demo(page):
 	# Make sure the page title is what you expect
-	title = page.find('h1').contents[0].strip()
-	assert 'No Requirements Demo' == title
+	title = page.find("h1").contents[0].strip()
+	assert "No Requirements Demo" == title
 
 	# Now test the directive
 	for div in page.findAll("div"):

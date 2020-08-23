@@ -12,10 +12,10 @@ from bs4 import BeautifulSoup  # type: ignore
 from domdf_python_tools.paths import PathPlus
 from sphinx.testing.path import path
 
-pytest_plugins = 'sphinx.testing.fixtures'
+pytest_plugins = "sphinx.testing.fixtures"
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def rootdir():
 	rdir = PathPlus(__file__).parent.absolute() / "doc-test"
 	if not (rdir / "test-root").is_dir():
@@ -98,4 +98,4 @@ def page(content, request) -> BeautifulSoup:
 	pagename = request.param
 	c = (content.outdir / pagename).read_text()
 
-	yield BeautifulSoup(c, 'html5lib')
+	yield BeautifulSoup(c, "html5lib")

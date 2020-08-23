@@ -122,7 +122,7 @@ sources = Sources()
 
 def flag(argument: Any) -> bool:
 	"""
-	Check for a valid flag option (no argument) and return ``True``.
+	Check for a valid flag option (no argument) and return :py:obj:`True`.
 
 	:raises: :exc:`ValueError` if an argument is given.
 	"""
