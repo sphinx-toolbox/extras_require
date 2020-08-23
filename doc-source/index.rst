@@ -160,7 +160,7 @@ For instance, this:
 
 will produce this:
 
-.. image:: doc_source/example.png
+.. image:: doc-source/example.png
 
 The path given in ``:file:`` is relative to the ``package_root`` variable given in ``conf.py``, which in turn is relative to the parent directory of the sphinx documentation.
 

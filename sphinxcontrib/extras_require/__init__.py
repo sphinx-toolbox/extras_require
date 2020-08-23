@@ -66,10 +66,10 @@ def purge_extras_requires(app: Sphinx, env: BuildEnvironment, docname: str) -> N
 	if not hasattr(env, "all_extras_requires"):
 		return
 
-	env.all_extras_requires = [
-			todo for todo in env.all_extras_requires  # type: ignore
-			if todo['docname'] != docname
-			]
+	env.all_extras_requires = [  # type: ignore
+		todo for todo in env.all_extras_requires  # type: ignore
+		if todo['docname'] != docname
+		]
 
 
 def setup(app: Sphinx) -> Dict[str, Any]:
