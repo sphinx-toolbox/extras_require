@@ -37,6 +37,8 @@ import logging
 # 3rd party
 import pytoml as toml  # type: ignore
 
+__all__ = ["ConfigError", "read_flit_config", "prep_toml_config", "LoadedConfig"]
+
 log = logging.getLogger(__name__)
 
 

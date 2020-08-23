@@ -1,6 +1,12 @@
 ================
-extras-require
+extras_require
 ================
+
+.. start short_desc
+
+**Display a warning at the top of module documentation that it has additional requirements.**
+
+.. end short_desc
 
 .. start shields
 
@@ -93,8 +99,6 @@ extras-require
 
 Display a warning at the top of module documentation that it has additional requirements.
 
-|
-
 Overview
 --------
 
@@ -156,11 +160,11 @@ For instance, this:
 
 will produce this:
 
-.. image:: example.png
+.. image:: doc_source/example.png
 
 The path given in ``:file:`` is relative to the ``package_root`` variable given in ``conf.py``, which in turn is relative to the parent directory of the sphinx documentation.
 
-i.e, this line:
+I.e, this line:
 
 .. code-block:: python
 
@@ -222,9 +226,9 @@ Future Enhancements
 	:caption: Documentation
 
 	usage
-	API Reference<docs>
+	api/index
+	contributing
 	Source
-	Building
 
 .. start links
 

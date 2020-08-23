@@ -50,6 +50,8 @@ extensions = [
 	'sphinx_copybutton',
 	'sphinxcontrib.default_values',
 	'sphinxcontrib.toctree_plus',
+	'seed_intersphinx_mapping',
+	'autodoc_augment_defaults',
 	'sphinx_autodoc_typehints',
 	'sphinx.ext.autosummary',
 	]
@@ -68,18 +70,11 @@ suppress_warnings = ['image.nonlocal_uri']
 pygments_style = 'default'
 
 intersphinx_mapping = {
-		'rtd': ('https://docs.readthedocs.io/en/latest/', None),
-		'sphinx': ('https://www.sphinx-doc.org/en/stable/', None),
 		'python': ('https://docs.python.org/3/', None),
-		"NumPy": ('https://numpy.org/doc/stable/', None),
-		"SciPy": ('https://docs.scipy.org/doc/scipy/reference', None),
-		"Pandas": ('https://pandas.pydata.org/docs/', None),
-		"matplotlib": ('https://matplotlib.org', None),
+		'sphinx': ('https://www.sphinx-doc.org/en/stable/', None),
+		'rtd': ('https://docs.readthedocs.io/en/latest/', None),
 		"h5py": ('https://docs.h5py.org/en/latest/', None),
-		"Sphinx": ('https://www.sphinx-doc.org/en/master/', None),
-		"Django": ('https://docs.djangoproject.com/en/dev/', 'https://docs.djangoproject.com/en/dev/_objects/'),
 		"sarge": ('https://sarge.readthedocs.io/en/latest/', None),
-		"attrs": ('https://www.attrs.org/en/stable/', None),
 		}
 
 html_theme = 'domdf_sphinx_theme'
@@ -103,6 +98,7 @@ latex_documents = [('index', f'{slug}.tex', project, author, 'manual')]
 man_pages = [('index', slug, project, [author], 1)]
 texinfo_documents = [('index', slug, project, author, slug, project, 'Miscellaneous')]
 
+toctree_plus_types = {"class", "function", "method", "data"}
 
 autodoc_default_options = {
 		'members': None,  # Include all members (methods).
@@ -110,6 +106,7 @@ autodoc_default_options = {
 		"autosummary": None,
 		'exclude-members': ','.join([   # Exclude "standard" methods.
 				"__dict__",
+				"__class__",
 				"__dir__",
 				"__weakref__",
 				"__module__",
@@ -124,7 +121,7 @@ autodoc_default_options = {
 				"__getnewargs__",
 				"__abstractmethods__",
 				"__hash__",
-				])
+				]),
 		}
 
 
