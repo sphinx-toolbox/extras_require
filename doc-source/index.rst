@@ -97,7 +97,6 @@ extras_require
 
 .. end shields
 
-Display a warning at the top of module documentation that it has additional requirements.
 
 Overview
 --------
