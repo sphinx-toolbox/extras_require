@@ -201,7 +201,7 @@ Enable ``extras_require`` by adding "sphinxcontrib.extras_require" to the ``exte
 
 .. code-block:: python
 
-    extensions = [
+	extensions = [
 		...
 		"sphinxcontrib.extras_require",
 		]

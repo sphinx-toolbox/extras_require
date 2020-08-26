@@ -53,14 +53,11 @@ __all__ = ["purge_extras_requires", "setup"]
 
 def purge_extras_requires(app: Sphinx, env: BuildEnvironment, docname: str) -> None:
 	"""
-	Remove all redundant extras_require nodes.
+	Remove all redundant :class:`extras_require.directive.ExtrasRequireDirective` nodes.
 
 	:param app:
 	:param env:
-	:type env:
 	:param docname: The name of the document to remove nodes for.
-
-	:return:
 	"""
 
 	if not hasattr(env, "all_extras_requires"):

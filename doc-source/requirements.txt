@@ -1,7 +1,7 @@
 autodocsumm>=0.2.0
-default_values>=0.0.7
+default_values>=0.0.8
 domdf_sphinx_theme>=0.0.11
-seed_intersphinx_mapping
+seed_intersphinx_mapping>=0.1.0
 sphinx-copybutton>=0.2.12
 sphinx-notfound-page
 sphinx-prompt>=1.2.0

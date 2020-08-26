@@ -18,8 +18,7 @@ pytest_plugins = "sphinx.testing.fixtures"
 @pytest.fixture(scope="session")
 def rootdir():
 	rdir = PathPlus(__file__).parent.absolute() / "doc-test"
-	if not (rdir / "test-root").is_dir():
-		(rdir / "test-root").mkdir(parents=True)
+	(rdir / "test-root").maybe_make(parents=True)
 	return path(rdir)
 
 
@@ -89,7 +88,6 @@ pandas>=0.25.0, !=1.0.0
 @pytest.fixture()
 def content(the_app):
 	the_app.build(force_all=True)
-
 	yield the_app
 
 

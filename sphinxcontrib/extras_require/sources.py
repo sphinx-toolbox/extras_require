@@ -62,7 +62,8 @@ class Sources(List[Tuple[str, Callable, Callable]]):
 
 	The syntax of each entry is:
 
-	option_name, getter_function, validator_function
+	``(option_name, getter_function, validator_function)``
+
 	* a string to use in the directive to specify the source to use,
 	* the function that returns the list of additional requirements,
 	* a function to validate the option value provided by the user.
@@ -71,8 +72,11 @@ class Sources(List[Tuple[str, Callable, Callable]]):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 
+	_args = ["package_root", "options", "env", "extra"]
+	_directive_name = "extras_require"
+
 	def register(
-			self: List[Tuple[str, Callable, Callable]],
+			self,
 			option_name: str,
 			validator: Callable = directives.unchanged,
 			) -> Callable:
@@ -101,7 +105,7 @@ class Sources(List[Tuple[str, Callable, Callable]]):
 		def _decorator(function: Callable) -> Callable:
 			signature = inspect.signature(function)
 
-			if list(signature.parameters.keys()) != ["package_root", "options", "env", "extra"]:
+			if list(signature.parameters.keys()) != self._args:
 				raise SyntaxError(
 						"The decorated function must take only the following arguments: "
 						"'package_root', 'options', 'env', and 'extra'"
@@ -109,7 +113,7 @@ class Sources(List[Tuple[str, Callable, Callable]]):
 
 			self.append((option_name, function, validator))
 
-			setattr(function, "_extras_require_registered", True)
+			setattr(function, f"_{self._directive_name}_registered", True)
 
 			return function
 

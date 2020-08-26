@@ -18,7 +18,10 @@ from __pkginfo__ import __version__
 # User-configurable lines
 # End of user-configurable lines
 
-github_url = "https://github.com/domdfcoding/extras_require"
+github_username = "domdfcoding"
+github_repository = "extras_require"
+github_url = f"https://github.com/{github_username}/{github_repository}"
+
 
 rst_prolog = f""".. |pkgname| replace:: extras_require
 .. |pkgname2| replace:: ``extras_require``
@@ -52,6 +55,7 @@ extensions = [
 	'sphinxcontrib.toctree_plus',
 	'seed_intersphinx_mapping',
 	'autodoc_augment_defaults',
+	'sphinx.ext.autosectionlabel',
 	'sphinx_autodoc_typehints',
 	'sphinx.ext.autosummary',
 	]
@@ -99,6 +103,7 @@ man_pages = [('index', slug, project, [author], 1)]
 texinfo_documents = [('index', slug, project, author, slug, project, 'Miscellaneous')]
 
 toctree_plus_types = {"class", "function", "method", "data"}
+
 
 autodoc_default_options = {
 		'members': None,  # Include all members (methods).

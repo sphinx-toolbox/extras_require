@@ -4,7 +4,9 @@ from typing import List
 
 # 3rd party
 import pytest
+from bs4 import BeautifulSoup
 from bs4.element import Tag  # type: ignore
+from pytest_regressions.file_regression import FileRegressionFixture
 
 # this package
 from sphinxcontrib.extras_require.directive import get_requirements, make_node_content, validate_requirements
@@ -147,7 +149,7 @@ def test(the_app):
 	the_app.build()
 
 
-def _do_test_directive(page, requirements: List[str], extra: str):
+def _do_test_directive(page, requirements: List[str], extra: str, file_regression: FileRegressionFixture):
 
 	div_count = 0
 
@@ -185,53 +187,66 @@ def _do_test_directive(page, requirements: List[str], extra: str):
 
 	assert div_count == 1
 
+	file_regression.check(contents=remove_html_footer(page).prettify(), extension=".html")
+
+
+def remove_html_footer(page: BeautifulSoup) -> BeautifulSoup:
+	for div in page.select("div.footer"):
+		div.extract()
+
+	return page
+
 
 @pytest.mark.parametrize("page", ["manual_demo.html"], indirect=True)
-def test_manual_demo(page):
+def test_manual_demo(page: BeautifulSoup, file_regression: FileRegressionFixture):
 	# Make sure the page title is what you expect
 	title = page.find("h1").contents[0].strip()
 	assert "Manual Demo" == title
 
 	# Now test the directive
-	_do_test_directive(page, ["pytz>=2019.1", 'typing_extensions; python_version <= "3.7"'], "extra_d")
+	_do_test_directive(
+			page, ["pytz>=2019.1", 'typing_extensions; python_version <= "3.7"'], "extra_d", file_regression
+			)
 
 
 @pytest.mark.parametrize("page", ["pkginfo_demo.html"], indirect=True)
-def test_pkginfo_demo(page):
+def test_pkginfo_demo(page: BeautifulSoup, file_regression: FileRegressionFixture):
 	# Make sure the page title is what you expect
 	title = page.find("h1").contents[0].strip()
 	assert "__pkginfo__ Demo" == title
 
 	# Now test the directive
-	_do_test_directive(page, ["click<7.1.2", "flask>=1.1.2", "sphinx==3.0.3"], "extra_b")
+	_do_test_directive(page, ["click<7.1.2", "flask>=1.1.2", "sphinx==3.0.3"], "extra_b", file_regression)
 
 
 @pytest.mark.parametrize("page", ["requirements_file_demo.html"], indirect=True)
-def test_requirements_file_demo(page):
+def test_requirements_file_demo(page: BeautifulSoup, file_regression: FileRegressionFixture):
 	# Make sure the page title is what you expect
 	title = page.find("h1").contents[0].strip()
 	assert "requirements.txt Demo" == title
 
 	# Now test the directive
-	_do_test_directive(page, [
-			"numpy>=1.18.4",
-			"pandas!=1.0.0,>=0.25.0",
-			"scipy==1.4.1",
-			], "extra_a")
+	_do_test_directive(
+			page, [
+					"numpy>=1.18.4",
+					"pandas!=1.0.0,>=0.25.0",
+					"scipy==1.4.1",
+					], "extra_a", file_regression
+			)
 
 
 @pytest.mark.parametrize("page", ["setup_cfg_demo.html"], indirect=True)
-def test_setup_cfg_demo(page):
+def test_setup_cfg_demo(page: BeautifulSoup, file_regression: FileRegressionFixture):
 	# Make sure the page title is what you expect
 	title = page.find("h1").contents[0].strip()
 	assert "setup.cfg Demo" == title
 
 	# Now test the directive
-	_do_test_directive(page, ["faker", "pytest", "tox"], "extra_c")
+	_do_test_directive(page, ["faker", "pytest", "tox"], "extra_c", file_regression)
 
 
 @pytest.mark.parametrize("page", ["flit_demo.html"], indirect=True)
-def test_flit_demo(page):
+def test_flit_demo(page: BeautifulSoup, file_regression: FileRegressionFixture):
 	# Make sure the page title is what you expect
 	title = page.find("h1").contents[0].strip()
 	assert "flit Demo" == title
@@ -240,11 +255,11 @@ def test_flit_demo(page):
 	_do_test_directive(page, [
 			"pytest>=2.7.3",
 			"pytest-cov",
-			], "test")
+			], "test", file_regression)
 
 
 @pytest.mark.parametrize("page", ["scopes_demo.html"], indirect=True)
-def test_scopes_demo(page):
+def test_scopes_demo(page: BeautifulSoup, file_regression: FileRegressionFixture):
 	# Make sure the page title is what you expect
 	title = page.find("h1").contents[0].strip()
 	assert "Scopes Demo" == title
@@ -299,9 +314,11 @@ def test_scopes_demo(page):
 
 	assert div_count == 3
 
+	file_regression.check(contents=remove_html_footer(page).prettify(), extension=".html")
+
 
 @pytest.mark.parametrize("page", ["no_requirements_demo.html"], indirect=True)
-def test_no_requirements_demo(page):
+def test_no_requirements_demo(page: BeautifulSoup, file_regression: FileRegressionFixture):
 	# Make sure the page title is what you expect
 	title = page.find("h1").contents[0].strip()
 	assert "No Requirements Demo" == title
@@ -309,6 +326,8 @@ def test_no_requirements_demo(page):
 	# Now test the directive
 	for div in page.findAll("div"):
 		assert not div.get("id", '').startswith("extras_require")
+
+	file_regression.check(contents=remove_html_footer(page).prettify(), extension=".html")
 
 
 @pytest.mark.parametrize(
