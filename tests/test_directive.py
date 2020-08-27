@@ -187,7 +187,7 @@ def _do_test_directive(page, requirements: List[str], extra: str, file_regressio
 
 	assert div_count == 1
 
-	file_regression.check(contents=remove_html_footer(page).prettify(), extension=".html")
+	check_html_regression(page, file_regression)
 
 
 def remove_html_footer(page: BeautifulSoup) -> BeautifulSoup:
@@ -195,6 +195,10 @@ def remove_html_footer(page: BeautifulSoup) -> BeautifulSoup:
 		div.extract()
 
 	return page
+
+
+def check_html_regression(page, file_regression):
+	file_regression.check(contents=remove_html_footer(page).prettify(), extension=".html", encoding="UTF-8")
 
 
 @pytest.mark.parametrize("page", ["manual_demo.html"], indirect=True)
@@ -314,7 +318,7 @@ def test_scopes_demo(page: BeautifulSoup, file_regression: FileRegressionFixture
 
 	assert div_count == 3
 
-	file_regression.check(contents=remove_html_footer(page).prettify(), extension=".html")
+	check_html_regression(page, file_regression)
 
 
 @pytest.mark.parametrize("page", ["no_requirements_demo.html"], indirect=True)
@@ -327,7 +331,7 @@ def test_no_requirements_demo(page: BeautifulSoup, file_regression: FileRegressi
 	for div in page.findAll("div"):
 		assert not div.get("id", '').startswith("extras_require")
 
-	file_regression.check(contents=remove_html_footer(page).prettify(), extension=".html")
+	check_html_regression(page, file_regression)
 
 
 @pytest.mark.parametrize(
