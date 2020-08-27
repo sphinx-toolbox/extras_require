@@ -197,7 +197,7 @@ def remove_html_footer(page: BeautifulSoup) -> BeautifulSoup:
 	return page
 
 
-def check_html_regression(page, file_regression):
+def check_html_regression(page: BeautifulSoup, file_regression: FileRegressionFixture):
 	file_regression.check(contents=remove_html_footer(page).prettify(), extension=".html", encoding="UTF-8")
 
 
