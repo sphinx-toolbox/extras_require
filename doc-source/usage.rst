@@ -2,18 +2,11 @@
 Usage
 ============
 
-Enable ``extras_require`` by adding "sphinxcontrib.extras_require" to the ``extensions`` variable in ``conf.py``:
+.. extensions:: extras_require
+	:import-name: sphinxcontrib.extras_require
 
-.. code-block:: python
+	sphinx-prompt
 
-	extensions = [
-		...
-		"sphinxcontrib.extras_require",
-		]
-
-For more information see https://www.sphinx-doc.org/en/master/usage/extensions/index.html#third-party-extensions .
-
-|
 
 This extension provides a single directive, ``.. extras-require::``. The requirements can be specified in several ways:
 
@@ -44,12 +37,22 @@ This extension provides a single directive, ``.. extras-require::``. The require
 
 * Typing the list of :pep:`508` requirements manually. Each requirement must be on its own line, and there must be a blank line between the directive and the list of requirements. e.g.
 
-	.. code-block:: rest
+	.. rest-example::
 
-		.. extras-require::
+		.. extras-require:: dates
 
 			pytz >=2019.1
 
 Only one of the above options can be used in each directive.
 
 The ``:scope:`` option can be used to specify a different scope for additional requirements, such as package, module, class or function. Any string value can be supplied here.
+
+**Example**
+
+.. rest-example::
+
+	.. extras-require:: foo
+		:scope: class
+
+		bar
+		baz

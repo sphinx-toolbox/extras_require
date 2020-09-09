@@ -199,11 +199,6 @@ Installation
 
 .. end installation
 
-.. extensions:: extras_require
-	:import-name: sphinxcontrib.extras_require
-
-	sphinx-prompt
-
 
 Future Enhancements
 ---------------------
