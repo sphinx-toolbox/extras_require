@@ -20,6 +20,8 @@ extras_require
 	  - |travis| |actions_windows| |actions_macos| |coveralls| |codefactor|
 	* - PyPI
 	  - |pypi-version| |supported-versions| |supported-implementations| |wheel|
+	* - Anaconda
+	  - |conda-version| |conda-platform|
 	* - Activity
 	  - |commits-latest| |commits-since| |maintained|
 	* - Other
@@ -74,6 +76,14 @@ extras_require
 	:wheel:
 	:alt: PyPI - Wheel
 
+.. |conda-version| image:: https://img.shields.io/conda/v/domdfcoding/extras_require?logo=anaconda
+	:target: https://anaconda.org/domdfcoding/extras_require
+	:alt: Conda - Package Version
+
+.. |conda-platform| image:: https://img.shields.io/conda/pn/domdfcoding/extras_require?label=conda%7Cplatform
+	:target: https://anaconda.org/domdfcoding/extras_require
+	:alt: Conda - Platform
+
 .. |license| github-shield::
 	:license:
 	:alt: License
@@ -106,48 +116,48 @@ This extension assumes you have a repository laid out like this:
 
 ::
 
-    /
-    ├── chemistry_tools
-    │   ├── __init__.py
-    │   ├── formulae
-    │   │   ├── __init__.py
-    │   │   ├── compound.py
-    │   │   ├── formula.py
-    │   │   ├── parser.py
-    │   │   └── requirements.txt
-    │   ├── constants.py
-    │   └── utils.py
-    ├── doc-source
-    │   ├── api
-    │   │   ├── chemistry_tools.rst
-    │   │   ├── elements.rst
-    │   │   ├── formulae.rst
-    │   │   └── pubchem.rst
-    │   ├── conf.py
-    │   ├── index.rst
-    │   └── requirements.txt
-    ├── LICENSE
-    ├── README.rst
-    ├── requirements.txt
-    ├── setup.py
-    └── tox.ini
+	/
+	├── chemistry_tools
+	│   ├── __init__.py
+	│   ├── formulae
+	│   │   ├── __init__.py
+	│   │   ├── compound.py
+	│   │   ├── formula.py
+	│   │   ├── parser.py
+	│   │   └── requirements.txt
+	│   ├── constants.py
+	│   └── utils.py
+	├── doc-source
+	│   ├── api
+	│   │   ├── chemistry_tools.rst
+	│   │   ├── elements.rst
+	│   │   ├── formulae.rst
+	│   │   └── pubchem.rst
+	│   ├── conf.py
+	│   ├── index.rst
+	│   └── requirements.txt
+	├── LICENSE
+	├── README.rst
+	├── requirements.txt
+	├── setup.py
+	└── tox.ini
 
 The file ``/chemistry_tools/formulae/requirements.txt`` contains the additional requirements to run the ``formulae`` subpackage. These would be defined in ``setup.py`` like this:
 
 .. code-block:: python
 
-    setup(
-        extras_require = {
-            'formulae': [
-                'mathematical>=0.1.7',
-                'pandas>=1.0.1',
-                'pyparsing>=2.2.0',
-                'tabulate>=0.8.3',
-                'cawdrey>=0.1.2',
-                'quantities>=0.12.4',
-                ],
-        }
-    )
+	setup(
+		extras_require = {
+			'formulae': [
+				'mathematical>=0.1.7',
+				'pandas>=1.0.1',
+				'pyparsing>=2.2.0',
+				'tabulate>=0.8.3',
+				'cawdrey>=0.1.2',
+				'quantities>=0.12.4',
+				],
+		}
+	)
 
 A message can be displayed in the documentation to indicate that the subpackage has these additional requirements that must be installed.
 
@@ -155,12 +165,12 @@ For instance, this:
 
 .. code-block:: rest
 
-    .. extras-require:: formulae
-        :file: formulae/requirements.txt
+	.. extras-require:: formulae
+		:file: formulae/requirements.txt
 
 will produce this:
 
-.. image:: doc-source/example.png
+.. image:: example.png
 
 The path given in ``:file:`` is relative to the ``package_root`` variable given in ``conf.py``, which in turn is relative to the parent directory of the sphinx documentation.
 
@@ -168,7 +178,7 @@ I.e, this line:
 
 .. code-block:: python
 
-    package_root = "chemistry_tools"
+	package_root = "chemistry_tools"
 
 points to ``/chemistry_tools``, and therefore ``:file: formulae/requirements.txt`` points to ``/chemistry_tools/formulae/requirements.txt``.
 
@@ -184,19 +194,16 @@ Installation
 .. installation:: extras_require
 	:pypi:
 	:github:
+	:anaconda:
+	:conda-channels: domdfcoding, conda-forge
 
 .. end installation
 
-Enable ``extras_require`` by adding "sphinxcontrib.extras_require" to the ``extensions`` variable in ``conf.py``:
+.. extensions:: extras_require
+	:import-name: sphinxcontrib.extras_require
 
-.. code-block:: python
+	sphinx-prompt
 
-	extensions = [
-		...
-		"sphinxcontrib.extras_require",
-		]
-
-For more information see https://www.sphinx-doc.org/en/master/usage/extensions/index.html#third-party-extensions .
 
 Future Enhancements
 ---------------------
@@ -216,6 +223,12 @@ Future Enhancements
 
 	usage
 	api/index
+
+
+.. toctree::
+	:maxdepth: 3
+	:caption: Contributing
+
 	contributing
 	Source
 
