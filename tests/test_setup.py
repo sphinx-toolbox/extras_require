@@ -1,10 +1,11 @@
-# this package
+# 3rd party
 from sphinx.events import EventListener
+from sphinx_toolbox.testing import Sphinx, run_setup
 
+# this package
 import sphinxcontrib.extras_require
 from sphinxcontrib.extras_require import __version__, purge_extras_requires
 from sphinxcontrib.extras_require.directive import ExtrasRequireDirective
-from sphinx_toolbox.testing import run_setup, Sphinx
 
 
 def test_setup():
@@ -13,10 +14,10 @@ def test_setup():
 	setup_ret, directives, roles, additional_nodes, app = run_setup(sphinxcontrib.extras_require.setup)
 
 	assert setup_ret == {
-		"version": __version__,
-		"parallel_read_safe": True,
-		"parallel_write_safe": True,
-		}
+			"version": __version__,
+			"parallel_read_safe": True,
+			"parallel_write_safe": True,
+			}
 
 	assert additional_nodes == set()
 

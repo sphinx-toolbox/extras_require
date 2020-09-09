@@ -7,11 +7,10 @@ import pytest
 from bs4 import BeautifulSoup  # type: ignore
 from bs4.element import Tag  # type: ignore
 from pytest_regressions.file_regression import FileRegressionFixture  # type: ignore
+from sphinx_toolbox.testing import check_html_regression
 
 # this package
 from sphinxcontrib.extras_require.directive import get_requirements, make_node_content, validate_requirements
-
-from sphinx_toolbox.testing import check_html_regression
 
 
 @pytest.mark.parametrize(
@@ -192,14 +191,18 @@ def _do_test_directive(page, requirements: List[str], extra: str, file_regressio
 	check_html_regression(page, file_regression)
 
 
-@pytest.mark.parametrize("page", [
-		"flit_demo.html",
-		"scopes_demo.html",
-		"setup_cfg_demo.html",
-		"requirements_file_demo.html",
-		"pkginfo_demo.html",
-		"manual_demo.html",
-		], indirect=True)
+@pytest.mark.parametrize(
+		"page",
+		[
+				"flit_demo.html",
+				"scopes_demo.html",
+				"setup_cfg_demo.html",
+				"requirements_file_demo.html",
+				"pkginfo_demo.html",
+				"manual_demo.html",
+				],
+		indirect=True
+		)
 def test_output(page: BeautifulSoup, file_regression: FileRegressionFixture):
 
 	check_html_regression(page, file_regression)
