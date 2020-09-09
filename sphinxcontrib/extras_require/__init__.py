@@ -78,8 +78,10 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	:return:
 	"""
 
+	app.setup_extension("sphinx-prompt")
+
 	# Location of package source directory relative to documentation source directory
-	app.add_config_value("package_root", None, "html")
+	app.add_config_value("package_root", None, "html", [str])
 
 	app.add_directive("extras-require", ExtrasRequireDirective)
 	app.connect("env-purge-doc", purge_extras_requires)

@@ -259,7 +259,7 @@ def requirements_from_flit(
 	:param extra: The name of the "extra" that the requirements are for
 
 	:return: List of requirements
-	"""
+	"""  # noqa D400
 
 	pyproject_file = PathPlus(env.srcdir).parent / "pyproject.toml"
 

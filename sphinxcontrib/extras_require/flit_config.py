@@ -46,33 +46,33 @@ class ConfigError(ValueError):
 	pass
 
 
-metadata_list_fields = {'classifiers', 'requires', 'dev-requires'}
+metadata_list_fields = {"classifiers", "requires", "dev-requires"}
 
 metadata_allowed_fields = {
-		'module',
-		'author',
-		'author-email',
-		'maintainer',
-		'maintainer-email',
-		'home-page',
-		'license',
-		'keywords',
-		'requires-python',
-		'dist-name',
-		'description-file',
-		'requires-extra',
+		"module",
+		"author",
+		"author-email",
+		"maintainer",
+		"maintainer-email",
+		"home-page",
+		"license",
+		"keywords",
+		"requires-python",
+		"dist-name",
+		"description-file",
+		"requires-extra",
 		} | metadata_list_fields
 
 metadata_required_fields = {
-		'module',
-		'author',
+		"module",
+		"author",
 		}
 
 
 def read_flit_config(path):
 	"""Read and check the `pyproject.toml` file with data about the package.
 	"""
-	with path.open('r', encoding='utf-8') as f:
+	with path.open('r', encoding="utf-8") as f:
 		d = toml.load(f)
 	return prep_toml_config(d, path)
 
@@ -82,19 +82,19 @@ def prep_toml_config(d, path):
 
 	Returns a LoadedConfig object.
 	"""
-	if (('tool' not in d) or ('flit' not in d['tool']) or (not isinstance(d['tool']['flit'], dict))):
+	if ("tool" not in d) or ("flit" not in d["tool"]) or (not isinstance(d["tool"]["flit"], dict)):
 		raise ConfigError("TOML file missing [tool.flit] table.")
 
-	d = d['tool']['flit']
-	unknown_sections_ = set(d) - {'metadata', 'scripts', 'entrypoints', 'sdist'}
-	unknown_sections = [s for s in unknown_sections_ if not s.lower().startswith('x-')]
+	d = d["tool"]["flit"]
+	unknown_sections_ = set(d) - {"metadata", "scripts", "entrypoints", "sdist"}
+	unknown_sections = [s for s in unknown_sections_ if not s.lower().startswith("x-")]
 	if unknown_sections:
-		raise ConfigError('Unknown sections: ' + ', '.join(unknown_sections))
+		raise ConfigError("Unknown sections: " + ", ".join(unknown_sections))
 
-	if 'metadata' not in d:
-		raise ConfigError('[tool.flit.metadata] section is required')
+	if "metadata" not in d:
+		raise ConfigError("[tool.flit.metadata] section is required")
 
-	loaded_cfg = _prep_metadata(d['metadata'], path)
+	loaded_cfg = _prep_metadata(d["metadata"], path)
 
 	return loaded_cfg
 
@@ -112,9 +112,9 @@ class LoadedConfig:
 
 
 readme_ext_to_content_type = {
-		'.rst': 'text/x-rst',
-		'.md': 'text/markdown',
-		'.txt': 'text/plain',
+		".rst": "text/x-rst",
+		".md": "text/markdown",
+		".txt": "text/plain",
 		}
 
 
@@ -132,14 +132,14 @@ def _prep_metadata(md_sect, path):
 
 	res = LoadedConfig()
 
-	res.module = md_sect.get('module')
+	res.module = md_sect.get("module")
 	if not str.isidentifier(res.module):
-		raise ConfigError("Module name %r is not a valid identifier" % res.module)
+		raise ConfigError(f"Module name {res.module!r} is not a valid identifier")
 
 	md_dict = res.metadata
 
 	for key, value in md_sect.items():
-		if key in {'description-file', 'module'}:
+		if key in ["description-file", "module"]:
 			continue
 		if key not in metadata_allowed_fields:
 			closest = difflib.get_close_matches(key, metadata_allowed_fields, n=1, cutoff=0.7)
@@ -150,7 +150,7 @@ def _prep_metadata(md_sect, path):
 
 		k2 = key.replace('-', '_')
 		md_dict[k2] = value
-		if key == 'requires-extra':
+		if key == "requires-extra":
 			if not isinstance(value, dict):  # pragma: no cover
 				raise ConfigError(f"Expected a dict for requires-extra field, found {value!r}")
 			if not all(isinstance(e, list) for e in value.values()):
@@ -163,23 +163,23 @@ def _prep_metadata(md_sect, path):
 				raise ConfigError(f"Expected a string for {key} field, found {value!r}")
 
 	# Move dev-requires into requires-extra
-	reqs_noextra = md_dict.pop('requires_dist', [])
-	res.reqs_by_extra = md_dict.pop('requires_extra', {})
-	dev_requires = md_dict.pop('dev_requires', None)
+	reqs_noextra = md_dict.pop("requires_dist", [])
+	res.reqs_by_extra = md_dict.pop("requires_extra", {})
+	dev_requires = md_dict.pop("dev_requires", None)
 	if dev_requires is not None:
-		if 'dev' in res.reqs_by_extra:
-			raise ConfigError('dev-requires occurs together with its replacement requires-extra.dev.')
+		if "dev" in res.reqs_by_extra:
+			raise ConfigError("dev-requires occurs together with its replacement requires-extra.dev.")
 		else:
 			log.warning('"dev-requires = ..." is obsolete. Use "requires-extra = {"dev" = ...}" instead.')
-			res.reqs_by_extra['dev'] = dev_requires
+			res.reqs_by_extra["dev"] = dev_requires
 
 	# Add requires-extra requirements into requires_dist
-	md_dict['requires_dist'] = reqs_noextra + list(_expand_requires_extra(res.reqs_by_extra))
+	md_dict["requires_dist"] = reqs_noextra + list(_expand_requires_extra(res.reqs_by_extra))
 
-	md_dict['provides_extra'] = sorted(res.reqs_by_extra.keys())
+	md_dict["provides_extra"] = sorted(res.reqs_by_extra.keys())
 
 	# For internal use, record the main requirements as a '.none' extra.
-	res.reqs_by_extra['.none'] = reqs_noextra
+	res.reqs_by_extra[".none"] = reqs_noextra
 
 	return res
 

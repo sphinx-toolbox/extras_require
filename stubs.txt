@@ -1,1 +1,1 @@
-docutils-stubs
+git+https://github.com/domdfcoding/docutils-stubs.git@docutils-16

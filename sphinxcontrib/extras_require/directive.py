@@ -38,6 +38,7 @@ from typing import Any, Dict, Iterable, List, Union
 from docutils import nodes
 from docutils.statemachine import ViewList
 from domdf_python_tools.paths import PathPlus
+from domdf_python_tools.stringlist import StringList
 from packaging.requirements import InvalidRequirement, Requirement
 from sphinx.util.docutils import SphinxDirective
 
@@ -145,31 +146,39 @@ def make_node_content(
 	:rtype:
 	"""
 
-	requirements_string = textwrap.indent("\n".join(requirements), "    ")
-
 	if len(requirements) > 1:
 		plural = 's'
 	else:
 		plural = ''
 
-	content = f"""\
-This {scope} has the following additional requirement{plural}:
+	content = StringList(convert_indents=True)
+	content.indent_type = " " * 4
+	content.append(f"This {scope} has the following additional requirement{plural}:")
+	content.blankline(ensure_single=True)
 
-.. code-block:: text
+	with content.with_indent_size(content.indent_size + 1):
+		content.append(".. code-block:: text")
+		content.blankline(ensure_single=True)
 
-{requirements_string}
+		with content.with_indent_size(content.indent_size + 1):
+			content.extend(requirements)
 
-These can be installed as follows:
+	content.blankline(ensure_single=True)
 
-	.. code-block:: bash
+	content.append("These can be installed as follows:")
+	content.blankline(ensure_single=True)
 
-		$ python -m pip install {package_name}[{extra}]
+	with content.with_indent_size(content.indent_size + 1):
+		content.append(".. prompt:: bash")
+		content.blankline(ensure_single=True)
 
-"""
+		with content.with_indent_size(content.indent_size + 1):
+			content.append(f"python -m pip install {package_name}[{extra}]")
 
-	content = content.replace("\t", "    ")
+	content.blankline(ensure_single=True)
+	content.blankline()
 
-	return content
+	return str(content)
 
 
 def get_requirements(env, extra: str, options: Dict[str, Any], content: Union[Iterable, ViewList]) -> List[str]:
