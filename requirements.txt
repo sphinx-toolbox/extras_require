@@ -1,6 +1,7 @@
-docutils
-domdf_python_tools
+docutils>=0.16
+domdf_python_tools>=0.7.1
 packaging>=20.4
-pytoml
+pytoml>=0.1.21
 setuptools>=49.2.0
 sphinx>=3.0.0
+sphinx-prompt>=1.2.0

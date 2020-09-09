@@ -27,7 +27,7 @@ extras_require
 
 .. |docs| image:: https://img.shields.io/readthedocs/extras_require/latest?logo=read-the-docs
 	:target: https://extras_require.readthedocs.io/en/latest/?badge=latest
-	:alt: Documentation Status
+	:alt: Documentation Build Status
 
 .. |docs_check| image:: https://github.com/domdfcoding/extras_require/workflows/Docs%20Check/badge.svg
 	:target: https://github.com/domdfcoding/extras_require/actions?query=workflow%3A%22Docs+Check%22
