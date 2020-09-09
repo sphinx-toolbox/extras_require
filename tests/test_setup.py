@@ -23,9 +23,7 @@ def test_setup():
 
 	assert app.config.values["package_root"] == (None, "html", [str])
 
-	assert directives == {
-			"extras-require": ExtrasRequireDirective,
-			}
+	assert directives == {"extras-require": ExtrasRequireDirective}
 
 	assert app.events.listeners == {
 			"env-purge-doc": [EventListener(id=0, handler=purge_extras_requires, priority=500)],
