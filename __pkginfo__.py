@@ -55,6 +55,13 @@ extras_require = {'all': []}
 
 
 
+conda_description = """Display a warning at the top of module documentation that it has additional requirements.
+
+
+Before installing please ensure you have added the following channels: domdfcoding, conda-forge"""
+__all__.append("conda_description")
+
+
 project_urls = {
 		"Documentation": "https://extras_require.readthedocs.io",
 		"Issue Tracker": f"{github_url}/issues",

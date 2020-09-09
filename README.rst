@@ -20,6 +20,8 @@ extras_require
 	  - |travis| |actions_windows| |actions_macos| |coveralls| |codefactor|
 	* - PyPI
 	  - |pypi-version| |supported-versions| |supported-implementations| |wheel|
+	* - Anaconda
+	  - |conda-version| |conda-platform|
 	* - Activity
 	  - |commits-latest| |commits-since| |maintained|
 	* - Other
@@ -72,6 +74,14 @@ extras_require
 .. |wheel| image:: https://img.shields.io/pypi/wheel/extras_require
 	:target: https://pypi.org/project/extras_require/
 	:alt: PyPI - Wheel
+
+.. |conda-version| image:: https://img.shields.io/conda/v/domdfcoding/extras_require?logo=anaconda
+	:target: https://anaconda.org/domdfcoding/extras_require
+	:alt: Conda - Package Version
+
+.. |conda-platform| image:: https://img.shields.io/conda/pn/domdfcoding/extras_require?label=conda%7Cplatform
+	:target: https://anaconda.org/domdfcoding/extras_require
+	:alt: Conda - Platform
 
 .. |license| image:: https://img.shields.io/github/license/domdfcoding/extras_require
 	:target: https://github.com/domdfcoding/extras_require/blob/master/LICENSE
@@ -180,13 +190,28 @@ Installation
 
 .. start installation
 
-``extras_require`` can be installed from PyPI.
+``extras_require`` can be installed from PyPI or Anaconda.
 
 To install with ``pip``:
 
 .. code-block:: bash
 
 	$ python -m pip install extras_require
+
+To install with ``conda``:
+
+	* First add the required channels
+
+	.. code-block:: bash
+
+		$ conda config --add channels http://conda.anaconda.org/domdfcoding
+		$ conda config --add channels http://conda.anaconda.org/conda-forge
+
+	* Then install
+
+	.. code-block:: bash
+
+		$ conda install extras_require
 
 .. end installation
 

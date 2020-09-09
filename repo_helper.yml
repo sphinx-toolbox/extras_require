@@ -8,11 +8,8 @@ username: "domdfcoding"
 license: 'BSD'
 short_desc: 'Display a warning at the top of module documentation that it has additional requirements.'
 
-enable_conda: False
-
 exclude_files:
   - bumpversion
-#  - doc_requirements
   - rtfd
 
 conda_channels:
