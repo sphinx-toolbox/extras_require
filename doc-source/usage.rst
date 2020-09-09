@@ -8,34 +8,68 @@ Usage
 	sphinx-prompt
 
 
-This extension provides a single directive, ``.. extras-require::``. The requirements can be specified in several ways:
+.. rst:directive:: extras-require
 
-* The ``:file:`` option, which takes a path to a :pep:`508` ``requirements.txt`` file. The path is relative to the ``package_root`` variable given in ``conf.py``, which in turn is relative to the parent directory of the sphinx documentation.
+	The requirements can be specified in several ways:
 
-* The ``:__pkginfo__:`` option, which takes no arguments. This looks in the parent directory of the sphinx documentation for a file named ``__pkginfo__.py``. The requirements are imported as the variable ``extras_require``, which must be a dictionary mapping extras to a list of requirements. e.g.
+	.. rst:directive:option:: file: requirements_file
+		:type: string
 
-	.. code-block:: python
+		Shows the requirements from the given file.
+		The file must contain a list of :pep:`508` requirements, one per line.
 
-		extras_require = {
-			'extra_b': [
-					"flask >=1.1.2",
-					"click < 7.1.2",
-					"sphinx ==3.0.3",
-					]
-			}
+		The path is relative to the ``package_root`` variable given in ``conf.py``,
+		which in turn is relative to the parent directory of the sphinx documentation.
 
-	The requirements can be generated programmatically in the ``__pkginfo__.py`` file during the import process.
+	.. rst:directive:option:: __pkginfo__
+		:type: flag
 
-* The ``:setup.cfg:`` option, which takes no arguments. This looks in the parent directory of the sphinx documentation for a file named ``setup.cfg``. This file must be readable by Python's :mod:`configparser` module, and contain the section ``[options.extras_require]``. e.g.
+		Flag to indicate the requirements should be obtained from ``__pkginfo__.py``.
 
-	.. code-block:: ini
+		This looks in the parent directory of the sphinx documentation for a file named ``__pkginfo__.py``.
+		The requirements are imported as the variable ``extras_require``, which must be a dictionary mapping extras to a list of requirements.
+		e.g.
 
-		[options.extras_require]
-		extra_c = faker; pytest; tox
+		.. code-block:: python
 
-	See https://setuptools.readthedocs.io/en/latest/setuptools.html#configuring-setup-using-setup-cfg-files for more information on ``setup.cfg``.
+			extras_require = {
+				'extra_b': [
+						"flask >=1.1.2",
+						"click < 7.1.2",
+						"sphinx ==3.0.3",
+						]
+				}
 
-* Typing the list of :pep:`508` requirements manually. Each requirement must be on its own line, and there must be a blank line between the directive and the list of requirements. e.g.
+		The requirements can be generated programmatically in the ``__pkginfo__.py`` file during the import process.
+
+
+	.. rst:directive:option:: setup.cfg
+		:type: flag
+
+		Flag to indicate the requirements should be obtained from ``setup.cfg``.
+
+		This looks in the parent directory of the sphinx documentation for a file named ``setup.cfg``.
+		This file must be readable by Python's :mod:`configparser` module,
+		and contain the section ``[options.extras_require]``.
+		e.g.
+
+		.. code-block:: ini
+
+			[options.extras_require]
+			extra_c = faker; pytest; tox
+
+		See https://setuptools.readthedocs.io/en/latest/setuptools.html#configuring-setup-using-setup-cfg-files for more information on ``setup.cfg``.
+
+
+	Only one of the above options can be used in each directive.
+
+	|
+
+	**Manual requirements:**
+
+	If none of the above options are provided the :pep:`508` requirements can instead be provided as the content of the directive.
+	Each requirement must be on its own line, and there must be a blank line between the directive and the list of requirements.
+	e.g.
 
 	.. rest-example::
 
@@ -43,16 +77,25 @@ This extension provides a single directive, ``.. extras-require::``. The require
 
 			pytz >=2019.1
 
-Only one of the above options can be used in each directive.
 
-The ``:scope:`` option can be used to specify a different scope for additional requirements, such as package, module, class or function. Any string value can be supplied here.
+	|
 
-**Example**
+	**Other options:**
 
-.. rest-example::
 
-	.. extras-require:: foo
-		:scope: class
+	.. rst:directive:option:: scope
+		:type: string
 
-		bar
-		baz
+		Specifies a different scope for additional requirements, such as package, module, class or function.
+
+		Any string value can be supplied here.
+
+		**Example**
+
+		.. rest-example::
+
+			.. extras-require:: foo
+				:scope: class
+
+				bar
+				baz
