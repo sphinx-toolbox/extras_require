@@ -4,12 +4,14 @@ from typing import List
 
 # 3rd party
 import pytest
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup  # type: ignore
 from bs4.element import Tag  # type: ignore
-from pytest_regressions.file_regression import FileRegressionFixture
+from pytest_regressions.file_regression import FileRegressionFixture  # type: ignore
 
 # this package
 from sphinxcontrib.extras_require.directive import get_requirements, make_node_content, validate_requirements
+
+from sphinx_toolbox.testing import check_html_regression
 
 
 @pytest.mark.parametrize(
@@ -119,15 +121,15 @@ class Test_make_node_content:
 		assert make_node_content(["foo"], "my_package", "the_extra", scope) == f"""\
 This {scope} has the following additional requirement:
 
-.. code-block:: text
+    .. code-block:: text
 
-    foo
+        foo
 
 These can be installed as follows:
 
-    .. code-block:: bash
+    .. prompt:: bash
 
-        $ python -m pip install my_package[the_extra]
+        python -m pip install my_package[the_extra]
 
 """
 
@@ -167,7 +169,7 @@ def _do_test_directive(page, requirements: List[str], extra: str, file_regressio
 
 		assert div.findAll("p")[2].contents == ["These can be installed as follows:"]
 
-		assert div.blockquote.div.div["class"] == ["highlight-bash", "notranslate"]
+		assert div.blockquote.div.div["class"] == ["highlight-default", "notranslate"]
 		assert div.blockquote.div.div.div["class"] == ["highlight"]
 
 		expected_instructions = [
@@ -190,133 +192,15 @@ def _do_test_directive(page, requirements: List[str], extra: str, file_regressio
 	check_html_regression(page, file_regression)
 
 
-def remove_html_footer(page: BeautifulSoup) -> BeautifulSoup:
-	for div in page.select("div.footer"):
-		div.extract()
-
-	return page
-
-
-def check_html_regression(page: BeautifulSoup, file_regression: FileRegressionFixture):
-	file_regression.check(contents=remove_html_footer(page).prettify(), extension=".html", encoding="UTF-8")
-
-
-@pytest.mark.parametrize("page", ["manual_demo.html"], indirect=True)
-def test_manual_demo(page: BeautifulSoup, file_regression: FileRegressionFixture):
-	# Make sure the page title is what you expect
-	title = page.find("h1").contents[0].strip()
-	assert "Manual Demo" == title
-
-	# Now test the directive
-	_do_test_directive(
-			page, ["pytz>=2019.1", 'typing_extensions; python_version <= "3.7"'], "extra_d", file_regression
-			)
-
-
-@pytest.mark.parametrize("page", ["pkginfo_demo.html"], indirect=True)
-def test_pkginfo_demo(page: BeautifulSoup, file_regression: FileRegressionFixture):
-	# Make sure the page title is what you expect
-	title = page.find("h1").contents[0].strip()
-	assert "__pkginfo__ Demo" == title
-
-	# Now test the directive
-	_do_test_directive(page, ["click<7.1.2", "flask>=1.1.2", "sphinx==3.0.3"], "extra_b", file_regression)
-
-
-@pytest.mark.parametrize("page", ["requirements_file_demo.html"], indirect=True)
-def test_requirements_file_demo(page: BeautifulSoup, file_regression: FileRegressionFixture):
-	# Make sure the page title is what you expect
-	title = page.find("h1").contents[0].strip()
-	assert "requirements.txt Demo" == title
-
-	# Now test the directive
-	_do_test_directive(
-			page, [
-					"numpy>=1.18.4",
-					"pandas!=1.0.0,>=0.25.0",
-					"scipy==1.4.1",
-					], "extra_a", file_regression
-			)
-
-
-@pytest.mark.parametrize("page", ["setup_cfg_demo.html"], indirect=True)
-def test_setup_cfg_demo(page: BeautifulSoup, file_regression: FileRegressionFixture):
-	# Make sure the page title is what you expect
-	title = page.find("h1").contents[0].strip()
-	assert "setup.cfg Demo" == title
-
-	# Now test the directive
-	_do_test_directive(page, ["faker", "pytest", "tox"], "extra_c", file_regression)
-
-
-@pytest.mark.parametrize("page", ["flit_demo.html"], indirect=True)
-def test_flit_demo(page: BeautifulSoup, file_regression: FileRegressionFixture):
-	# Make sure the page title is what you expect
-	title = page.find("h1").contents[0].strip()
-	assert "flit Demo" == title
-
-	# Now test the directive
-	_do_test_directive(page, [
-			"pytest>=2.7.3",
-			"pytest-cov",
-			], "test", file_regression)
-
-
-@pytest.mark.parametrize("page", ["scopes_demo.html"], indirect=True)
-def test_scopes_demo(page: BeautifulSoup, file_regression: FileRegressionFixture):
-	# Make sure the page title is what you expect
-	title = page.find("h1").contents[0].strip()
-	assert "Scopes Demo" == title
-
-	# Now test the directive
-
-	div_count = 0
-
-	for div in page.findAll("div"):
-		if not div.get("id", '').startswith("extras_require"):
-			continue
-
-		assert div.findAll("p")[0].contents == ["Attention"]
-		assert div.findAll("p")[0]["class"] == ["admonition-title"]
-		assert div.div["class"] == ["highlight-text", "notranslate"]
-		assert div.div.div["class"] == ["highlight"]
-
-		if div_count == 0:
-			assert div.findAll("p")[1].contents == ["This module has the following additional requirement:"]
-			assert div.div.pre.contents[1:] == ["pytest\n"]
-			extra = "test"
-		elif div_count == 1:
-			assert div.findAll("p")[1].contents == ["This package has the following additional requirement:"]
-			assert div.div.pre.contents[1:] == ["sphinx\n"]
-			extra = "doc"
-		elif div_count == 2:
-			assert div.findAll("p")[1].contents == ["This library has the following additional requirement:"]
-			assert div.div.pre.contents[1:] == ["bandit\n"]
-			extra = "security"
-		else:
-			raise ValueError("Too many 'extras_require' divs!")
-
-		assert div.findAll("p")[2].contents == ["These can be installed as follows:"]
-
-		assert div.blockquote.div.div["class"] == ["highlight-bash", "notranslate"]
-		assert div.blockquote.div.div.div["class"] == ["highlight"]
-
-		expected_instructions = [
-				Tag(name="span"),
-				"$ python -m pip install Python",
-				Tag(name="span", attrs={"class": ["o"]}),
-				extra,
-				Tag(name="span", attrs={"class": ["o"]}),
-				'\n'
-				]
-		expected_instructions[2].string = "["
-		expected_instructions[4].string = "]"
-
-		assert div.blockquote.div.div.div.pre.contents == expected_instructions
-
-		div_count += 1
-
-	assert div_count == 3
+@pytest.mark.parametrize("page", [
+		"flit_demo.html",
+		"scopes_demo.html",
+		"setup_cfg_demo.html",
+		"requirements_file_demo.html",
+		"pkginfo_demo.html",
+		"manual_demo.html",
+		], indirect=True)
+def test_output(page: BeautifulSoup, file_regression: FileRegressionFixture):
 
 	check_html_regression(page, file_regression)
 

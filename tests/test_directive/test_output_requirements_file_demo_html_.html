@@ -4,10 +4,8 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>
-   flit Demo — Python  documentation
+   requirements.txt Demo — Python  documentation
   </title>
-  <link href="_static/alabaster.css" rel="stylesheet" type="text/css"/>
-  <link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
   <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js">
   </script>
   <script src="_static/jquery.js">
@@ -18,11 +16,6 @@
   </script>
   <script src="_static/language_data.js">
   </script>
-  <link href="genindex.html" rel="index" title="Index"/>
-  <link href="search.html" rel="search" title="Search"/>
-  <link href="scopes_demo.html" rel="next" title="Scopes Demo"/>
-  <link href="setup_cfg_demo.html" rel="prev" title="setup.cfg Demo"/>
-  <link href="_static/custom.css" rel="stylesheet" type="text/css"/>
   <meta content="width=device-width, initial-scale=0.9, maximum-scale=0.9" name="viewport"/>
  </head>
  <body>
@@ -30,10 +23,10 @@
    <div class="documentwrapper">
     <div class="bodywrapper">
      <div class="body" role="main">
-      <div class="section" id="flit-demo">
+      <div class="section" id="requirements-txt-demo">
        <h1>
-        flit Demo
-        <a class="headerlink" href="#flit-demo" title="Permalink to this headline">
+        requirements.txt Demo
+        <a class="headerlink" href="#requirements-txt-demo" title="Permalink to this headline">
          ¶
         </a>
        </h1>
@@ -44,21 +37,30 @@
         <p>
          This module has the following additional requirements:
         </p>
-        <div class="highlight-text notranslate">
-         <div class="highlight">
-          <pre><span></span>pytest&gt;=2.7.3
-pytest-cov
+        <blockquote>
+         <div>
+          <div class="highlight-text notranslate">
+           <div class="highlight">
+            <pre><span></span>numpy&gt;=1.18.4
+pandas!=1.0.0,&gt;=0.25.0
+scipy==1.4.1
 </pre>
+           </div>
+          </div>
          </div>
-        </div>
+        </blockquote>
         <p>
          These can be installed as follows:
         </p>
         <blockquote>
          <div>
-          <div class="highlight-bash notranslate">
+          <div class="highlight-default notranslate">
            <div class="highlight">
-            <pre><span></span>$ python -m pip install Python<span class="o">[</span>test<span class="o">]</span>
+            <pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">python -m pip install Python<span class="o">[</span>extra_a<span class="o">]</span></span>
 </pre>
            </div>
           </div>
@@ -90,8 +92,8 @@ pytest-cov
         __pkginfo__ Demo
        </a>
       </li>
-      <li class="toctree-l1">
-       <a class="reference internal" href="requirements_file_demo.html">
+      <li class="toctree-l1 current">
+       <a class="current reference internal" href="#">
         requirements.txt Demo
        </a>
       </li>
@@ -100,8 +102,8 @@ pytest-cov
         setup.cfg Demo
        </a>
       </li>
-      <li class="toctree-l1 current">
-       <a class="current reference internal" href="#">
+      <li class="toctree-l1">
+       <a class="reference internal" href="flit_demo.html">
         flit Demo
        </a>
       </li>
@@ -128,14 +130,14 @@ pytest-cov
         <ul>
          <li>
           Previous:
-          <a href="setup_cfg_demo.html" title="previous chapter">
-           setup.cfg Demo
+          <a href="pkginfo_demo.html" title="previous chapter">
+           __pkginfo__ Demo
           </a>
          </li>
          <li>
           Next:
-          <a href="scopes_demo.html" title="next chapter">
-           Scopes Demo
+          <a href="setup_cfg_demo.html" title="next chapter">
+           setup.cfg Demo
           </a>
          </li>
         </ul>

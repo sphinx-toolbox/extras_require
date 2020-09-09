@@ -4,10 +4,8 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>
-   Manual Demo — Python  documentation
+   Scopes Demo — Python  documentation
   </title>
-  <link href="_static/alabaster.css" rel="stylesheet" type="text/css"/>
-  <link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
   <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js">
   </script>
   <script src="_static/jquery.js">
@@ -18,11 +16,6 @@
   </script>
   <script src="_static/language_data.js">
   </script>
-  <link href="genindex.html" rel="index" title="Index"/>
-  <link href="search.html" rel="search" title="Search"/>
-  <link href="pkginfo_demo.html" rel="next" title="__pkginfo__ Demo"/>
-  <link href="index.html" rel="prev" title="extras_require Demo"/>
-  <link href="_static/custom.css" rel="stylesheet" type="text/css"/>
   <meta content="width=device-width, initial-scale=0.9, maximum-scale=0.9" name="viewport"/>
  </head>
  <body>
@@ -30,10 +23,10 @@
    <div class="documentwrapper">
     <div class="bodywrapper">
      <div class="body" role="main">
-      <div class="section" id="manual-demo">
+      <div class="section" id="scopes-demo">
        <h1>
-        Manual Demo
-        <a class="headerlink" href="#manual-demo" title="Permalink to this headline">
+        Scopes Demo
+        <a class="headerlink" href="#scopes-demo" title="Permalink to this headline">
          ¶
         </a>
        </h1>
@@ -42,23 +35,92 @@
          Attention
         </p>
         <p>
-         This module has the following additional requirements:
+         This module has the following additional requirement:
         </p>
-        <div class="highlight-text notranslate">
-         <div class="highlight">
-          <pre><span></span>pytz&gt;=2019.1
-typing_extensions; python_version &lt;= "3.7"
+        <blockquote>
+         <div>
+          <div class="highlight-text notranslate">
+           <div class="highlight">
+            <pre><span></span>pytest
 </pre>
+           </div>
+          </div>
          </div>
-        </div>
+        </blockquote>
         <p>
          These can be installed as follows:
         </p>
         <blockquote>
          <div>
-          <div class="highlight-bash notranslate">
+          <div class="highlight-default notranslate">
            <div class="highlight">
-            <pre><span></span>$ python -m pip install Python<span class="o">[</span>extra_d<span class="o">]</span>
+            <pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">python -m pip install Python<span class="o">[</span>test<span class="o">]</span></span>
+</pre>
+           </div>
+          </div>
+         </div>
+        </blockquote>
+       </div>
+       <div class="admonition attention" id="extras_require-1">
+        <p class="admonition-title">
+         Attention
+        </p>
+        <p>
+         This package has the following additional requirement:
+        </p>
+        <blockquote>
+         <div>
+          <div class="highlight-text notranslate">
+           <div class="highlight">
+            <pre><span></span>sphinx
+</pre>
+           </div>
+          </div>
+         </div>
+        </blockquote>
+        <p>
+         These can be installed as follows:
+        </p>
+        <blockquote>
+         <div>
+          <div class="highlight-default notranslate">
+           <div class="highlight">
+            <pre><span class="prompt1">python -m pip install Python<span class="o">[</span>doc<span class="o">]</span></span>
+</pre>
+           </div>
+          </div>
+         </div>
+        </blockquote>
+       </div>
+       <div class="admonition attention" id="extras_require-2">
+        <p class="admonition-title">
+         Attention
+        </p>
+        <p>
+         This library has the following additional requirement:
+        </p>
+        <blockquote>
+         <div>
+          <div class="highlight-text notranslate">
+           <div class="highlight">
+            <pre><span></span>bandit
+</pre>
+           </div>
+          </div>
+         </div>
+        </blockquote>
+        <p>
+         These can be installed as follows:
+        </p>
+        <blockquote>
+         <div>
+          <div class="highlight-default notranslate">
+           <div class="highlight">
+            <pre><span class="prompt1">python -m pip install Python<span class="o">[</span>security<span class="o">]</span></span>
 </pre>
            </div>
           </div>
@@ -80,8 +142,8 @@ typing_extensions; python_version &lt;= "3.7"
       Navigation
      </h3>
      <ul class="current">
-      <li class="toctree-l1 current">
-       <a class="current reference internal" href="#">
+      <li class="toctree-l1">
+       <a class="reference internal" href="manual_demo.html">
         Manual Demo
        </a>
       </li>
@@ -105,8 +167,8 @@ typing_extensions; python_version &lt;= "3.7"
         flit Demo
        </a>
       </li>
-      <li class="toctree-l1">
-       <a class="reference internal" href="scopes_demo.html">
+      <li class="toctree-l1 current">
+       <a class="current reference internal" href="#">
         Scopes Demo
        </a>
       </li>
@@ -128,14 +190,14 @@ typing_extensions; python_version &lt;= "3.7"
         <ul>
          <li>
           Previous:
-          <a href="index.html" title="previous chapter">
-           extras_require Demo
+          <a href="flit_demo.html" title="previous chapter">
+           flit Demo
           </a>
          </li>
          <li>
           Next:
-          <a href="pkginfo_demo.html" title="next chapter">
-           __pkginfo__ Demo
+          <a href="no_requirements_demo.html" title="next chapter">
+           No Requirements Demo
           </a>
          </li>
         </ul>
