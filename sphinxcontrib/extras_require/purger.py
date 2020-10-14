@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 #
-#  __init__.py
-"""
-A Sphinx directive to specify that a module has extra requirements, and show how to install them.
-"""
+#  purger.py
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
@@ -29,43 +26,7 @@ A Sphinx directive to specify that a module has extra requirements, and show how
 #  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-# stdlib
-from typing import Any, Dict
-
 # 3rd party
-from sphinx.application import Sphinx
+from sphinx_toolbox.utils import Purger
 
-# this package
-from sphinxcontrib.extras_require.directive import ExtrasRequireDirective
-from sphinxcontrib.extras_require.purger import extras_require_purger
-from sphinxcontrib.extras_require.sources import sources
-
-__author__: str = "Dominic Davis-Foster"
-__copyright__: str = "2020 Dominic Davis-Foster"
-__license__: str = "BSD"
-__version__: str = "0.2.0"
-__email__: str = "dominic@davis-foster.co.uk"
-
-__all__ = ["extras_require_purger", "setup"]
-
-
-def setup(app: Sphinx) -> Dict[str, Any]:
-	"""
-	Setup :mod:`sphinxcontrib.extras_require`.
-
-	:param app: The Sphinx app.
-	"""
-
-	app.setup_extension("sphinx-prompt")
-
-	# Location of package source directory relative to documentation source directory
-	app.add_config_value("package_root", None, "html", [str])
-
-	app.add_directive("extras-require", ExtrasRequireDirective)
-	app.connect("env-purge-doc", extras_require_purger.purge_nodes)
-
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			"parallel_write_safe": True,
-			}
+extras_require_purger = Purger("all_extras_requires")

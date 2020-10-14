@@ -4,7 +4,7 @@ from sphinx_toolbox.testing import Sphinx, run_setup
 
 # this package
 import sphinxcontrib.extras_require
-from sphinxcontrib.extras_require import __version__, purge_extras_requires
+from sphinxcontrib.extras_require import __version__, extras_require_purger
 from sphinxcontrib.extras_require.directive import ExtrasRequireDirective
 
 
@@ -26,5 +26,5 @@ def test_setup():
 	assert directives == {"extras-require": ExtrasRequireDirective}
 
 	assert app.events.listeners == {
-			"env-purge-doc": [EventListener(id=0, handler=purge_extras_requires, priority=500)],
+			"env-purge-doc": [EventListener(id=0, handler=extras_require_purger.purge_nodes, priority=500)],
 			}

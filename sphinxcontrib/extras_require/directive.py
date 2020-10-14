@@ -30,7 +30,6 @@ The "extras_require" directive.
 #
 
 # stdlib
-import textwrap
 import warnings
 from typing import Any, Dict, Iterable, List, Union
 
@@ -43,6 +42,7 @@ from packaging.requirements import InvalidRequirement, Requirement
 from sphinx.util.docutils import SphinxDirective
 
 # this package
+from sphinxcontrib.extras_require.purger import extras_require_purger
 from sphinxcontrib.extras_require.sources import sources
 
 __all__ = ["ExtrasRequireDirective", "validate_requirements", "make_node_content", "get_requirements"]
@@ -89,15 +89,7 @@ class ExtrasRequireDirective(SphinxDirective):
 		extras_require_node = nodes.attention(rawsource=content)
 		self.state.nested_parse(view, self.content_offset, extras_require_node)  # type: ignore
 
-		if not hasattr(self.env, "all_extras_requires"):
-			self.env.all_extras_requires = []  # type: ignore
-
-		self.env.all_extras_requires.append({  # type: ignore
-			"docname": self.env.docname,
-			"lineno": self.lineno,
-			"extras_require": extras_require_node.deepcopy(),
-			"target": targetnode,
-			})
+		extras_require_purger.add_node(self.env, extras_require_node, targetnode, self.lineno)
 
 		return [targetnode, extras_require_node]
 
