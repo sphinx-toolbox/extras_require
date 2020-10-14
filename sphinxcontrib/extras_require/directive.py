@@ -165,7 +165,11 @@ def make_node_content(
 
 	content.blankline(ensure_single=True)
 
-	content.append("These can be installed as follows:")
+	if len(requirements) > 1:
+		content.append("These can be installed as follows:")
+	else:
+		content.append("This can be installed as follows:")
+
 	content.blankline(ensure_single=True)
 
 	with content.with_indent_size(content.indent_size + 1):

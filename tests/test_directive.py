@@ -124,7 +124,7 @@ This {scope} has the following additional requirement:
 
         foo
 
-These can be installed as follows:
+This can be installed as follows:
 
     .. prompt:: bash
 
