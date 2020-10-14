@@ -3,7 +3,7 @@ import_name: sphinxcontrib.extras_require
 copyright_years: "2020"
 author: "Dominic Davis-Foster"
 email: "dominic@davis-foster.co.uk"
-version: "0.2.1"
+version: "0.2.2"
 username: "domdfcoding"
 license: 'BSD'
 short_desc: 'Display a warning at the top of module documentation that it has additional requirements.'
