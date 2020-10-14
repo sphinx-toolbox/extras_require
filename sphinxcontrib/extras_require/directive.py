@@ -136,14 +136,10 @@ def make_node_content(
 
 	:param requirements: List of additional :pep:`508` requirements.
 	:param package_name: The name of the module/package on PyPI.
-	:type package_name: str
 	:param extra: The name of the "extra".
-	:type extra: str
 	:param scope: The scope of the additional requirements, e.g. ``"module"``, ``"package"``.
-	:type scope: str
 
 	:return: The content of an extras_require node.
-	:rtype:
 	"""
 
 	if len(requirements) > 1:
@@ -190,13 +186,9 @@ def get_requirements(env, extra: str, options: Dict[str, Any], content: Union[It
 	Get the requirements for the extras_require node.
 
 	:param env:
-	:type env:
 	:param extra:
-	:type extra: str
 	:param options:
 	:param content:
-
-	:return:
 	"""
 
 	n_sources = 0

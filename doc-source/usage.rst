@@ -1,12 +1,3 @@
-============
-Usage
-============
-
-.. extensions:: extras_require
-	:import-name: sphinxcontrib.extras_require
-
-	sphinx-prompt
-
 
 .. rst:directive:: extras-require
 

@@ -186,19 +186,6 @@ Requirements can also be specified in ``__pkginfo__.py`` (using the option ``:__
 
 The ``:scope:`` option can be used to specify a different scope for additional requirements, such as ``package``, ``module``, ``class`` or ``function``. Any string value can be supplied here.
 
-Installation
---------------
-
-.. start installation
-
-.. installation:: extras_require
-	:pypi:
-	:github:
-	:anaconda:
-	:conda-channels: domdfcoding, conda-forge
-
-.. end installation
-
 
 Future Enhancements
 ---------------------
@@ -214,10 +201,20 @@ Future Enhancements
 
 .. toctree::
 	:maxdepth: 3
-	:caption: Documentation
+	:caption: Usage
 
+	installation
 	usage
-	api/index
+
+
+.. toctree::
+	:maxdepth: 3
+	:caption: API Reference
+	:glob:
+
+	api/extras_require
+	api/directive
+	api/sources
 
 
 .. toctree::

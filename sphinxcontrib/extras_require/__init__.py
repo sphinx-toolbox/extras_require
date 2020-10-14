@@ -71,11 +71,9 @@ def purge_extras_requires(app: Sphinx, env: BuildEnvironment, docname: str) -> N
 
 def setup(app: Sphinx) -> Dict[str, Any]:
 	"""
-	Setup Sphinx Extension.
+	Setup :mod:`sphinxcontrib.extras_require`.
 
-	:param app:
-
-	:return:
+	:param app: The Sphinx app.
 	"""
 
 	app.setup_extension("sphinx-prompt")
