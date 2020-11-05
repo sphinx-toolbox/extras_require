@@ -42,7 +42,7 @@ def test_from_setup_cfg(setup, extra, expects):
 		assert requirements_from_setup_cfg(
 				package_root=PathPlus(),
 				options={},
-				env=MockBuildEnvironment(tmpdir_p),  # type: ignore
+				env=MockBuildEnvironment(tmpdir_p),
 				extra=extra,
 				) == expects
 
@@ -74,7 +74,7 @@ def test_from_setup_cfg_errors(setup, extra, expects):
 			requirements_from_setup_cfg(
 					package_root=PathPlus(),
 					options={},
-					env=MockBuildEnvironment(tmpdir_p),  # type: ignore
+					env=MockBuildEnvironment(tmpdir_p),
 					extra=extra,
 					)
 
@@ -93,6 +93,6 @@ author = Joe Bloggs
 			requirements_from_setup_cfg(
 					package_root=PathPlus(),
 					options={},
-					env=MockBuildEnvironment(tmpdir_p),  # type: ignore
+					env=MockBuildEnvironment(tmpdir_p),
 					extra="docs",
 					)

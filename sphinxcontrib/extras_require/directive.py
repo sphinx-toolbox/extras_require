@@ -55,7 +55,7 @@ class ExtrasRequireDirective(SphinxDirective):
 
 	has_content: bool = True
 	required_arguments: int = 1
-	option_spec = {source[0]: source[2] for source in sources}  # type: ignore
+	option_spec = {source[0]: source[2] for source in sources}
 	option_spec["scope"] = str
 
 	def run(self) -> List[nodes.Node]:

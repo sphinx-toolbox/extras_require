@@ -34,7 +34,7 @@ def test_from_file(requirements, extra, expects):
 		assert requirements_from_file(
 				package_root=tmpdir_p,
 				options={"file": "a_subdirectory/another_subdir/requirements_list.txt"},
-				env=None,  # type: ignore
+				env=None,
 				extra=extra,
 				) == expects
 
@@ -52,7 +52,7 @@ def test_from_file_errors():
 			requirements_from_file(
 					package_root=tmpdir_p,
 					options={"file": "a_subdirectory/another_subdir/Example.png"},
-					env=None,  # type: ignore
+					env=None,
 					extra="extra",
 					)
 
@@ -60,6 +60,6 @@ def test_from_file_errors():
 			requirements_from_file(
 					package_root=tmpdir_p,
 					options={"file": "a_subdirectory/nonexistant_file.txt"},
-					env=None,  # type: ignore
+					env=None,
 					extra="extra",
 					)

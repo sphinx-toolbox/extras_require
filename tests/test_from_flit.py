@@ -59,7 +59,7 @@ module = "FooBar"
 		assert requirements_from_flit(
 				package_root=pathlib.Path('.'),
 				options={},
-				env=MockBuildEnvironment(tmpdir_p),  # type: ignore
+				env=MockBuildEnvironment(tmpdir_p),
 				extra=extra,
 				) == expects
 
@@ -108,7 +108,7 @@ module = "FooBar"
 			requirements_from_flit(
 					package_root=pathlib.Path('.'),
 					options={},
-					env=MockBuildEnvironment(tmpdir_p),  # type: ignore
+					env=MockBuildEnvironment(tmpdir_p),
 					extra=extra,
 					)
 
@@ -116,6 +116,6 @@ module = "FooBar"
 			requirements_from_flit(
 					package_root=pathlib.Path('.'),
 					options={},
-					env=MockBuildEnvironment(pathlib.Path("/home/user/demo")),  # type: ignore
+					env=MockBuildEnvironment(pathlib.Path("/home/user/demo")),
 					extra=extra,
 					)

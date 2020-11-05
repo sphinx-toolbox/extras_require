@@ -35,7 +35,7 @@ def test_from___pkginfo__(requirements, extra, expects):
 		assert requirements_from___pkginfo__(
 				package_root=tmpdir_p,
 				options={},
-				env=MockBuildEnvironment(tmpdir_p),  # type: ignore
+				env=MockBuildEnvironment(tmpdir_p),
 				extra=extra,
 				) == expects
 
@@ -48,7 +48,7 @@ def test_from___pkginfo___not_found():
 			requirements_from___pkginfo__(
 					package_root=tmpdir_p,
 					options={},
-					env=MockBuildEnvironment(tmpdir_p),  # type: ignore
+					env=MockBuildEnvironment(tmpdir_p),
 					extra="extra",
 					)
 
@@ -64,6 +64,6 @@ def test_from___pkginfo___wrong_mime():
 			requirements_from___pkginfo__(
 					package_root=tmpdir_p,
 					options={},
-					env=MockBuildEnvironment(tmpdir_p),  # type: ignore
+					env=MockBuildEnvironment(tmpdir_p),
 					extra="extra",
 					)
