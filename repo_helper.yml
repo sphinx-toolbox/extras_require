@@ -1,3 +1,4 @@
+---
 modname: extras_require
 import_name: sphinxcontrib.extras_require
 copyright_years: "2020"
@@ -9,30 +10,30 @@ license: 'BSD'
 short_desc: 'Display a warning at the top of module documentation that it has additional requirements.'
 
 exclude_files:
-  - bumpversion
-  - rtfd
+ - bumpversion
+ - rtfd
 
 conda_channels:
-  - domdfcoding
-  - conda-forge
+ - domdfcoding
+ - conda-forge
 
 python_deploy_version: 3.6
 
 # Additional lines for .gitignore
 additional_ignore:
 #  Editors
-  - "*~"
-  - ".*.swp"
-  - ".*sw?"
+ - "*~"
+ - ".*.swp"
+ - ".*sw?"
 
 
 # Versions to run tests for
 python_versions:
-  - '3.6'
-  - '3.7'
-  - '3.8'
-  - '3.9'
-  - '3.10-dev'
+ - '3.6'
+ - '3.7'
+ - '3.8'
+ - '3.9'
+ - '3.10-dev'
 
 # travis secure password for PyPI
 travis_pypi_secure: "X5DWz/pm6eilhrJBTDnp8Mm8S6zEBrnKb1LZq5BxtV03tZuwTTgYSqRbI0fB2LGC/jFsuI7KF4c35NJ/uGHR29taxIC7HWAYQI/ROjqDEjzFxZVbDXeDEtPYWGXDW+qwd+to4STOTkruHC9ZhUQnNqME2gWsPWFqKBKFEfg3N3MzIWifO/bUQWa49KY6u0XsiPGlWfhn4hxHA8MuUimc+ZPsK6pNseXrEYlcsTcTO8e6NyQJfPmyjSc+Kd6qVogwk1co/5fQWubb1yXtteJcKP4GTj7gKYYNnjD3Wh1WIrlxqAzHow6e3syBrkm1VS0jc/6TNU2rB/j0IJ8wJg/mjZWKVxJrtTkLmJTuDKh7WsAyFfhVNO+RIt3x8rOm80tATguIWQue5mOayfWJ9Asq4K6XoCGuegjHdGhFmkB6X8Ld17HBYt2+2sCklRgnlWSozxIrYvdBZy5awb3PIUBl+d4DFy7gEb+doLJrySgkqDwXJpHAD1YKNMz4nXg3wobJyLVGET1UnFfTRiMbHJh69UG+LPY1gztBdXn3jBlp7kNo0q8BgsnyFmQppe+nYcaae2TvtKRFkuk+r6xsk9kcArauuJInh0Me3VJ3MSskTS2fy1FTX/AmJioPD4aBsJNgCQdnOBBQZYRckKnO13VKWqhBaU4xNqjHlGaKu2oY/Wk="
@@ -40,23 +41,21 @@ travis_pypi_secure: "X5DWz/pm6eilhrJBTDnp8Mm8S6zEBrnKb1LZq5BxtV03tZuwTTgYSqRbI0f
 conda_description: "Display a warning at the top of module documentation that it has additional requirements."
 
 classifiers:
-  - 'Development Status :: 4 - Beta'
-#  - "Development Status :: 5 - Production/Stable"
-#  - "Development Status :: 6 - Mature"
-#  - "Development Status :: 7 - Inactive"
-  - 'Intended Audience :: Developers'
-  - 'Operating System :: OS Independent'
-  - 'Programming Language :: Python'
-  - "Framework :: Sphinx :: Extension"
-  - 'Topic :: Software Development :: Libraries :: Python Modules'
-  - "Topic :: Utilities"
-  - "Topic :: Documentation"
-
+ - 'Development Status :: 4 - Beta'
+ - "Framework :: Sphinx :: Extension"
+ - 'Intended Audience :: Developers'
+ - 'Operating System :: OS Independent'
+ - 'Programming Language :: Python'
+ - "Topic :: Documentation"
+ - 'Topic :: Documentation :: Sphinx'
+ - 'Topic :: Software Development :: Documentation'
+ - 'Topic :: Software Development :: Libraries :: Python Modules'
+ - "Topic :: Utilities"
 
 extra_sphinx_extensions:
-  - "sphinx.ext.autosummary"
+ - "sphinx.ext.autosummary"
 
 keywords:
-  - sphinx
-  - sphinx-extension
-  - requirements
+ - sphinx
+ - sphinx-extension
+ - requirements
