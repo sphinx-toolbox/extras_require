@@ -79,7 +79,7 @@ from sphinxcontrib.extras_require.directive import get_requirements, make_node_c
 				pytest.param(["certifi"], ["certifi"], id="certifi"),
 				pytest.param(["numpy"], ["numpy"], id="numpy"),
 				pytest.param(["pygame     >=1.2.3"], ["pygame>=1.2.3"], id=">= and excess space"),
-				pytest.param(["six<1.2.3"], ["six<1.2.3"], id="<"),
+				pytest.param(["six<1.2.3"], ["six<1.2.3"], id='<'),
 				pytest.param(["urllib3>1.2.4, !=1.2.6"], ["urllib3!=1.2.6,>1.2.4"], id="> and !="),
 				pytest.param(["setuptools   ==32.2"], ["setuptools==32.2"], id="== and excess space"),
 				pytest.param(["docutils", "pip", "wheel"], ["docutils", "pip", "wheel"], id="three requirements"),
@@ -135,8 +135,8 @@ This can be installed as follows:
 	@pytest.mark.parametrize(
 			"requirements, plural",
 			[
-					pytest.param(["pip", "wheel", "setuptools"], "s", id="3 requirements"),
-					pytest.param(["numpy", "scipy"], "s", id="2 requirements"),
+					pytest.param(["pip", "wheel", "setuptools"], 's', id="3 requirements"),
+					pytest.param(["numpy", "scipy"], 's', id="2 requirements"),
 					pytest.param(["sphinx"], '', id="1 requirement"),
 					]
 			)
@@ -158,15 +158,15 @@ def _do_test_directive(page, requirements: List[str], extra: str, file_regressio
 		if not div.get("id", '').startswith("extras_require"):
 			continue
 
-		assert div.findAll("p")[0].contents == ["Attention"]
-		assert div.findAll("p")[0]["class"] == ["admonition-title"]
-		assert div.findAll("p")[1].contents == ["This module has the following additional requirements:"]
+		assert div.findAll('p')[0].contents == ["Attention"]
+		assert div.findAll('p')[0]["class"] == ["admonition-title"]
+		assert div.findAll('p')[1].contents == ["This module has the following additional requirements:"]
 
 		assert div.div["class"] == ["highlight-text", "notranslate"]
 		assert div.div.div["class"] == ["highlight"]
-		assert div.div.div.pre.contents[1:] == ["\n".join(requirements) + "\n"]
+		assert div.div.div.pre.contents[1:] == ['\n'.join(requirements) + '\n']
 
-		assert div.findAll("p")[2].contents == ["These can be installed as follows:"]
+		assert div.findAll('p')[2].contents == ["These can be installed as follows:"]
 
 		assert div.blockquote.div.div["class"] == ["highlight-default", "notranslate"]
 		assert div.blockquote.div.div.div["class"] == ["highlight"]
@@ -174,13 +174,13 @@ def _do_test_directive(page, requirements: List[str], extra: str, file_regressio
 		expected_instructions = [
 				Tag(name="span"),
 				"$ python -m pip install Python",
-				Tag(name="span", attrs={"class": ["o"]}),
+				Tag(name="span", attrs={"class": ['o']}),
 				extra,
-				Tag(name="span", attrs={"class": ["o"]}),
+				Tag(name="span", attrs={"class": ['o']}),
 				'\n'
 				]
-		expected_instructions[2].string = "["
-		expected_instructions[4].string = "]"
+		expected_instructions[2].string = '['
+		expected_instructions[4].string = ']'
 
 		assert div.blockquote.div.div.div.pre.contents == expected_instructions
 

@@ -84,7 +84,7 @@ class ExtrasRequireDirective(SphinxDirective):
 		scope = self.options.get("scope", "module")
 
 		content = make_node_content(valid_requirements, self.env.config.project, extra, scope=scope)
-		view = ViewList(content.split("\n"))
+		view = ViewList(content.split('\n'))
 
 		extras_require_node = nodes.attention(rawsource=content)
 		self.state.nested_parse(view, self.content_offset, extras_require_node)  # type: ignore
@@ -140,7 +140,7 @@ def make_node_content(
 		plural = ''
 
 	content = StringList(convert_indents=True)
-	content.indent_type = " " * 4
+	content.indent_type = ' ' * 4
 	content.append(f"This {scope} has the following additional requirement{plural}:")
 	content.blankline(ensure_single=True)
 

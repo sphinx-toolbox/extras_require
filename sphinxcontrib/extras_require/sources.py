@@ -164,7 +164,7 @@ def requirements_from_file(
 	if not mime_type or not mime_type.startswith("text/"):
 		raise ValueError(f"'{requirements_file}' is not a text file.")
 
-	requirements = [x for x in requirements_file.read_text().split("\n") if x and not x.startswith("#")]
+	requirements = [x for x in requirements_file.read_text().split('\n') if x and not x.startswith('#')]
 
 	return requirements
 
