@@ -61,3 +61,5 @@ keywords:
  - requirements
 
 use_experimental_backend: true
+
+use_travis: false
