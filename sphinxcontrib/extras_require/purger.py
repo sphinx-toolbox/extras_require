@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 #
 #  purger.py
+"""
+Purger for docutils nodes.
+"""
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #

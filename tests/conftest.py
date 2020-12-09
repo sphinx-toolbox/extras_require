@@ -26,61 +26,54 @@ def rootdir():
 def the_app(app):
 	fake_repo_root = PathPlus(app.env.srcdir).parent
 
-	PathPlus(fake_repo_root / "__pkginfo__.py").write_text(
-			"""\
-extras_require = {
-		'extra_b': [
-				"flask >=1.1.2",
-				"click < 7.1.2",
-				"sphinx ==3.0.3",
-				]
-		}
-"""
-			)
+	PathPlus(fake_repo_root / "__pkginfo__.py").write_lines([
+			"extras_require = {",
+			"\t\t'extra_b': [",
+			'\t\t\t\t"flask >=1.1.2",',
+			'\t\t\t\t"click < 7.1.2",',
+			'\t\t\t\t"sphinx ==3.0.3",',
+			"\t\t\t\t]",
+			"\t\t}",
+			])
 
-	PathPlus(fake_repo_root / "pyproject.toml").write_text(
-			"""\
-[tool.flit.metadata]
-author = "Joe Bloggs"
-module = "FooBar"
+	PathPlus(fake_repo_root / "pyproject.toml").write_lines([
+			"[tool.flit.metadata]",
+			'author = "Joe Bloggs"',
+			'module = "FooBar"',
+			'',
+			'',
+			"[tool.flit.metadata.requires-extra]",
+			"test = [",
+			'\t"pytest >=2.7.3",',
+			'\t"pytest-cov",',
+			']',
+			'doc = ["sphinx"]',
+			])
 
-
-[tool.flit.metadata.requires-extra]
-test = [
-	"pytest >=2.7.3",
-	"pytest-cov",
-]
-doc = ["sphinx"]
-"""
-			)
-
-	(fake_repo_root / "setup.cfg").write_text("""\
-[options.extras_require]
-extra_c = faker; pytest; tox
-""")
+	(fake_repo_root / "setup.cfg").write_lines([
+			"[options.extras_require]",
+			"extra_c = faker; pytest; tox",
+			])
 
 	subpackage = fake_repo_root / "dummy_package" / "subpackage"
 	if not subpackage.is_dir():
 		subpackage.mkdir(parents=True)
 
-	(subpackage / "requirements.txt").write_text(
-			"""\
-# a comment
-numpy>=1.18.4
-scipy==1.4.1
-# Old scipy version
-# scipy==1.3.0
-pandas>=0.25.0, !=1.0.0
-"""
-			)
+	(subpackage / "requirements.txt").write_lines([
+			"# a comment",
+			"numpy>=1.18.4",
+			"scipy==1.4.1",
+			"# Old scipy version",
+			"# scipy==1.3.0",
+			"pandas>=0.25.0, !=1.0.0",
+			])
 
-	(fake_repo_root / "dummy_package" / "empty_requirements.txt"
-		).write_text("""\
-# a comment
-# numpy>=1.18.4
-# scipy==1.4.1
-# pandas>=0.25.0, !=1.0.0
-""")
+	(fake_repo_root / "dummy_package" / "empty_requirements.txt").write_lines([
+			"# a comment",
+			"# numpy>=1.18.4",
+			"# scipy==1.4.1",
+			"# pandas>=0.25.0, !=1.0.0",
+			])
 
 	return app
 
