@@ -90,7 +90,7 @@ extras_require
 .. |language| image:: https://img.shields.io/github/languages/top/domdfcoding/extras_require
 	:alt: GitHub top language
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/domdfcoding/extras_require/v0.2.2
+.. |commits-since| image:: https://img.shields.io/github/commits-since/domdfcoding/extras_require/v0.2.3
 	:target: https://github.com/domdfcoding/extras_require/pulse
 	:alt: GitHub commits since tagged version
 
