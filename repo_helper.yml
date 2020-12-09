@@ -26,7 +26,6 @@ additional_ignore:
  - ".*.swp"
  - ".*sw?"
 
-
 # Versions to run tests for
 python_versions:
  - '3.6'
@@ -34,10 +33,6 @@ python_versions:
  - '3.8'
  - '3.9'
  - '3.10-dev'
-
-# travis secure password for PyPI
-
-conda_description: "Display a warning at the top of module documentation that it has additional requirements."
 
 classifiers:
  - 'Development Status :: 4 - Beta'
@@ -58,5 +53,9 @@ keywords:
  - sphinx
  - sphinx-extension
  - requirements
+ - documentation
 
 use_experimental_backend: true
+
+tox_unmanaged:
+ - flake8
