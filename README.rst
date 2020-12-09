@@ -28,7 +28,7 @@ extras_require
 	  - |license| |language| |requires| |pre_commit|
 
 .. |docs| image:: https://img.shields.io/readthedocs/extras_require/latest?logo=read-the-docs
-	:target: https://extras_require.readthedocs.io/en/latest/?badge=latest
+	:target: https://extras_require.readthedocs.io/en/latest
 	:alt: Documentation Build Status
 
 .. |docs_check| image:: https://github.com/domdfcoding/extras_require/workflows/Docs%20Check/badge.svg
