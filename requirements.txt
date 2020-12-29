@@ -3,6 +3,6 @@ domdf-python-tools>=0.7.1
 packaging>=20.4
 pytoml>=0.1.21
 setuptools>=49.2.0
-sphinx>=3.0.0
+sphinx>=3.1.0
 sphinx-prompt>=1.1.0
 sphinx-toolbox>=1.1.0

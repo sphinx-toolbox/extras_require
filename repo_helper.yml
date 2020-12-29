@@ -14,7 +14,6 @@ exclude_files:
  - rtfd
 
 conda_channels:
- - domdfcoding
  - conda-forge
 
 python_deploy_version: 3.6
@@ -43,7 +42,6 @@ classifiers:
  - "Topic :: Documentation"
  - 'Topic :: Documentation :: Sphinx'
  - 'Topic :: Software Development :: Documentation'
- - 'Topic :: Software Development :: Libraries :: Python Modules'
  - "Topic :: Utilities"
 
 extra_sphinx_extensions:
@@ -59,3 +57,10 @@ use_experimental_backend: true
 
 tox_unmanaged:
  - flake8
+
+third_party_version_matrix:
+  sphinx:
+    - 3.1
+    - 3.2
+    - 3.3
+    - 3.4
