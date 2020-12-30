@@ -10,7 +10,6 @@ license: 'BSD'
 short_desc: 'Display a warning at the top of module documentation that it has additional requirements.'
 
 exclude_files:
- - bumpversion
  - rtfd
 
 conda_channels:
