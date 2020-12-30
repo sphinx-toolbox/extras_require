@@ -53,8 +53,6 @@ keywords:
  - requirements
  - documentation
 
-use_experimental_backend: true
-
 tox_unmanaged:
  - flake8
 
