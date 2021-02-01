@@ -35,7 +35,7 @@ import difflib
 import logging
 
 # 3rd party
-import pytoml as toml  # type: ignore
+import toml
 
 __all__ = ["ConfigError", "read_flit_config", "prep_toml_config", "LoadedConfig"]
 
@@ -74,6 +74,7 @@ def read_flit_config(path):
 	"""
 	with path.open('r', encoding="utf-8") as f:
 		d = toml.load(f)
+
 	return prep_toml_config(d, path)
 
 
