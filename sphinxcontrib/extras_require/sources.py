@@ -1,8 +1,16 @@
 #!/usr/bin/env python3
 #
-#  __init__.py
+#  sources.py
 """
 Supported sources for the requirements are implemented here.
+
+
+**Data:**
+
+.. autosummary::
+
+	~sphinxcontrib.extras_require.sources.sources
+
 """
 #
 #  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>

@@ -2,10 +2,10 @@
 #
 #  __init__.py
 """
-The "extras_require" directive.
+The :rst:dir:`extras-require` directive.
 """
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Redistribution and use in source and binary forms, with or without modification,
 #  are permitted provided that the following conditions are met:
@@ -38,7 +38,8 @@ from docutils import nodes
 from docutils.statemachine import ViewList
 from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import StringList
-from packaging.requirements import InvalidRequirement, Requirement
+from packaging.requirements import InvalidRequirement
+from shippinglabel.requirements import ComparableRequirement
 from sphinx.util.docutils import SphinxDirective
 
 # this package
@@ -54,7 +55,10 @@ class ExtrasRequireDirective(SphinxDirective):
 	"""
 
 	has_content: bool = True
+
+	#: One argument is required, the name of the extra (e.g. "testing", "docs")
 	required_arguments: int = 1
+
 	option_spec = {source[0]: source[2] for source in sources}
 	option_spec["scope"] = str
 
@@ -108,11 +112,11 @@ def validate_requirements(requirements_list: List[str]) -> List[str]:
 	for req in requirements_list:
 		if req:
 			try:
-				valid_requirements.append(Requirement(req))
+				valid_requirements.append(ComparableRequirement(req))
 			except InvalidRequirement as e:
 				raise ValueError(f"Invalid requirement '{req}': {str(e)}") from None
 
-	valid_requirements.sort(key=lambda r: r.name)
+	valid_requirements.sort()
 
 	return [str(x) for x in valid_requirements]
 

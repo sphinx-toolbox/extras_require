@@ -4,4 +4,4 @@
 
 .. automodule:: sphinxcontrib.extras_require.directive
 	:undoc-members:
-	:exclude-members: option_spec
+	:exclude-members: option_spec,has_content
