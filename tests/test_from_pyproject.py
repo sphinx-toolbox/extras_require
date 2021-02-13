@@ -7,7 +7,7 @@ import pytest
 from domdf_python_tools.paths import PathPlus
 
 # this package
-from sphinxcontrib.extras_require.sources import requirements_from_flit
+from sphinxcontrib.extras_require.sources import requirements_from_pyproject
 
 
 class MockBuildEnvironment:
@@ -41,22 +41,15 @@ doc = ["sphinx"]
 						),
 				]
 		)
-def test_from_flit(toml, extra, expects):
+def test_from_pyproject(toml, extra, expects):
 	with tempfile.TemporaryDirectory() as tmpdir:
 		tmpdir_p = pathlib.Path(tmpdir)
 		pyproject_file = tmpdir_p / "pyproject.toml"
-		pyproject_file.write_text(
-				f"""\
-[tool.flit.metadata]
-author = "Joe Bloggs"
-module = "FooBar"
+		pyproject_file.write_text(f"""\
+[project.optional-dependencies]
+{toml}""")
 
-
-[tool.flit.metadata.requires-extra]
-{toml}"""
-				)
-
-		assert requirements_from_flit(
+		assert requirements_from_pyproject(
 				package_root=pathlib.Path('.'),
 				options={},
 				env=MockBuildEnvironment(tmpdir_p),
@@ -89,23 +82,16 @@ doc = ["sphinx"]
 						),
 				]
 		)
-def test_from_flit_errors(toml, extra, expects):
+def test_from_pyproject_errors(toml, extra, expects):
 	with tempfile.TemporaryDirectory() as tmpdir:
 		tmpdir_p = PathPlus(tmpdir)
 		pyproject_file = tmpdir_p / "pyproject.toml"
-		pyproject_file.write_text(
-				f"""\
-[tool.flit.metadata]
-author = "Joe Bloggs"
-module = "FooBar"
+		pyproject_file.write_text(f"""\
+[project.optional-dependencies]
+{toml}""")
 
-
-[tool.flit.metadata.requires-extra]
-{toml}"""
-				)
-
-		with pytest.raises(ValueError, match=f"'{extra}' not found in '\\[tool.flit.metadata.requires-extra\\]"):
-			requirements_from_flit(
+		with pytest.raises(ValueError, match=f"'{extra}' not found in '\\[project.optional-dependencies\\]"):
+			requirements_from_pyproject(
 					package_root=pathlib.Path('.'),
 					options={},
 					env=MockBuildEnvironment(tmpdir_p),
@@ -113,7 +99,7 @@ module = "FooBar"
 					)
 
 		with pytest.raises(FileNotFoundError, match=f"Cannot find pyproject.toml in"):
-			requirements_from_flit(
+			requirements_from_pyproject(
 					package_root=pathlib.Path('.'),
 					options={},
 					env=MockBuildEnvironment(pathlib.Path("/home/user/demo")),

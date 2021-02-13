@@ -5,7 +5,7 @@
 Supported sources for the requirements are implemented here.
 """
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Redistribution and use in source and binary forms, with or without modification,
 #  are permitted provided that the following conditions are met:
@@ -34,22 +34,23 @@ import importlib.util
 import inspect
 import mimetypes
 import pathlib
-from typing import Any, Callable, Dict, List, Tuple
+from typing import Callable, Dict, List, Tuple
 
 # 3rd party
 import sphinx.environment
 from docutils.parsers.rst import directives
 from domdf_python_tools.paths import PathPlus
 from setuptools.config import read_configuration  # type: ignore
-
-# this package
-from sphinxcontrib.extras_require.flit_config import read_flit_config
+from shippinglabel import normalize_keep_dot
+from shippinglabel.requirements import combine_requirements, parse_pyproject_extras, read_requirements
+from sphinx_toolbox.utils import flag
 
 __all__ = [
 		"requirements_from_file",
-		"requirements_from___pkginfo__",
+		"requirements_from_pkginfo",
 		"requirements_from_setup_cfg",
 		"requirements_from_flit",
+		"requirements_from_pyproject",
 		"flag",
 		"sources",
 		"Sources",
@@ -124,19 +125,6 @@ class Sources(List[Tuple[str, Callable, Callable]]):
 sources = Sources()
 
 
-def flag(argument: Any) -> bool:
-	"""
-	Check for a valid flag option (no argument) and return :py:obj:`True`.
-
-	:raises: :exc:`ValueError` if an argument is given.
-	"""
-
-	if argument and argument.strip():
-		raise ValueError(f'No argument is allowed; "{argument}" supplied')
-	else:
-		return True
-
-
 @sources.register("file", directives.unchanged)
 def requirements_from_file(
 		package_root: pathlib.Path,
@@ -164,13 +152,16 @@ def requirements_from_file(
 	if not mime_type or not mime_type.startswith("text/"):
 		raise ValueError(f"'{requirements_file}' is not a text file.")
 
-	requirements = [x for x in requirements_file.read_text().split('\n') if x and not x.startswith('#')]
+	requirements, comments = read_requirements(
+		requirements_file,
+		normalize_func=normalize_keep_dot,
+		)
 
-	return requirements
+	return list(map(str, sorted(combine_requirements(requirements))))
 
 
 @sources.register("__pkginfo__", flag)
-def requirements_from___pkginfo__(
+def requirements_from_pkginfo(
 		package_root: pathlib.Path,
 		options: Dict,
 		env: sphinx.environment.BuildEnvironment,
@@ -208,6 +199,9 @@ def requirements_from___pkginfo__(
 		pass
 
 	raise ImportError("Could not import __pkginfo__.py")
+
+
+requirements_from___pkginfo__ = requirements_from_pkginfo
 
 
 @sources.register("setup.cfg", flag)
@@ -266,9 +260,47 @@ def requirements_from_flit(
 	if not pyproject_file.is_file():
 		raise FileNotFoundError(f"Cannot find pyproject.toml in '{pyproject_file.parent}'")
 
-	flit_extras = read_flit_config(pyproject_file).reqs_by_extra
+	flit_extras = parse_pyproject_extras(pyproject_file, flavour="flit", normalize_func=normalize_keep_dot)
 
-	if extra in flit_extras:
-		return flit_extras[extra]
-	else:
+	if extra not in flit_extras:
 		raise ValueError(f"'{extra}' not found in '[tool.flit.metadata.requires-extra]'")
+
+	requirements = flit_extras[extra]
+
+	return list(map(str, sorted(combine_requirements(requirements))))
+
+
+@sources.register("pyproject", flag)
+def requirements_from_pyproject(
+		package_root: pathlib.Path,
+		options: Dict,
+		env: sphinx.environment.BuildEnvironment,
+		extra: str,
+		) -> List[str]:
+	"""
+	Load requirements from the ``[project.optional-dependencies]`` section of
+	a pyproject.toml file in the root of the repository.
+
+	.. seealso:: :pep:`621`
+
+	:param package_root: The path to the package root
+	:param options:
+	:param env:
+	:param extra: The name of the "extra" that the requirements are for
+
+	:return: List of requirements
+	"""  # noqa D400
+
+	pyproject_file = PathPlus(env.srcdir).parent / "pyproject.toml"
+
+	if not pyproject_file.is_file():
+		raise FileNotFoundError(f"Cannot find pyproject.toml in '{pyproject_file.parent}'")
+
+	flit_extras = parse_pyproject_extras(pyproject_file, flavour="pep621", normalize_func=normalize_keep_dot)
+
+	if extra not in flit_extras:
+		raise ValueError(f"'{extra}' not found in '[project.optional-dependencies]'")
+
+	requirements = flit_extras[extra]
+
+	return list(map(str, sorted(combine_requirements(requirements))))

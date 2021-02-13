@@ -15,11 +15,19 @@ from sphinxcontrib.extras_require.sources import requirements_from_file
 		"requirements, extra, expects",
 		[
 				("faker\npytest\ntox", "extra_c", ["faker", "pytest", "tox"]),
+				(
+						"""\
+faker
+pytest
+tox; python_version <= "3.6"
+""",
+						"extra_c", ["faker", "pytest", 'tox; python_version <= "3.6"']
+						),
 				("""\
 faker
 pytest
 tox; python<=3.6
-""", "extra_c", ["faker", "pytest", "tox; python<=3.6"]),
+""", "extra_c", ["faker", "pytest"]),
 				]
 		)
 def test_from_file(requirements, extra, expects):

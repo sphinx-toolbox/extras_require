@@ -33,5 +33,5 @@ def test_flag(value):
 		"\tFalse",
 		])
 def test_flag_errors(value):
-	with pytest.raises(ValueError, match='No argument is allowed; ".*" supplied'):
+	with pytest.raises(ValueError, match="No argument is allowed; '.*' supplied"):
 		flag(value)
