@@ -4,7 +4,7 @@ import_name: sphinxcontrib.extras_require
 copyright_years: "2020"
 author: "Dominic Davis-Foster"
 email: "dominic@davis-foster.co.uk"
-version: "0.2.4"
+version: "0.3.0"
 username: "sphinx-toolbox"
 assignee: "domdfcoding"
 primary_conda_channel: "domdfcoding"
