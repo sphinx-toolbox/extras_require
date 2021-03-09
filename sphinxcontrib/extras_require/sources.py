@@ -4,6 +4,7 @@
 """
 Supported sources for the requirements are implemented here.
 
+.. TODO:: From .dist-info
 
 **Data:**
 
@@ -222,12 +223,12 @@ def requirements_from_setup_cfg(
 	"""
 	Load requirements from a ``setup.cfg`` file in the root of the repository.
 
-	:param package_root: The path to the package root
+	:param package_root: The path to the package root.
 	:param options:
 	:param env:
-	:param extra: The name of the "extra" that the requirements are for
+	:param extra: The name of the "extra" that the requirements are for.
 
-	:return: List of requirements
+	:return: List of requirements.
 	"""
 
 	setup_cfg_file = PathPlus(env.srcdir).parent / "setup.cfg"
@@ -255,12 +256,12 @@ def requirements_from_flit(
 	Load requirements from the ``[tool.flit.metadata.requires-extra]`` section of
 	a pyproject.toml file in the root of the repository.
 
-	:param package_root: The path to the package root
+	:param package_root: The path to the package root.
 	:param options:
 	:param env:
-	:param extra: The name of the "extra" that the requirements are for
+	:param extra: The name of the "extra" that the requirements are for.
 
-	:return: List of requirements
+	:return: List of requirements.
 	"""  # noqa D400
 
 	pyproject_file = PathPlus(env.srcdir).parent / "pyproject.toml"
@@ -289,14 +290,16 @@ def requirements_from_pyproject(
 	Load requirements from the ``[project.optional-dependencies]`` section of
 	a pyproject.toml file in the root of the repository.
 
-	.. seealso:: :pep:`621`
+	.. seealso:: :pep:`621` -- Storing project metadata in pyproject.toml
 
-	:param package_root: The path to the package root
+	.. versionadded:: 0.3.0
+
+	:param package_root: The path to the package root.
 	:param options:
 	:param env:
-	:param extra: The name of the "extra" that the requirements are for
+	:param extra: The name of the "extra" that the requirements are for.
 
-	:return: List of requirements
+	:return: List of requirements.
 	"""  # noqa D400
 
 	pyproject_file = PathPlus(env.srcdir).parent / "pyproject.toml"
