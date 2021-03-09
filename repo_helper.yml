@@ -11,13 +11,15 @@ primary_conda_channel: "domdfcoding"
 license: 'BSD'
 short_desc: 'Display a warning at the top of module documentation that it has additional requirements.'
 
+use_whey: true
+python_deploy_version: 3.6
+docs_fail_on_warning: true
+
 exclude_files:
  - rtfd
 
 conda_channels:
  - conda-forge
-
-python_deploy_version: 3.6
 
 python_versions:
  - '3.6'
@@ -58,5 +60,3 @@ third_party_version_matrix:
     - 3.1
     - 3.2
     - 3.4
-
-docs_fail_on_warning: true
