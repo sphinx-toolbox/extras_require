@@ -1,3 +1,23 @@
 [build-system]
 requires = [ "setuptools>=40.6.0", "wheel>=0.34.2",]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "extras_require"
+version = "0.2.4"
+description = "Display a warning at the top of module documentation that it has additional requirements."
+readme = "README.rst"
+keywords = [ "sphinx", "sphinx-extension", "requirements", "documentation",]
+dynamic = [ "requires-python", "classifiers", "dependencies",]
+[[project.authors]]
+email = "dominic@davis-foster.co.uk"
+name = "Dominic Davis-Foster"
+
+[project.license]
+file = "LICENSE"
+
+[project.urls]
+Homepage = "https://github.com/sphinx-toolbox/extras_require"
+"Issue Tracker" = "https://github.com/sphinx-toolbox/extras_require/issues"
+"Source Code" = "https://github.com/sphinx-toolbox/extras_require"
+Documentation = "https://extras_require.readthedocs.io/en/latest"

@@ -52,6 +52,7 @@ known_third_party = [
     "pytz",
     "requests",
     "setuptools",
+    "shippinglabel",
     "sphinx",
     "sphinx_prompt",
     "sphinx_toolbox",
