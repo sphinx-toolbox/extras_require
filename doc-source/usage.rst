@@ -1,3 +1,5 @@
+Directive
+------------
 
 .. rst:directive:: extras-require
 
@@ -19,7 +21,8 @@
 
 		This looks in the parent directory of the sphinx documentation for a file named ``__pkginfo__.py``.
 		The requirements are imported as the variable ``extras_require``, which must be a dictionary mapping extras to a list of requirements.
-		e.g.
+
+		**Example:**
 
 		.. code-block:: python
 
@@ -42,7 +45,8 @@
 		This looks in the parent directory of the sphinx documentation for a file named ``setup.cfg``.
 		This file must be readable by Python's :mod:`configparser` module,
 		and contain the section ``[options.extras_require]``.
-		e.g.
+
+		**Example:**
 
 		.. code-block:: ini
 
@@ -50,6 +54,50 @@
 			extra_c = faker; pytest; tox
 
 		See https://setuptools.readthedocs.io/en/latest/setuptools.html#configuring-setup-using-setup-cfg-files for more information on ``setup.cfg``.
+
+
+	.. rst:directive:option:: flit
+		:type: flag
+
+		Flag to indicate the requirements should be obtained from the
+		``[tool.flit.metadata.requires-extra]`` section of ``pyproject.toml``.
+
+		**Example:**
+
+		.. code-block:: toml
+
+			[tool.flit.metadata.requires-extra]
+			test = [
+			    "pytest >=2.7.3",
+			    "pytest-cov",
+			]
+			doc = ["sphinx"]
+
+
+		See the `flit documentation <https://flit.readthedocs.io/en/latest/pyproject_toml.html?highlight=requires-extra#metadata-section>`_
+		for more details.
+
+
+	.. rst:directive:option:: pyproject
+		:type: flag
+
+		Flag to indicate the requirements should be obtained from the
+		``[project.optional-dependencies]`` section of ``pyproject.toml``.
+
+		**Example:**
+
+		.. code-block:: toml
+
+			[project.optional-dependencies]
+			test = [
+			  "pytest < 5.0.0",
+			  "pytest-cov[all]"
+			]
+
+
+		See the :pep:`621` section on
+		`dependencies/optional-dependencies <https://www.python.org/dev/peps/pep-0621/#dependencies-optional-dependencies>`_
+		for more details.
 
 
 	Only one of the above options can be used in each directive.

@@ -254,7 +254,7 @@ def requirements_from_flit(
 		) -> List[str]:
 	"""
 	Load requirements from the ``[tool.flit.metadata.requires-extra]`` section of
-	a pyproject.toml file in the root of the repository.
+	a ``pyproject.toml`` file in the root of the repository.
 
 	:param package_root: The path to the package root.
 	:param options:
@@ -288,7 +288,7 @@ def requirements_from_pyproject(
 		) -> List[str]:
 	"""
 	Load requirements from the ``[project.optional-dependencies]`` section of
-	a pyproject.toml file in the root of the repository.
+	a ``pyproject.toml`` file in the root of the repository.
 
 	.. seealso:: :pep:`621` -- Storing project metadata in pyproject.toml
 
