@@ -25,7 +25,7 @@ extras_require
 	* - Activity
 	  - |commits-latest| |commits-since| |maintained| |pypi-downloads|
 	* - QA
-	  - |codefactor| |actions_flake8| |actions_mypy| |pre_commit_ci|
+	  - |codefactor| |actions_flake8| |actions_mypy|
 	* - Other
 	  - |license| |language| |requires|
 
@@ -114,10 +114,6 @@ extras_require
 .. |pypi-downloads| image:: https://img.shields.io/pypi/dm/extras_require
 	:target: https://pypi.org/project/extras_require/
 	:alt: PyPI - Downloads
-
-.. |pre_commit_ci| image:: https://results.pre-commit.ci/badge/github/sphinx-toolbox/extras_require/master.svg
-	:target: https://results.pre-commit.ci/latest/github/sphinx-toolbox/extras_require/master
-	:alt: pre-commit.ci status
 
 .. end shields
 
@@ -218,8 +214,8 @@ To install with ``conda``:
 
 	.. code-block:: bash
 
-		$ conda config --add channels http://conda.anaconda.org/conda-forge
-		$ conda config --add channels http://conda.anaconda.org/domdfcoding
+		$ conda config --add channels https://conda.anaconda.org/conda-forge
+		$ conda config --add channels https://conda.anaconda.org/domdfcoding
 
 	* Then install
 
