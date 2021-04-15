@@ -1,5 +1,6 @@
+===========
 Directive
-------------
+===========
 
 .. rst:directive:: extras-require
 
@@ -53,8 +54,9 @@ Directive
 			[options.extras_require]
 			extra_c = faker; pytest; tox
 
-		See https://setuptools.readthedocs.io/en/latest/setuptools.html#configuring-setup-using-setup-cfg-files for more information on ``setup.cfg``.
+		See the `setuptools documentation`_ for more information on ``setup.cfg``.
 
+		.. _setuptools documentation: https://setuptools.readthedocs.io/en/latest/userguide/declarative_config.html
 
 	.. rst:directive:option:: flit
 		:type: flag
@@ -74,8 +76,9 @@ Directive
 			doc = ["sphinx"]
 
 
-		See the `flit documentation <https://flit.readthedocs.io/en/latest/pyproject_toml.html?highlight=requires-extra#metadata-section>`_
-		for more details.
+		See the `flit documentation`_ for more details.
+
+		.. _flit documentation: https://flit.readthedocs.io/en/latest/pyproject_toml.html?highlight=requires-extra#metadata-section
 
 
 	.. rst:directive:option:: pyproject
@@ -95,9 +98,9 @@ Directive
 			]
 
 
-		See the :pep:`621` section on
-		`dependencies/optional-dependencies <https://www.python.org/dev/peps/pep-0621/#dependencies-optional-dependencies>`_
-		for more details.
+		See the :pep:`621` section on `dependencies/optional-dependencies`_ for more details.
+
+		.. _dependencies/optional-dependencies: https://www.python.org/dev/peps/pep-0621/#dependencies-optional-dependencies
 
 
 	Only one of the above options can be used in each directive.

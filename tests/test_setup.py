@@ -21,7 +21,8 @@ def test_setup():
 
 	assert additional_nodes == set()
 
-	assert app.config.values["package_root"] == (None, "html", [str])
+	assert app.config.values["package_root"] == (None, "env", [str])
+	assert app.config.values["pypi_name"] == (None, "env", [str])
 
 	assert directives == {"extras-require": ExtrasRequireDirective}
 

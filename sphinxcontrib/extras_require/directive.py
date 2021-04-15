@@ -87,7 +87,8 @@ class ExtrasRequireDirective(SphinxDirective):
 
 		scope = self.options.get("scope", "module")
 
-		content = make_node_content(valid_requirements, self.env.config.project, extra, scope=scope)
+		pypi_name = self.env.config.pypi_name or self.env.config.project
+		content = make_node_content(valid_requirements, pypi_name, extra, scope=scope)
 		view = ViewList(content.split('\n'))
 
 		extras_require_node = nodes.attention(rawsource=content)
@@ -199,13 +200,15 @@ def get_requirements(env, extra: str, options: Dict[str, Any], content: Union[It
 	elif n_sources == 0:
 		raise ValueError(f"Please specify a source for the extra requirements {extra}")
 
+	if env.config.package_root is None:
+		raise ValueError("Please provide a value for 'package_root' in conf.py")
+
 	src_dir = PathPlus(env.srcdir)
 	package_root = src_dir.parent / env.config.package_root
 
 	requirements: List[str]
 
 	for option_name, getter_function, validator_function in sources:
-
 		if option_name in options:
 			requirements = getter_function(package_root, options, env, extra)
 			break

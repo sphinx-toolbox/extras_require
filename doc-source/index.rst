@@ -130,7 +130,7 @@ This extension assumes you have a repository laid out like this:
 
 ::
 
-	/
+	.
 	├── chemistry_tools
 	│   ├── __init__.py
 	│   ├── formulae
@@ -156,7 +156,7 @@ This extension assumes you have a repository laid out like this:
 	├── setup.py
 	└── tox.ini
 
-The file ``/chemistry_tools/formulae/requirements.txt`` contains the additional requirements to run the ``formulae`` subpackage. These would be defined in ``setup.py`` like this:
+The file ``./chemistry_tools/formulae/requirements.txt`` contains the additional requirements to run the ``formulae`` subpackage. These would be defined in ``setup.py`` like this:
 
 .. code-block:: python
 
@@ -194,17 +194,11 @@ I.e, this line:
 
 	package_root = "chemistry_tools"
 
-points to ``/chemistry_tools``, and therefore ``:file: formulae/requirements.txt`` points to ``/chemistry_tools/formulae/requirements.txt``.
+points to ``./chemistry_tools``, and therefore ``:file: formulae/requirements.txt`` points to ``./chemistry_tools/formulae/requirements.txt``.
 
-Requirements can also be specified in ``__pkginfo__.py`` (using the option ``:__pkginfo__:``), ``setup.cfg`` (using the option ``:setup.cfg::``), or by typing in the requirements manually, one per line.
+Requirements can also be specified in ``pyproject.toml`` (using the option ``:pyproject:``), ``setup.cfg`` (using the option ``:setup.cfg::``), or by typing in the requirements manually, one per line.
 
 The ``:scope:`` option can be used to specify a different scope for additional requirements, such as ``package``, ``module``, ``class`` or ``function``. Any string value can be supplied here.
-
-
-Future Enhancements
----------------------
-
-* Support different methods of defining the requirements, e.g. ``setup.py`` or ``pyproject.toml``.
 
 
 .. toctree::
@@ -217,8 +211,9 @@ Future Enhancements
 	:maxdepth: 3
 	:caption: Usage
 
-	installation
-	usage
+	usage/installation
+	usage/configuration
+	usage/directive
 
 
 .. toctree::
