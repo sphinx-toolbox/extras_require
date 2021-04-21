@@ -48,5 +48,5 @@ conda-channels = [ "conda-forge", "domdfcoding",]
 extras = "all"
 
 [tool.dep_checker]
-allowed_unused = ["sphinx_prompt"]
-namespace_packages = ["sphinxcontrib.extras_require"]
+allowed_unused = [ "sphinx_prompt",]
+namespace_packages = [ "sphinxcontrib.extras_require",]
