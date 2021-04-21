@@ -7,12 +7,12 @@ name = "extras_require"
 version = "0.3.0"
 description = "Display a warning at the top of module documentation that it has additional requirements."
 readme = "README.rst"
-keywords = [ "sphinx", "sphinx-extension", "requirements", "documentation",]
+keywords = [ "documentation", "requirements", "sphinx", "sphinx-extension",]
 dynamic = [ "requires-python", "classifiers", "dependencies",]
 
 [[project.authors]]
-email = "dominic@davis-foster.co.uk"
 name = "Dominic Davis-Foster"
+email = "dominic@davis-foster.co.uk"
 
 
 [project.license]
@@ -46,3 +46,7 @@ package = "sphinxcontrib"
 [tool.mkrecipe]
 conda-channels = [ "conda-forge", "domdfcoding",]
 extras = "all"
+
+[tool.dep_checker]
+allowed_unused = ["sphinx_prompt"]
+namespace_packages = ["sphinxcontrib.extras_require"]
