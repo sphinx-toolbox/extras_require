@@ -38,8 +38,10 @@ from docutils import nodes
 from docutils.statemachine import ViewList
 from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import StringList
+from domdf_python_tools.words import Plural
 from packaging.requirements import InvalidRequirement
 from shippinglabel.requirements import ComparableRequirement
+from sphinx.environment import BuildEnvironment
 from sphinx.util.docutils import SphinxDirective
 
 # this package
@@ -47,6 +49,8 @@ from sphinxcontrib.extras_require.purger import extras_require_purger
 from sphinxcontrib.extras_require.sources import sources
 
 __all__ = ["ExtrasRequireDirective", "validate_requirements", "make_node_content", "get_requirements"]
+
+_requirement = Plural("requirement", "requirements")
 
 
 class ExtrasRequireDirective(SphinxDirective):
@@ -139,14 +143,9 @@ def make_node_content(
 	:return: The content of an extras_require node.
 	"""
 
-	if len(requirements) > 1:
-		plural = 's'
-	else:
-		plural = ''
-
 	content = StringList(convert_indents=True)
 	content.indent_type = ' ' * 4
-	content.append(f"This {scope} has the following additional requirement{plural}:")
+	content.append(f"This {scope} has the following additional {_requirement(len(requirements))}:")
 	content.blankline(ensure_single=True)
 
 	with content.with_indent_size(content.indent_size + 1):
@@ -178,7 +177,12 @@ def make_node_content(
 	return str(content)
 
 
-def get_requirements(env, extra: str, options: Dict[str, Any], content: Union[Iterable, ViewList]) -> List[str]:
+def get_requirements(
+		env: BuildEnvironment,
+		extra: str,
+		options: Dict[str, Any],
+		content: Union[Iterable, ViewList],
+		) -> List[str]:
 	"""
 	Get the requirements for the extras_require node.
 
@@ -189,8 +193,10 @@ def get_requirements(env, extra: str, options: Dict[str, Any], content: Union[It
 	"""
 
 	n_sources = 0
+
 	if list(content):
 		n_sources += 1
+
 	for source in sources:
 		if (source[0] in options) and options[source[0]]:
 			n_sources += 1

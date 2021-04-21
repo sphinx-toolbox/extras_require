@@ -70,17 +70,14 @@ class Sources(List[Tuple[str, Callable, Callable]]):
 	"""
 	Class to store functions that provide requirements sources.
 
-	The syntax of each entry is:
+	The syntax of each entry is::
 
-	``(option_name, getter_function, validator_function)``
+		(option_name, getter_function, validator_function)
 
 	* a string to use in the directive to specify the source to use,
 	* the function that returns the list of additional requirements,
 	* a function to validate the option value provided by the user.
 	"""
-
-	def __init__(self, *args, **kwargs):
-		super().__init__(*args, **kwargs)
 
 	_args = ["package_root", "options", "env", "extra"]
 	_directive_name = "extras_require"
