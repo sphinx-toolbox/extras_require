@@ -1,6 +1,7 @@
 # Some text strings from https://github.com/pypa/packaging/blob/master/tests/test_requirements.py
+
 # stdlib
-from typing import List
+from typing import Dict, List
 
 # 3rd party
 import pytest
@@ -90,7 +91,7 @@ from sphinxcontrib.extras_require.directive import get_requirements, make_node_c
 						),
 				]
 		)
-def test_validate_requirements(requirements, valid_requirements):
+def test_validate_requirements(requirements: List[str], valid_requirements: List[str]):
 	assert validate_requirements(requirements) == valid_requirements
 
 
@@ -108,7 +109,7 @@ def test_validate_requirements(requirements, valid_requirements):
 				["urllib3;1.2.4, <*1.2.6"],
 				]
 		)
-def test_validate_requirements_invalid(requirements):
+def test_validate_requirements_invalid(requirements: List[str]):
 	with pytest.raises(ValueError, match="Invalid requirement"):
 		validate_requirements(requirements)
 
@@ -116,7 +117,7 @@ def test_validate_requirements_invalid(requirements):
 class Test_make_node_content:
 
 	@pytest.mark.parametrize("scope", ["module", "class", "package", "function", "library", "plugin"])
-	def test_scopes(self, scope):
+	def test_scopes(self, scope: str):
 		assert make_node_content(["foo"], "my_package", "the_extra", scope) == f"""\
 This {scope} has the following additional requirement:
 
@@ -140,7 +141,7 @@ This can be installed as follows:
 					pytest.param(["sphinx"], '', id="1 requirement"),
 					]
 			)
-	def test_plural(self, requirements, plural):
+	def test_plural(self, requirements: List[str], plural: str):
 		assert make_node_content(requirements, "my_package", "the_extra").splitlines()[0] == f"""\
 This module has the following additional requirement{plural}:"""
 
@@ -238,10 +239,10 @@ def test_no_requirements_demo(page: BeautifulSoup, file_regression: FileRegressi
 						),
 				]
 		)
-def test_directive_multiple_sources(options, content):
+def test_directive_multiple_sources(options: Dict[str, bool], content: List[str]):
 	with pytest.raises(ValueError, match="Please specify only one source for the extra requirements"):
 		get_requirements(
-				env=None,
+				env=None,  # type: ignore
 				extra="foo",
 				options=options,
 				content=content,
@@ -256,10 +257,10 @@ def test_directive_multiple_sources(options, content):
 				({"flit": False}, []),
 				]
 		)
-def test_directive_no_sources(options, content):
+def test_directive_no_sources(options: Dict[str, bool], content: List[str]):
 	with pytest.raises(ValueError, match="Please specify a source for the extra requirements"):
 		get_requirements(
-				env=None,
+				env=None,  # type: ignore
 				extra="foo",
 				options=options,
 				content=content,

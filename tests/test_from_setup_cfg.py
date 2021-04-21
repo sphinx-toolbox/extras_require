@@ -1,6 +1,6 @@
 # stdlib
 import pathlib
-import tempfile
+from typing import List
 
 # 3rd party
 import pytest
@@ -12,7 +12,7 @@ from sphinxcontrib.extras_require.sources import requirements_from_setup_cfg
 
 class MockBuildEnvironment:
 
-	def __init__(self, tmpdir):
+	def __init__(self, tmpdir: pathlib.Path):
 		self.srcdir = tmpdir / "docs"
 
 
@@ -31,20 +31,23 @@ extra_c =
 						),
 				]
 		)
-def test_from_setup_cfg(setup, extra, expects):
-	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = PathPlus(tmpdir)
-		setup_cfg_file = tmpdir_p / "setup.cfg"
-		setup_cfg_file.write_text(f"""\
+def test_from_setup_cfg(
+		tmp_pathplus: PathPlus,
+		setup: str,
+		extra: str,
+		expects: List[str],
+		):
+	setup_cfg_file = tmp_pathplus / "setup.cfg"
+	setup_cfg_file.write_text(f"""\
 [options.extras_require]
 {setup}""")
 
-		assert requirements_from_setup_cfg(
-				package_root=PathPlus(),
-				options={},
-				env=MockBuildEnvironment(tmpdir_p),
-				extra=extra,
-				) == expects
+	assert requirements_from_setup_cfg(
+			package_root=PathPlus(),
+			options={},
+			env=MockBuildEnvironment(tmp_pathplus),
+			extra=extra,
+			) == expects
 
 
 @pytest.mark.parametrize(
@@ -62,37 +65,38 @@ extra_c =
 						),
 				]
 		)
-def test_from_setup_cfg_errors(setup, extra, expects):
-	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = PathPlus(tmpdir)
-		setup_cfg_file = tmpdir_p / "setup.cfg"
-		setup_cfg_file.write_text(f"""\
+def test_from_setup_cfg_errors(
+		tmp_pathplus: PathPlus,
+		setup: str,
+		extra: str,
+		expects: List[str],
+		):
+	setup_cfg_file = tmp_pathplus / "setup.cfg"
+	setup_cfg_file.write_text(f"""\
 [options.extras_require]
 {setup}""")
 
-		with pytest.raises(ValueError, match=f"'{extra}' not found in '\\[options.extras_require\\]'"):
-			requirements_from_setup_cfg(
-					package_root=PathPlus(),
-					options={},
-					env=MockBuildEnvironment(tmpdir_p),
-					extra=extra,
-					)
+	with pytest.raises(ValueError, match=f"'{extra}' not found in '\\[options.extras_require\\]'"):
+		requirements_from_setup_cfg(
+				package_root=PathPlus(),
+				options={},
+				env=MockBuildEnvironment(tmp_pathplus),
+				extra=extra,
+				)
 
 
-def test_from_setup_cfg_missing_section():
-	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = PathPlus(tmpdir)
-		setup_cfg_file = tmpdir_p / "setup.cfg"
-		setup_cfg_file.write_text(f"""\
+def test_from_setup_cfg_missing_section(tmp_pathplus: PathPlus):
+	setup_cfg_file = tmp_pathplus / "setup.cfg"
+	setup_cfg_file.write_text(f"""\
 [metadata]
 name = FooBar
 author = Joe Bloggs
 """)
 
-		with pytest.raises(ValueError, match="'options.extras_require' section not found in 'setup.cfg"):
-			requirements_from_setup_cfg(
-					package_root=PathPlus(),
-					options={},
-					env=MockBuildEnvironment(tmpdir_p),
-					extra="docs",
-					)
+	with pytest.raises(ValueError, match="'options.extras_require' section not found in 'setup.cfg"):
+		requirements_from_setup_cfg(
+				package_root=PathPlus(),
+				options={},
+				env=MockBuildEnvironment(tmp_pathplus),
+				extra="docs",
+				)

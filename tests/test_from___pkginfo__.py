@@ -2,7 +2,7 @@
 import json
 import pathlib
 import shutil
-import tempfile
+from typing import Dict, List
 
 # 3rd party
 import pytest
@@ -14,7 +14,7 @@ from sphinxcontrib.extras_require.sources import requirements_from___pkginfo__
 
 class MockBuildEnvironment:
 
-	def __init__(self, tmpdir):
+	def __init__(self, tmpdir: pathlib.Path):
 		self.srcdir = tmpdir / "docs"
 
 
@@ -26,44 +26,41 @@ class MockBuildEnvironment:
 					"extra_c", ["faker", "pytest", "tox; python<=3.6"]),
 				]
 		)
-def test_from___pkginfo__(requirements, extra, expects):
-	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = PathPlus(tmpdir)
-		pkginfo_file = tmpdir_p / "__pkginfo__.py"
-		pkginfo_file.write_text(f"extras_require = {json.dumps(requirements)}")
+def test_from___pkginfo__(
+		tmp_pathplus: PathPlus,
+		requirements: Dict[str, List[str]],
+		extra: str,
+		expects: List[str],
+		):
+	pkginfo_file = tmp_pathplus / "__pkginfo__.py"
+	pkginfo_file.write_text(f"extras_require = {json.dumps(requirements)}")
 
-		assert requirements_from___pkginfo__(
-				package_root=tmpdir_p,
+	assert requirements_from___pkginfo__(
+			package_root=tmp_pathplus,
+			options={},
+			env=MockBuildEnvironment(tmp_pathplus),
+			extra=extra,
+			) == expects
+
+
+def test_from___pkginfo___not_found(tmp_pathplus: PathPlus):
+	with pytest.raises(FileNotFoundError, match="Cannot find __pkginfo__.py in"):
+		requirements_from___pkginfo__(
+				package_root=tmp_pathplus,
 				options={},
-				env=MockBuildEnvironment(tmpdir_p),
-				extra=extra,
-				) == expects
+				env=MockBuildEnvironment(tmp_pathplus),
+				extra="extra",
+				)
 
 
-def test_from___pkginfo___not_found():
+def test_from___pkginfo___wrong_mime(tmp_pathplus: PathPlus):
+	pkginfo_file = tmp_pathplus / "__pkginfo__.py"
+	shutil.copy2(PathPlus(__file__).parent / "Example.png", pkginfo_file)
 
-	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = PathPlus(tmpdir)
-		with pytest.raises(FileNotFoundError, match="Cannot find __pkginfo__.py in"):
-			requirements_from___pkginfo__(
-					package_root=tmpdir_p,
-					options={},
-					env=MockBuildEnvironment(tmpdir_p),
-					extra="extra",
-					)
-
-
-def test_from___pkginfo___wrong_mime():
-
-	with tempfile.TemporaryDirectory() as tmpdir:
-		tmpdir_p = PathPlus(tmpdir)
-		pkginfo_file = tmpdir_p / "__pkginfo__.py"
-		shutil.copy2(PathPlus(__file__).parent / "Example.png", pkginfo_file)
-
-		with pytest.raises(ImportError, match="Could not import __pkginfo__.py"):
-			requirements_from___pkginfo__(
-					package_root=tmpdir_p,
-					options={},
-					env=MockBuildEnvironment(tmpdir_p),
-					extra="extra",
-					)
+	with pytest.raises(ImportError, match="Could not import __pkginfo__.py"):
+		requirements_from___pkginfo__(
+				package_root=tmp_pathplus,
+				options={},
+				env=MockBuildEnvironment(tmp_pathplus),
+				extra="extra",
+				)
