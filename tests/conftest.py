@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup  # type: ignore
 from domdf_python_tools.paths import PathPlus
 from sphinx.testing.path import path
 
-pytest_plugins = "sphinx.testing.fixtures"
+pytest_plugins = ("coincidence", "sphinx.testing.fixtures")
 
 
 @pytest.fixture(scope="session")
