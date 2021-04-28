@@ -1,11 +1,3 @@
-"""
-	pytest config for sphinxcontrib/extras_require/tests
-	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-	:copyright: Copyright 2020 by Dominic Davis-Foster <dominic@davis-foster.co.uk>
-	:license: BSD, see LICENSE for details.
-"""
-
 # 3rd party
 import pytest
 from bs4 import BeautifulSoup  # type: ignore
