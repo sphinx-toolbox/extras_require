@@ -206,6 +206,10 @@ The ``:scope:`` option can be used to specify a different scope for additional r
 
 	Home<self>
 
+Contents
+-----------
+
+.. phantom-section::
 
 .. toctree::
 	:maxdepth: 3
@@ -214,7 +218,6 @@ The ``:scope:`` option can be used to specify a different scope for additional r
 	usage/installation
 	usage/configuration
 	usage/directive
-
 
 .. toctree::
 	:maxdepth: 3
@@ -226,12 +229,16 @@ The ``:scope:`` option can be used to specify a different scope for additional r
 	api/sources
 
 
-.. toctree::
-	:maxdepth: 3
-	:caption: Contributing
+.. only:: html
 
-	contributing
-	Source
+	.. toctree::
+		:caption: Links
+		:hidden:
+
+		GitHub <https://github.com/sphinx-toolbox/default_values>
+		PyPI <https://pypi.org/project/default_values>
+		Contributing Guide <https://contributing-to-sphinx-toolbox.readthedocs.io/en/latest/>
+		Source
 
 .. start links
 
