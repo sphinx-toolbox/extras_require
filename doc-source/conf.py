@@ -62,3 +62,5 @@ autodoc_default_options = {
 latex_elements = {
 		"fncychap": "\\usepackage[Bjarne]{fncychap}\n\\ChNameAsIs\n\\ChTitleAsIs\n",
 		}
+
+pypi_name = "chemistry_tools"

@@ -62,3 +62,6 @@ third_party_version_matrix:
 
 exclude_files:
  - contributing
+
+sphinx_conf_epilogue:
+ - pypi_name = "chemistry_tools"
