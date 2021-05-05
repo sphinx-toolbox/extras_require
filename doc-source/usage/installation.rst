@@ -12,6 +12,12 @@ Installation
 
 .. start installation
 
+.. raw:: latex
+
+
+	\bigskip\bigskip\hrule\bigskip
+
+
 .. extensions:: extras_require
 	:import-name: sphinxcontrib.extras_require
 
