@@ -184,7 +184,15 @@ For instance, this:
 
 will produce this:
 
-.. image:: example.png
+.. extras-require:: formulae
+
+	mathematical>=0.1.7
+	pandas>=1.0.1
+	pyparsing>=2.2.0
+	tabulate>=0.8.3
+	cawdrey>=0.1.2
+	quantities>=0.12.4
+
 
 The path given in ``:file:`` is relative to the ``package_root`` variable given in ``conf.py``, which in turn is relative to the parent directory of the sphinx documentation.
 
@@ -206,6 +214,10 @@ The ``:scope:`` option can be used to specify a different scope for additional r
 
 	Home<self>
 
+Contents
+-----------
+
+.. phantom-section::
 
 .. toctree::
 	:maxdepth: 3
@@ -214,7 +226,6 @@ The ``:scope:`` option can be used to specify a different scope for additional r
 	usage/installation
 	usage/configuration
 	usage/directive
-
 
 .. toctree::
 	:maxdepth: 3
@@ -226,12 +237,16 @@ The ``:scope:`` option can be used to specify a different scope for additional r
 	api/sources
 
 
-.. toctree::
-	:maxdepth: 3
-	:caption: Contributing
+.. only:: html
 
-	contributing
-	Source
+	.. toctree::
+		:caption: Links
+		:hidden:
+
+		GitHub <https://github.com/sphinx-toolbox/extras_require>
+		PyPI <https://pypi.org/project/extras_require>
+		Contributing Guide <https://contributing-to-sphinx-toolbox.readthedocs.io/en/latest/>
+		Source
 
 .. start links
 

@@ -14,6 +14,7 @@ short_desc: 'Display a warning at the top of module documentation that it has ad
 use_whey: true
 python_deploy_version: 3.6
 docs_fail_on_warning: true
+preserve_custom_theme: true
 
 conda_channels:
  - conda-forge
@@ -40,6 +41,7 @@ classifiers:
 
 extra_sphinx_extensions:
  - "sphinx.ext.autosummary"
+ - "phantom_section"
 
 keywords:
  - sphinx
@@ -57,3 +59,9 @@ third_party_version_matrix:
     - 3.1
     - 3.2
     - 3.4
+
+exclude_files:
+ - contributing
+
+sphinx_conf_epilogue:
+ - pypi_name = "chemistry_tools"
