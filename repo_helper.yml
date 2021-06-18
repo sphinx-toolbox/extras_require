@@ -40,8 +40,9 @@ classifiers:
  - "Topic :: Utilities"
 
 extra_sphinx_extensions:
- - "sphinx.ext.autosummary"
- - "phantom_section"
+ - sphinx_toolbox_experimental.html_section
+ - sphinx_toolbox_experimental.needspace
+ - sphinx_toolbox_experimental.succinct_seealso
 
 keywords:
  - sphinx
@@ -51,7 +52,6 @@ keywords:
 
 tox_unmanaged:
  - flake8
- - testenv:docs
 
 third_party_version_matrix:
   sphinx:

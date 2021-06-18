@@ -10,7 +10,7 @@ Installation
 	:anaconda:
 	:conda-channels: domdfcoding, conda-forge
 
-.. start installation
+.. end installation
 
 .. raw:: latex
 

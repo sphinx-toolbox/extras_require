@@ -69,8 +69,6 @@ class ExtrasRequireDirective(SphinxDirective):
 	def run(self) -> List[nodes.Node]:
 		"""
 		Create the extras_require node.
-
-		:return:
 		"""
 
 		extra: str = self.arguments[0]

@@ -5,6 +5,7 @@ extras_require
 .. start short_desc
 
 .. documentation-summary::
+	:meta:
 
 .. end short_desc
 
@@ -175,6 +176,8 @@ The file ``./chemistry_tools/formulae/requirements.txt`` contains the additional
 
 A message can be displayed in the documentation to indicate that the subpackage has these additional requirements that must be installed.
 
+.. latex:clearpage::
+
 For instance, this:
 
 .. code-block:: rest
@@ -194,9 +197,7 @@ will produce this:
 	quantities>=0.12.4
 
 
-The path given in ``:file:`` is relative to the ``package_root`` variable given in ``conf.py``, which in turn is relative to the parent directory of the sphinx documentation.
-
-I.e, this line:
+The path given in ``:file:`` is relative to the ``package_root`` variable given in ``conf.py``, which in turn is relative to the parent directory of the sphinx documentation. For example, this line:.
 
 .. code-block:: python
 

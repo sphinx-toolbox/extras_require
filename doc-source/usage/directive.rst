@@ -29,9 +29,9 @@ Directive
 
 			extras_require = {
 				'extra_b': [
-						"flask >=1.1.2",
-						"click < 7.1.2",
-						"sphinx ==3.0.3",
+						"flask>=1.1.2",
+						"click<7.1.2",
+						"sphinx==3.0.3",
 						]
 				}
 
@@ -70,7 +70,7 @@ Directive
 
 			[tool.flit.metadata.requires-extra]
 			test = [
-			    "pytest >=2.7.3",
+			    "pytest>=2.7.3",
 			    "pytest-cov",
 			]
 			doc = ["sphinx"]
@@ -93,7 +93,7 @@ Directive
 
 			[project.optional-dependencies]
 			test = [
-			  "pytest < 5.0.0",
+			  "pytest<5.0.0",
 			  "pytest-cov[all]"
 			]
 
@@ -107,7 +107,7 @@ Directive
 
 	|
 
-	**Manual requirements:**
+	:bold-title:`Manual requirements:`
 
 	If none of the above options are provided the :pep:`508` requirements can instead be provided as the content of the directive.
 	Each requirement must be on its own line, and there must be a blank line between the directive and the list of requirements.
@@ -122,7 +122,7 @@ Directive
 
 	|
 
-	**Other options:**
+	:bold-title:`Other options:`
 
 
 	.. rst:directive:option:: scope

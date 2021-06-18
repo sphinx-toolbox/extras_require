@@ -60,7 +60,6 @@ __all__ = [
 		"requirements_from_setup_cfg",
 		"requirements_from_flit",
 		"requirements_from_pyproject",
-		"flag",
 		"sources",
 		"Sources",
 		]
