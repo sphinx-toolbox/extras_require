@@ -43,6 +43,7 @@ extra_sphinx_extensions:
  - sphinx_toolbox_experimental.html_section
  - sphinx_toolbox_experimental.needspace
  - sphinx_toolbox_experimental.succinct_seealso
+ - sphinx_toolbox_experimental.autosummary_widths
 
 keywords:
  - sphinx
@@ -66,3 +67,4 @@ exclude_files:
 
 sphinx_conf_epilogue:
  - pypi_name = "chemistry_tools"
+ - autosummary_widths_builders = ["latex"]

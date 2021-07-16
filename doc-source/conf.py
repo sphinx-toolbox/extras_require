@@ -73,3 +73,4 @@ def setup(app):
 
 
 pypi_name = "chemistry_tools"
+autosummary_widths_builders = ["latex"]
