@@ -76,6 +76,8 @@ class Sources(List[Tuple[str, Callable, Callable]]):
 	* a string to use in the directive to specify the source to use,
 	* the function that returns the list of additional requirements,
 	* a function to validate the option value provided by the user.
+
+	.. latex:clearpage::
 	"""
 
 	_args = ["package_root", "options", "env", "extra"]
