@@ -239,7 +239,6 @@ Contents
 	api/sources
 
 
-
 .. sidebar-links::
 	:caption: Links
 	:github:
@@ -247,6 +246,7 @@ Contents
 
 	Contributing Guide <https://contributing-to-sphinx-toolbox.readthedocs.io/en/latest/>
 	Source
+	license
 
 .. start links
 
