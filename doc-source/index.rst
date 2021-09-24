@@ -163,17 +163,17 @@ The file ``./chemistry_tools/formulae/requirements.txt`` contains the additional
 .. code-block:: python
 
 	setup(
-		extras_require = {
-			'formulae': [
-				'mathematical>=0.1.7',
-				'pandas>=1.0.1',
-				'pyparsing>=2.2.0',
-				'tabulate>=0.8.3',
-				'cawdrey>=0.1.2',
-				'quantities>=0.12.4',
-				],
-		}
-	)
+			extras_require={
+					"formulae": [
+							"mathematical>=0.1.7",
+							"pandas>=1.0.1",
+							"pyparsing>=2.2.0",
+							"tabulate>=0.8.3",
+							"cawdrey>=0.1.2",
+							"quantities>=0.12.4",
+							],
+					}
+			)
 
 A message can be displayed in the documentation to indicate that the subpackage has these additional requirements that must be installed.
 
