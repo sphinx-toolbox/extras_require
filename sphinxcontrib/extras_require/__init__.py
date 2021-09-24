@@ -30,7 +30,14 @@ A Sphinx directive to specify that a module has extra requirements, and show how
 #
 
 # stdlib
+import sys
 from typing import Any, Dict
+
+# This all has to be up here so it's triggered first.
+if sys.version_info >= (3, 10):
+	# stdlib
+	import types
+	types.Union = types.UnionType
 
 # 3rd party
 from sphinx.application import Sphinx
