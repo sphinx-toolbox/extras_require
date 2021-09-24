@@ -28,12 +28,12 @@ Directive
 		.. code-block:: python
 
 			extras_require = {
-				'extra_b': [
-						"flask>=1.1.2",
-						"click<7.1.2",
-						"sphinx==3.0.3",
-						]
-				}
+					"extra_b": [
+							"flask>=1.1.2",
+							"click<7.1.2",
+							"sphinx==3.0.3",
+							],
+					}
 
 		The requirements can be generated programmatically in the ``__pkginfo__.py`` file during the import process.
 
