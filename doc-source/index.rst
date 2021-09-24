@@ -238,16 +238,14 @@ Contents
 	api/sources
 
 
-.. only:: html
 
-	.. toctree::
-		:caption: Links
-		:hidden:
+.. sidebar-links::
+	:caption: Links
+	:github:
+	:pypi: extras_require
 
-		GitHub <https://github.com/sphinx-toolbox/extras_require>
-		PyPI <https://pypi.org/project/extras_require>
-		Contributing Guide <https://contributing-to-sphinx-toolbox.readthedocs.io/en/latest/>
-		Source
+	Contributing Guide <https://contributing-to-sphinx-toolbox.readthedocs.io/en/latest/>
+	Source
 
 .. start links
 
