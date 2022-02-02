@@ -1,6 +1,7 @@
 # Some text strings from https://github.com/pypa/packaging/blob/master/tests/test_requirements.py
 
 # stdlib
+import warnings
 from typing import Dict, List
 
 # 3rd party
@@ -30,12 +31,6 @@ from sphinxcontrib.extras_require.directive import get_requirements, make_node_c
 						),
 				pytest.param(["foo-bar.quux_baz"], ["foo-bar.quux_baz"], id="name_with_other_characters"),
 				pytest.param(["name>=3"], ["name>=3"], id="name_with_version"),
-				pytest.param(["name==1.0.org1"], ["name==1.0.org1"], id="with_legacy_version"),
-				pytest.param(
-						["name>=1.x.y;python_version=='2.6'"],
-						['name>=1.x.y; python_version == "2.6"'],
-						id="with_legacy_version_and_marker",
-						),
 				pytest.param(["name (==4)"], ["name==4"], id="version_with_parens_and_whitespace"),
 				pytest.param(["name>=3,<2"], ["name<2,>=3"], id="name_with_multiple_versions"),
 				pytest.param(["name >=2, <3"], ["name<3,>=2"], id="name_with_multiple_versions_and_whitespace"),
@@ -93,6 +88,33 @@ from sphinxcontrib.extras_require.directive import get_requirements, make_node_c
 		)
 def test_validate_requirements(requirements: List[str], valid_requirements: List[str]):
 	assert validate_requirements(requirements) == valid_requirements
+
+
+@pytest.mark.parametrize(
+		"requirements, valid_requirements",
+		[
+
+				pytest.param(["name==1.0.org1"], ["name==1.0.org1"], id="with_legacy_version"),
+				pytest.param(
+						["name>=1.x.y;python_version=='2.6'"],
+						['name>=1.x.y; python_version == "2.6"'],
+						id="with_legacy_version_and_marker",
+						),
+
+				]
+		)
+def test_validate_requirements_warning(requirements: List[str], valid_requirements: List[str]):
+
+	warning_msg = "Creating a LegacyVersion has been deprecated and will be removed in the next major release"
+
+	with warnings.catch_warnings():
+		warnings.simplefilter("always", DeprecationWarning)
+
+		with pytest.warns(DeprecationWarning, match=warning_msg):
+			assert validate_requirements(requirements) == valid_requirements
+
+	with pytest.raises(ValueError, match=f"Invalid requirement .*: {warning_msg}"):
+		validate_requirements(requirements)
 
 
 @pytest.mark.parametrize(

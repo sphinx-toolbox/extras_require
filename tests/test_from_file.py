@@ -1,9 +1,10 @@
 # stdlib
 import shutil
-from typing import List
+from typing import ContextManager, List
 
 # 3rd party
 import pytest
+from domdf_python_tools.compat import nullcontext
 from domdf_python_tools.paths import PathPlus
 
 # this package
@@ -11,22 +12,22 @@ from sphinxcontrib.extras_require.sources import requirements_from_file
 
 
 @pytest.mark.parametrize(
-		"requirements, extra, expects",
+		"requirements, extra, expects, warningfilter",
 		[
-				("faker\npytest\ntox", "extra_c", ["faker", "pytest", "tox"]),
+				("faker\npytest\ntox", "extra_c", ["faker", "pytest", "tox"], nullcontext()),
 				(
 						"""\
 faker
 pytest
 tox; python_version <= "3.6"
 """,
-						"extra_c", ["faker", "pytest", 'tox; python_version <= "3.6"']
+						"extra_c", ["faker", "pytest", 'tox; python_version <= "3.6"'], nullcontext()
 						),
 				("""\
 faker
 pytest
 tox; python<=3.6
-""", "extra_c", ["faker", "pytest"]),
+""", "extra_c", ["faker", "pytest"], pytest.warns(UserWarning, match="Ignored invalid requirement 'tox; python<=3.6'")),
 				]
 		)
 def test_from_file(
@@ -34,6 +35,7 @@ def test_from_file(
 		requirements: str,
 		extra: str,
 		expects: List[str],
+		warningfilter: ContextManager,
 		):
 	(tmp_pathplus / "a_subdirectory" / "another_subdir").mkdir(parents=True)
 
@@ -41,12 +43,14 @@ def test_from_file(
 	requirements_file = tmp_pathplus / "a_subdirectory" / "another_subdir" / "requirements_list.txt"
 	requirements_file.write_text(requirements)
 
-	assert requirements_from_file(
-			package_root=tmp_pathplus,
-			options={"file": "a_subdirectory/another_subdir/requirements_list.txt"},
-			env=None,
-			extra=extra,
-			) == expects
+	with warningfilter:
+
+		assert requirements_from_file(
+				package_root=tmp_pathplus,
+				options={"file": "a_subdirectory/another_subdir/requirements_list.txt"},
+				env=None,
+				extra=extra,
+				) == expects
 
 
 def test_from_file_errors(tmp_pathplus: PathPlus):

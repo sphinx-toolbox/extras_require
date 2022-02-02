@@ -126,7 +126,8 @@ def validate_requirements(requirements_list: List[str]) -> List[str]:
 		if req:
 			try:
 				valid_requirements.append(ComparableRequirement(req))
-			except InvalidRequirement as e:
+			except (InvalidRequirement, DeprecationWarning) as e:
+				# Deprecation warning due to LegacyVersion or LegacySpecifier
 				raise ValueError(f"Invalid requirement '{req}': {str(e)}") from None
 
 	valid_requirements.sort()
