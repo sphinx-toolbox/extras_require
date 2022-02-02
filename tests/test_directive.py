@@ -93,14 +93,12 @@ def test_validate_requirements(requirements: List[str], valid_requirements: List
 @pytest.mark.parametrize(
 		"requirements, valid_requirements",
 		[
-
 				pytest.param(["name==1.0.org1"], ["name==1.0.org1"], id="with_legacy_version"),
 				pytest.param(
 						["name>=1.x.y;python_version=='2.6'"],
 						['name>=1.x.y; python_version == "2.6"'],
 						id="with_legacy_version_and_marker",
 						),
-
 				]
 		)
 def test_validate_requirements_warning(requirements: List[str], valid_requirements: List[str]):
