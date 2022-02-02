@@ -16,13 +16,13 @@ from sphinxcontrib.extras_require.sources import requirements_from_file
 		[
 				("faker\npytest\ntox", "extra_c", ["faker", "pytest", "tox"], nullcontext()),
 				(
-						"\n".join(["faker", "pytest", 'tox; python_version <= "3.6"']),
+						'\n'.join(["faker", "pytest", 'tox; python_version <= "3.6"']),
 						"extra_c",
 						["faker", "pytest", 'tox; python_version <= "3.6"'],
 						nullcontext(),
 						),
 				(
-						"\n".join(["faker", "pytest", "tox; python<=3.6"]),
+						'\n'.join(["faker", "pytest", "tox; python<=3.6"]),
 						"extra_c",
 						["faker", "pytest"],
 						pytest.warns(UserWarning, match="Ignored invalid requirement 'tox; python<=3.6'"),
