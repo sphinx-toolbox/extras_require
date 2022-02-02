@@ -30,10 +30,10 @@ The :rst:dir:`extras-require` directive.
 #
 
 # stdlib
-import warnings
 from typing import Any, Dict, Iterable, List, Union
 
 # 3rd party
+import docutils
 from docutils import nodes
 from docutils.statemachine import ViewList
 from domdf_python_tools.paths import PathPlus
@@ -66,6 +66,17 @@ class ExtrasRequireDirective(SphinxDirective):
 	option_spec = {source[0]: source[2] for source in sources}
 	option_spec["scope"] = str
 
+	def _problematic(self, message: str) -> List[docutils.nodes.Node]:  # docutils.nodes.Node
+		"""
+		Reports an error while processing the directive.
+
+		:param message:
+		"""
+
+		msg = self.state.reporter.warning(message, line=self.lineno)
+		prob_node = docutils.nodes.problematic(self.block_text, self.block_text, msg)
+		return [prob_node]
+
 	def run(self) -> List[nodes.Node]:
 		"""
 		Create the extras_require node.
@@ -84,8 +95,7 @@ class ExtrasRequireDirective(SphinxDirective):
 				)
 
 		if not valid_requirements:
-			warnings.warn("No requirements specified! No notice will be shown in the documentation.")
-			return [targetnode]
+			return self._problematic("No requirements specified! No notice will be shown in the documentation.")
 
 		scope = self.options.get("scope", "module")
 
