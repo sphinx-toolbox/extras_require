@@ -197,8 +197,8 @@ def requirements_from_pkginfo(
 			__pkginfo__ = importlib.util.module_from_spec(spec)
 
 			if spec.loader:
-				spec.loader.exec_module(__pkginfo__)  # type: ignore
-				requirements = __pkginfo__.extras_require[extra]  # type: ignore
+				spec.loader.exec_module(__pkginfo__)
+				requirements = __pkginfo__.extras_require[extra]
 				return requirements
 				# TODO: handle extra not found
 
