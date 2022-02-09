@@ -4,7 +4,7 @@ build-backend = "whey"
 
 [project]
 name = "extras_require"
-version = "0.4.1"
+version = "0.4.1.post1"
 description = "Display a warning at the top of module documentation that it has additional requirements."
 readme = "README.rst"
 keywords = [ "documentation", "requirements", "sphinx", "sphinx-extension",]
