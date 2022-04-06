@@ -1,10 +1,12 @@
 # stdlib
 import sys
+from typing import Any, Iterator
 
 # 3rd party
 import pytest
-from bs4 import BeautifulSoup  # type: ignore
+from bs4 import BeautifulSoup  # type: ignore[import]
 from domdf_python_tools.paths import PathPlus
+from sphinx.application import Sphinx
 from sphinx.testing.path import path
 
 if sys.version_info >= (3, 10):
@@ -16,15 +18,15 @@ pytest_plugins = ("coincidence", "sphinx.testing.fixtures")
 
 
 @pytest.fixture(scope="session")
-def rootdir():
+def rootdir() -> path:
 	rdir = PathPlus(__file__).parent.absolute() / "doc-test"
 	(rdir / "test-root").maybe_make(parents=True)
 	return path(rdir)
 
 
 @pytest.fixture()
-def the_app(app):
-	fake_repo_root = PathPlus(app.env.srcdir).parent
+def the_app(app: Sphinx) -> Sphinx:
+	fake_repo_root = PathPlus(app.env.srcdir).parent  # type: ignore[union-attr]
 
 	PathPlus(fake_repo_root / "__pkginfo__.py").write_lines([
 			"extras_require = {",
@@ -85,13 +87,13 @@ def the_app(app):
 
 
 @pytest.fixture()
-def content(the_app):
+def content(the_app: Sphinx) -> Iterator[Sphinx]:
 	the_app.build(force_all=True)
 	yield the_app
 
 
 @pytest.fixture()
-def page(content, request) -> BeautifulSoup:
+def page(content: Any, request: Any) -> Iterator[BeautifulSoup]:
 	pagename = request.param
 	c = (content.outdir / pagename).read_text()
 

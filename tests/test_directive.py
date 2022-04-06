@@ -6,9 +6,10 @@ from typing import Dict, List
 
 # 3rd party
 import pytest
-from bs4 import BeautifulSoup  # type: ignore
-from bs4.element import Tag  # type: ignore
-from pytest_regressions.file_regression import FileRegressionFixture  # type: ignore
+from bs4 import BeautifulSoup  # type: ignore[import]
+from bs4.element import Tag  # type: ignore[import]
+from coincidence.regressions import AdvancedFileRegressionFixture
+from sphinx.application import Sphinx
 from sphinx_toolbox.testing import check_html_regression
 
 # this package
@@ -86,7 +87,7 @@ from sphinxcontrib.extras_require.directive import get_requirements, make_node_c
 						),
 				]
 		)
-def test_validate_requirements(requirements: List[str], valid_requirements: List[str]):
+def test_validate_requirements(requirements: List[str], valid_requirements: List[str]) -> None:
 	assert validate_requirements(requirements) == valid_requirements
 
 
@@ -101,7 +102,7 @@ def test_validate_requirements(requirements: List[str], valid_requirements: List
 						),
 				]
 		)
-def test_validate_requirements_warning(requirements: List[str], valid_requirements: List[str]):
+def test_validate_requirements_warning(requirements: List[str], valid_requirements: List[str]) -> None:
 
 	warning_msg = "Creating a LegacyVersion has been deprecated and will be removed in the next major release"
 
@@ -129,7 +130,7 @@ def test_validate_requirements_warning(requirements: List[str], valid_requiremen
 				["urllib3;1.2.4, <*1.2.6"],
 				]
 		)
-def test_validate_requirements_invalid(requirements: List[str]):
+def test_validate_requirements_invalid(requirements: List[str]) -> None:
 	with pytest.raises(ValueError, match="Invalid requirement"):
 		validate_requirements(requirements)
 
@@ -137,7 +138,7 @@ def test_validate_requirements_invalid(requirements: List[str]):
 class Test_make_node_content:
 
 	@pytest.mark.parametrize("scope", ["module", "class", "package", "function", "library", "plugin"])
-	def test_scopes(self, scope: str):
+	def test_scopes(self, scope: str) -> None:
 		assert make_node_content(["foo"], "my_package", "the_extra", scope) == f"""\
 This {scope} has the following additional requirement:
 
@@ -161,17 +162,22 @@ This can be installed as follows:
 					pytest.param(["sphinx"], '', id="1 requirement"),
 					]
 			)
-	def test_plural(self, requirements: List[str], plural: str):
+	def test_plural(self, requirements: List[str], plural: str) -> None:
 		assert make_node_content(requirements, "my_package", "the_extra").splitlines()[0] == f"""\
 This module has the following additional requirement{plural}:"""
 
 
-def test(the_app):
+def test(the_app: Sphinx) -> None:
 	# app is a Sphinx application object for default sphinx project (`tests/doc-test/test-root`).
 	the_app.build()
 
 
-def _do_test_directive(page, requirements: List[str], extra: str, file_regression: FileRegressionFixture):
+def _do_test_directive(
+		page: BeautifulSoup,
+		requirements: List[str],
+		extra: str,
+		advanced_file_regression: AdvancedFileRegressionFixture,
+		) -> None:
 
 	div_count = 0
 
@@ -209,7 +215,7 @@ def _do_test_directive(page, requirements: List[str], extra: str, file_regressio
 
 	assert div_count == 1
 
-	check_html_regression(page, file_regression)
+	check_html_regression(page, advanced_file_regression)
 
 
 @pytest.mark.parametrize(
@@ -224,13 +230,16 @@ def _do_test_directive(page, requirements: List[str], extra: str, file_regressio
 				],
 		indirect=True
 		)
-def test_output(page: BeautifulSoup, file_regression: FileRegressionFixture):
+def test_output(page: BeautifulSoup, advanced_file_regression: AdvancedFileRegressionFixture) -> None:
 
-	check_html_regression(page, file_regression)
+	check_html_regression(page, advanced_file_regression)
 
 
 @pytest.mark.parametrize("page", ["no_requirements_demo.html"], indirect=True)
-def test_no_requirements_demo(page: BeautifulSoup, file_regression: FileRegressionFixture):
+def test_no_requirements_demo(
+		page: BeautifulSoup,
+		advanced_file_regression: AdvancedFileRegressionFixture,
+		) -> None:
 	# Make sure the page title is what you expect
 	title = page.find("h1").contents[0].strip()
 	assert "No Requirements Demo" == title
@@ -239,7 +248,7 @@ def test_no_requirements_demo(page: BeautifulSoup, file_regression: FileRegressi
 	for div in page.findAll("div"):
 		assert not div.get("id", '').startswith("extras_require")
 
-	check_html_regression(page, file_regression)
+	check_html_regression(page, advanced_file_regression)
 
 
 @pytest.mark.parametrize(
@@ -259,10 +268,10 @@ def test_no_requirements_demo(page: BeautifulSoup, file_regression: FileRegressi
 						),
 				]
 		)
-def test_directive_multiple_sources(options: Dict[str, bool], content: List[str]):
+def test_directive_multiple_sources(options: Dict[str, bool], content: List[str]) -> None:
 	with pytest.raises(ValueError, match="Please specify only one source for the extra requirements"):
 		get_requirements(
-				env=None,  # type: ignore
+				env=None,  # type: ignore[arg-type]
 				extra="foo",
 				options=options,
 				content=content,
@@ -277,10 +286,10 @@ def test_directive_multiple_sources(options: Dict[str, bool], content: List[str]
 				({"flit": False}, []),
 				]
 		)
-def test_directive_no_sources(options: Dict[str, bool], content: List[str]):
+def test_directive_no_sources(options: Dict[str, bool], content: List[str]) -> None:
 	with pytest.raises(ValueError, match="Please specify a source for the extra requirements"):
 		get_requirements(
-				env=None,  # type: ignore
+				env=None,  # type: ignore[arg-type]
 				extra="foo",
 				options=options,
 				content=content,

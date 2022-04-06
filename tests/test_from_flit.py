@@ -41,7 +41,7 @@ doc = ["sphinx"]
 						),
 				]
 		)
-def test_from_flit(tmp_pathplus: PathPlus, toml: str, extra: str, expects: List[str]):
+def test_from_flit(tmp_pathplus: PathPlus, toml: str, extra: str, expects: List[str]) -> None:
 	pyproject_file = tmp_pathplus / "pyproject.toml"
 	pyproject_file.write_text(
 			f"""\
@@ -92,7 +92,7 @@ def test_from_flit_errors(
 		toml: str,
 		extra: str,
 		expects: List[str],
-		):
+		) -> None:
 	pyproject_file = tmp_pathplus / "pyproject.toml"
 	pyproject_file.write_text(
 			f"""\

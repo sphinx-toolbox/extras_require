@@ -35,7 +35,7 @@ def test_from_file(
 		extra: str,
 		expects: List[str],
 		warningfilter: ContextManager,
-		):
+		) -> None:
 	(tmp_pathplus / "a_subdirectory" / "another_subdir").mkdir(parents=True)
 
 	# to demonstrate the filename doesn't matter
@@ -52,7 +52,7 @@ def test_from_file(
 				) == expects
 
 
-def test_from_file_errors(tmp_pathplus: PathPlus):
+def test_from_file_errors(tmp_pathplus: PathPlus) -> None:
 	(tmp_pathplus / "a_subdirectory" / "another_subdir").mkdir(parents=True)
 
 	# to demonstrate the filename doesn't matter

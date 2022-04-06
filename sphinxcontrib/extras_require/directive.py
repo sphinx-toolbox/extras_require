@@ -104,7 +104,7 @@ class ExtrasRequireDirective(SphinxDirective):
 		view = ViewList(content.split('\n'))
 
 		extras_require_node = nodes.attention(rawsource=content)
-		self.state.nested_parse(view, self.content_offset, extras_require_node)  # type: ignore
+		self.state.nested_parse(view, self.content_offset, extras_require_node)  # type: ignore[arg-type]
 
 		extras_require_purger.add_node(self.env, extras_require_node, targetnode, self.lineno)
 

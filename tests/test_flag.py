@@ -18,7 +18,7 @@ from sphinxcontrib.extras_require.sources import flag
 		"\t   ",
 		"\t    ",
 		])
-def test_flag(value: str):
+def test_flag(value: str) -> None:
 	assert isinstance(flag(value), bool)
 	assert flag(value) is True
 
@@ -32,6 +32,6 @@ def test_flag(value: str):
 		"   True",
 		"\tFalse",
 		])
-def test_flag_errors(value: str):
+def test_flag_errors(value: str) -> None:
 	with pytest.raises(ValueError, match="No argument is allowed; '.*' supplied"):
 		flag(value)

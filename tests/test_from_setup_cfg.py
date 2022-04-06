@@ -36,7 +36,7 @@ def test_from_setup_cfg(
 		setup: str,
 		extra: str,
 		expects: List[str],
-		):
+		) -> None:
 	setup_cfg_file = tmp_pathplus / "setup.cfg"
 	setup_cfg_file.write_text(f"""\
 [options.extras_require]
@@ -70,7 +70,7 @@ def test_from_setup_cfg_errors(
 		setup: str,
 		extra: str,
 		expects: List[str],
-		):
+		) -> None:
 	setup_cfg_file = tmp_pathplus / "setup.cfg"
 	setup_cfg_file.write_text(f"""\
 [options.extras_require]
@@ -85,7 +85,7 @@ def test_from_setup_cfg_errors(
 				)
 
 
-def test_from_setup_cfg_missing_section(tmp_pathplus: PathPlus):
+def test_from_setup_cfg_missing_section(tmp_pathplus: PathPlus) -> None:
 	setup_cfg_file = tmp_pathplus / "setup.cfg"
 	setup_cfg_file.write_text(f"""\
 [metadata]

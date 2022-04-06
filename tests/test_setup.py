@@ -8,7 +8,7 @@ from sphinxcontrib.extras_require import __version__, extras_require_purger
 from sphinxcontrib.extras_require.directive import ExtrasRequireDirective
 
 
-def test_setup():
+def test_setup() -> None:
 
 	app: Sphinx
 	setup_ret, directives, roles, additional_nodes, app = run_setup(sphinxcontrib.extras_require.setup)

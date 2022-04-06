@@ -31,7 +31,7 @@ def test_from___pkginfo__(
 		requirements: Dict[str, List[str]],
 		extra: str,
 		expects: List[str],
-		):
+		) -> None:
 	pkginfo_file = tmp_pathplus / "__pkginfo__.py"
 	pkginfo_file.write_text(f"extras_require = {json.dumps(requirements)}")
 
@@ -43,7 +43,7 @@ def test_from___pkginfo__(
 			) == expects
 
 
-def test_from___pkginfo___not_found(tmp_pathplus: PathPlus):
+def test_from___pkginfo___not_found(tmp_pathplus: PathPlus) -> None:
 	with pytest.raises(FileNotFoundError, match="Cannot find __pkginfo__.py in"):
 		requirements_from___pkginfo__(
 				package_root=tmp_pathplus,
@@ -53,7 +53,7 @@ def test_from___pkginfo___not_found(tmp_pathplus: PathPlus):
 				)
 
 
-def test_from___pkginfo___wrong_mime(tmp_pathplus: PathPlus):
+def test_from___pkginfo___wrong_mime(tmp_pathplus: PathPlus) -> None:
 	pkginfo_file = tmp_pathplus / "__pkginfo__.py"
 	shutil.copy2(PathPlus(__file__).parent / "Example.png", pkginfo_file)
 
