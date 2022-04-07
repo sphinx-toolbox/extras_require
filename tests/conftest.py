@@ -6,13 +6,15 @@ from typing import Any, Iterator
 import pytest
 from bs4 import BeautifulSoup  # type: ignore[import]
 from domdf_python_tools.paths import PathPlus
-from sphinx.application import Sphinx
-from sphinx.testing.path import path
 
 if sys.version_info >= (3, 10):
 	# stdlib
 	import types
 	types.Union = types.UnionType
+
+# 3rd party
+from sphinx.application import Sphinx
+from sphinx.testing.path import path
 
 pytest_plugins = ("coincidence", "sphinx.testing.fixtures")
 
