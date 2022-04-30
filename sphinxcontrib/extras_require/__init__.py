@@ -45,7 +45,7 @@ from sphinx.application import Sphinx
 # this package
 from sphinxcontrib.extras_require.directive import ExtrasRequireDirective
 from sphinxcontrib.extras_require.purger import extras_require_purger
-from sphinxcontrib.extras_require.sources import sources
+from sphinxcontrib.extras_require.sources import sources  # noqa: F401
 
 __author__: str = "Dominic Davis-Foster"
 __copyright__: str = "2020 Dominic Davis-Foster"
