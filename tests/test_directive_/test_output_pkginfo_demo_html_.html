@@ -1,9 +1,11 @@
+{% set section = ("section", "section") if docutils_version >= (0, 17) else ('div class="section"', "div") -%}
 <!DOCTYPE html>
 <html>
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
+  {% if docutils_version >= (0, 17) %}<meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
+  {% endif %}<title>
    __pkginfo__ Demo — Python  documentation
   </title>
   <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js">
@@ -21,7 +23,7 @@
    <div class="documentwrapper">
     <div class="bodywrapper">
      <div class="body" role="main">
-      <div class="section" id="pkginfo-demo">
+      <{{ section[0] }} id="pkginfo-demo">
        <h1>
         __pkginfo__ Demo
         <a class="headerlink" href="#pkginfo-demo" title="Permalink to this headline">
@@ -65,7 +67,7 @@ span.prompt1:before {
          </div>
         </blockquote>
        </div>
-      </div>
+      </{{ section[1] }}>
      </div>
     </div>
    </div>

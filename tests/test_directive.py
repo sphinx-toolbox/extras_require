@@ -8,9 +8,8 @@ from typing import Dict, List
 import pytest
 from bs4 import BeautifulSoup  # type: ignore[import]
 from bs4.element import Tag  # type: ignore[import]
-from coincidence.regressions import AdvancedFileRegressionFixture
 from sphinx.application import Sphinx
-from sphinx_toolbox.testing import check_html_regression
+from sphinx_toolbox.testing import HTMLRegressionFixture
 
 # this package
 from sphinxcontrib.extras_require.directive import get_requirements, make_node_content, validate_requirements
@@ -176,7 +175,7 @@ def _do_test_directive(
 		page: BeautifulSoup,
 		requirements: List[str],
 		extra: str,
-		advanced_file_regression: AdvancedFileRegressionFixture,
+		html_regression: HTMLRegressionFixture,
 		) -> None:
 
 	div_count = 0
@@ -215,7 +214,7 @@ def _do_test_directive(
 
 	assert div_count == 1
 
-	check_html_regression(page, advanced_file_regression)
+	html_regression.check(page, jinja2=True)
 
 
 @pytest.mark.parametrize(
@@ -230,15 +229,15 @@ def _do_test_directive(
 				],
 		indirect=True
 		)
-def test_output(page: BeautifulSoup, advanced_file_regression: AdvancedFileRegressionFixture) -> None:
+def test_output(page: BeautifulSoup, html_regression: HTMLRegressionFixture) -> None:
 
-	check_html_regression(page, advanced_file_regression)
+	html_regression.check(page, jinja2=True)
 
 
 @pytest.mark.parametrize("page", ["no_requirements_demo.html"], indirect=True)
 def test_no_requirements_demo(
 		page: BeautifulSoup,
-		advanced_file_regression: AdvancedFileRegressionFixture,
+		html_regression: HTMLRegressionFixture,
 		) -> None:
 	# Make sure the page title is what you expect
 	title = page.find("h1").contents[0].strip()
@@ -248,7 +247,7 @@ def test_no_requirements_demo(
 	for div in page.findAll("div"):
 		assert not div.get("id", '').startswith("extras_require")
 
-	check_html_regression(page, advanced_file_regression)
+	html_regression.check(page, jinja2=True)
 
 
 @pytest.mark.parametrize(

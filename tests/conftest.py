@@ -16,7 +16,7 @@ if sys.version_info >= (3, 10):
 from sphinx.application import Sphinx
 from sphinx.testing.path import path
 
-pytest_plugins = ("coincidence", "sphinx.testing.fixtures")
+pytest_plugins = ("coincidence", "sphinx.testing.fixtures", "sphinx_toolbox.testing")
 
 
 @pytest.fixture(scope="session")
