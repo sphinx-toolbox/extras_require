@@ -100,7 +100,7 @@ extras_require
 .. |language| image:: https://img.shields.io/github/languages/top/sphinx-toolbox/extras_require
 	:alt: GitHub top language
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/sphinx-toolbox/extras_require/v0.4.1.post1
+.. |commits-since| image:: https://img.shields.io/github/commits-since/sphinx-toolbox/extras_require/v0.4.2
 	:target: https://github.com/sphinx-toolbox/extras_require/pulse
 	:alt: GitHub commits since tagged version
 
