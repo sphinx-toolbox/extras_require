@@ -1,10 +1,12 @@
+{% set heading = ("heading" if sphinx_version >= (5, 0) else 'headline') -%}
 {% set section = ("section", "section") if docutils_version >= (0, 17) else ('div class="section"', "div") -%}
 <!DOCTYPE html>
-<html>
+<html{% if sphinx_version >= (5, 0) %} lang="en"{% endif %}>
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  {% if docutils_version >= (0, 17) %}<meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
+  {% if docutils_version >= (0, 18) %}<meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>
+  {% elif docutils_version >= (0, 17) %}<meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
   {% endif %}<title>
    Manual Demo — Python  documentation
   </title>
@@ -13,7 +15,9 @@
   <script src="_static/jquery.js">
   </script>
   <script src="_static/underscore.js">
-  </script>
+  </script>{% if sphinx_version >= (5, 0) %}
+  <script src="_static/_sphinx_javascript_frameworks_compat.js">
+  </script>{% endif %}
   <script src="_static/doctools.js">
   </script>
   <meta content="width=device-width, initial-scale=0.9, maximum-scale=0.9" name="viewport"/>
@@ -26,7 +30,7 @@
       <{{ section[0] }} id="manual-demo">
        <h1>
         Manual Demo
-        <a class="headerlink" href="#manual-demo" title="Permalink to this headline">
+        <a class="headerlink" href="#manual-demo" title="Permalink to this {{ heading }}">
          ¶
         </a>
        </h1>

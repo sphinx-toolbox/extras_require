@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head>
+<html{% if sphinx_version >= (5, 0) %} lang="en"{% endif %}><head>
     <meta charset="utf-8"/>
     <title>Manual Demo — Python  documentation</title>
     <link href="_static/alabaster.css" rel="stylesheet" type="text/css"/>
@@ -28,7 +28,7 @@
           <div class="body" role="main">
 
   <div class="section" id="manual-demo">
-<h1>Manual Demo<a class="headerlink" href="#manual-demo" title="Permalink to this headline">¶</a></h1>
+<h1>Manual Demo<a class="headerlink" href="#manual-demo" title="Permalink to this {{ heading }}">¶</a></h1>
 <div class="admonition attention" id="extras_require-0">
 <p class="admonition-title">Attention</p>
 <p>This module has the following additional requirements:</p>
