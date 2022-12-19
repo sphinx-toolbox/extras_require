@@ -204,6 +204,9 @@ def requirements_from_pkginfo(
 
 	except ValueError:
 		pass
+	except SyntaxError as e:
+		if e.msg != "source code string cannot contain null bytes":
+			raise e
 
 	raise ImportError("Could not import __pkginfo__.py")
 
