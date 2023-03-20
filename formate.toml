@@ -44,6 +44,7 @@ known_third_party = [
     "html5lib",
     "importlib_metadata",
     "packaging",
+    "pygments",
     "pytest",
     "pytest_cov",
     "pytest_randomly",
