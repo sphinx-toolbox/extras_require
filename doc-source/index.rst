@@ -33,7 +33,7 @@ extras_require
 		  - |license| |language| |requires|
 
 	.. |docs| rtfd-shield::
-		:project: extras_require
+		:project: extras-require
 		:alt: Documentation Build Status
 
 	.. |docs_check| actions-shield::

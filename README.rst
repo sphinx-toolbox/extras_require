@@ -29,8 +29,8 @@ extras_require
 	* - Other
 	  - |license| |language| |requires|
 
-.. |docs| image:: https://img.shields.io/readthedocs/extras_require/latest?logo=read-the-docs
-	:target: https://extras_require.readthedocs.io/en/latest
+.. |docs| image:: https://img.shields.io/readthedocs/extras-require/latest?logo=read-the-docs
+	:target: https://extras-require.readthedocs.io/en/latest
 	:alt: Documentation Build Status
 
 .. |docs_check| image:: https://github.com/sphinx-toolbox/extras_require/workflows/Docs%20Check/badge.svg
