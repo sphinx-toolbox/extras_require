@@ -50,7 +50,7 @@ from sphinxcontrib.extras_require.sources import sources  # noqa: F401
 __author__: str = "Dominic Davis-Foster"
 __copyright__: str = "2020 Dominic Davis-Foster"
 __license__: str = "BSD"
-__version__: str = "0.4.3"
+__version__: str = "0.5.0"
 __email__: str = "dominic@davis-foster.co.uk"
 
 __all__ = ["extras_require_purger", "setup"]
