@@ -241,6 +241,11 @@ def _do_test_directive(
 		)
 def test_output(page: BeautifulSoup, html_regression: HTMLRegressionFixture) -> None:
 
+	for div in page.findAll("script"):
+		if div.get("src"):
+			div["src"] = div["src"].split("?v=")[0]
+			print(div["src"])
+
 	html_regression.check(page, jinja2=True)
 
 
@@ -256,6 +261,11 @@ def test_no_requirements_demo(
 	# Now test the directive
 	for div in page.findAll("div"):
 		assert not div.get("id", '').startswith("extras_require")
+
+	for div in page.findAll("script"):
+		if div.get("src"):
+			div["src"] = div["src"].split("?v=")[0]
+			print(div["src"])
 
 	html_regression.check(page, jinja2=True)
 
