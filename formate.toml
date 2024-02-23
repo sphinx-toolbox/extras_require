@@ -60,4 +60,4 @@ known_third_party = [
     "sphinx_prompt",
     "sphinx_toolbox",
 ]
-known_first_party = "sphinxcontrib.extras_require"
+known_first_party = [ "sphinxcontrib_extras_require",]
