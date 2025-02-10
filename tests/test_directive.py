@@ -190,19 +190,19 @@ def _do_test_directive(
 
 	div_count = 0
 
-	for div in page.findAll("div"):
+	for div in page.find_all("div"):
 		if not div.get("id", '').startswith("extras_require"):
 			continue
 
-		assert div.findAll('p')[0].contents == ["Attention"]
-		assert div.findAll('p')[0]["class"] == ["admonition-title"]
-		assert div.findAll('p')[1].contents == ["This module has the following additional requirements:"]
+		assert div.find_all('p')[0].contents == ["Attention"]
+		assert div.find_all('p')[0]["class"] == ["admonition-title"]
+		assert div.find_all('p')[1].contents == ["This module has the following additional requirements:"]
 
 		assert div.div["class"] == ["highlight-text", "notranslate"]
 		assert div.div.div["class"] == ["highlight"]
 		assert div.div.div.pre.contents[1:] == ['\n'.join(requirements) + '\n']
 
-		assert div.findAll('p')[2].contents == ["These can be installed as follows:"]
+		assert div.find_all('p')[2].contents == ["These can be installed as follows:"]
 
 		assert div.blockquote.div.div["class"] == ["highlight-default", "notranslate"]
 		assert div.blockquote.div.div.div["class"] == ["highlight"]
@@ -241,7 +241,7 @@ def _do_test_directive(
 		)
 def test_output(page: BeautifulSoup, html_regression: HTMLRegressionFixture) -> None:
 
-	for div in page.findAll("script"):
+	for div in page.find_all("script"):
 		if div.get("src"):
 			div["src"] = div["src"].split("?v=")[0]
 			print(div["src"])
@@ -259,10 +259,10 @@ def test_no_requirements_demo(
 	assert "No Requirements Demo" == title
 
 	# Now test the directive
-	for div in page.findAll("div"):
+	for div in page.find_all("div"):
 		assert not div.get("id", '').startswith("extras_require")
 
-	for div in page.findAll("script"):
+	for div in page.find_all("script"):
 		if div.get("src"):
 			div["src"] = div["src"].split("?v=")[0]
 			print(div["src"])
