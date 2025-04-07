@@ -3,12 +3,12 @@
 # stdlib
 import sys
 import warnings
-from typing import Dict, List
+from typing import Dict, List, cast
 
 # 3rd party
 import pytest
-from bs4 import BeautifulSoup  # type: ignore[import]
-from bs4.element import Tag  # type: ignore[import]
+from bs4 import BeautifulSoup
+from bs4.element import Tag
 from sphinx.application import Sphinx
 from sphinx_toolbox.testing import HTMLRegressionFixture
 
@@ -181,52 +181,6 @@ def test(the_app: Sphinx) -> None:
 	the_app.build()
 
 
-def _do_test_directive(
-		page: BeautifulSoup,
-		requirements: List[str],
-		extra: str,
-		html_regression: HTMLRegressionFixture,
-		) -> None:
-
-	div_count = 0
-
-	for div in page.find_all("div"):
-		if not div.get("id", '').startswith("extras_require"):
-			continue
-
-		assert div.find_all('p')[0].contents == ["Attention"]
-		assert div.find_all('p')[0]["class"] == ["admonition-title"]
-		assert div.find_all('p')[1].contents == ["This module has the following additional requirements:"]
-
-		assert div.div["class"] == ["highlight-text", "notranslate"]
-		assert div.div.div["class"] == ["highlight"]
-		assert div.div.div.pre.contents[1:] == ['\n'.join(requirements) + '\n']
-
-		assert div.find_all('p')[2].contents == ["These can be installed as follows:"]
-
-		assert div.blockquote.div.div["class"] == ["highlight-default", "notranslate"]
-		assert div.blockquote.div.div.div["class"] == ["highlight"]
-
-		expected_instructions = [
-				Tag(name="span"),
-				"$ python -m pip install Python",
-				Tag(name="span", attrs={"class": ['o']}),
-				extra,
-				Tag(name="span", attrs={"class": ['o']}),
-				'\n'
-				]
-		expected_instructions[2].string = '['
-		expected_instructions[4].string = ']'
-
-		assert div.blockquote.div.div.div.pre.contents == expected_instructions
-
-		div_count += 1
-
-	assert div_count == 1
-
-	html_regression.check(page, jinja2=True)
-
-
 @pytest.mark.parametrize(
 		"page",
 		[
@@ -242,7 +196,9 @@ def _do_test_directive(
 def test_output(page: BeautifulSoup, html_regression: HTMLRegressionFixture) -> None:
 
 	for div in page.find_all("script"):
+		assert isinstance(div, Tag)
 		if div.get("src"):
+			assert isinstance(div["src"], str)
 			div["src"] = div["src"].split("?v=")[0]
 			print(div["src"])
 
@@ -255,16 +211,20 @@ def test_no_requirements_demo(
 		html_regression: HTMLRegressionFixture,
 		) -> None:
 	# Make sure the page title is what you expect
-	title = page.find("h1").contents[0].strip()
+	h1 = page.find("h1")
+	assert isinstance(h1, Tag)
+	title = cast(str, h1.contents[0]).strip()
 	assert "No Requirements Demo" == title
 
 	# Now test the directive
 	for div in page.find_all("div"):
-		assert not div.get("id", '').startswith("extras_require")
+		assert isinstance(div, Tag)
+		assert not cast(str, div.get("id", '')).startswith("extras_require")
 
 	for div in page.find_all("script"):
+		assert isinstance(div, Tag)
 		if div.get("src"):
-			div["src"] = div["src"].split("?v=")[0]
+			div["src"] = cast(str, div["src"]).split("?v=")[0]
 			print(div["src"])
 
 	html_regression.check(page, jinja2=True)

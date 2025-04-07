@@ -4,7 +4,7 @@ from typing import Any, Iterator
 
 # 3rd party
 import pytest
-from bs4 import BeautifulSoup  # type: ignore[import]
+from bs4 import BeautifulSoup
 from domdf_python_tools.paths import PathPlus
 
 if sys.version_info >= (3, 10):
@@ -28,7 +28,7 @@ def rootdir() -> path:
 
 @pytest.fixture()
 def the_app(app: Sphinx) -> Sphinx:
-	fake_repo_root = PathPlus(app.env.srcdir).parent  # type: ignore[union-attr]
+	fake_repo_root = PathPlus(app.env.srcdir).parent
 
 	PathPlus(fake_repo_root / "__pkginfo__.py").write_lines([
 			"extras_require = {",
