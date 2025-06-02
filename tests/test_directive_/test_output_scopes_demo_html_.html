@@ -1,7 +1,8 @@
+{% set permalink = ("Link" if sphinx_version >= (7, 2) else 'Permalink') -%}
 {% set heading = ("heading" if sphinx_version >= (5, 0) else 'headline') -%}
 {% set section = ("section", "section") if docutils_version >= (0, 17) else ('div class="section"', "div") -%}
 <!DOCTYPE html>
-<html{% if sphinx_version >= (5, 0) %} lang="en"{% endif %}>
+<html{% if sphinx_version >= (7, 2) %} data-content_root="./"{% endif %}{% if sphinx_version >= (5, 0) %} lang="en"{% endif %}>
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -11,8 +12,9 @@
   {% elif docutils_version[1] == 20 %}<meta content="width=device-width, initial-scale=1" name="viewport"/>
   {% endif %}<title>
    Scopes Demo — Python  documentation
-  </title>
-  <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js">
+  </title>{% if sphinx_version >= (7, 2) %}
+  <script src="_static/documentation_options.js">{% else %}
+  <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js">{% endif %}
   </script>{% if sphinx_version < (6, 0) %}
   <script src="_static/jquery.js">
   </script>
@@ -34,7 +36,7 @@
       <{{ section[0] }} id="scopes-demo">
        <h1>
         Scopes Demo
-        <a class="headerlink" href="#scopes-demo" title="Permalink to this {{ heading }}">
+        <a class="headerlink" href="#scopes-demo" title="{{ permalink }} to this {{ heading }}">
          ¶
         </a>
        </h1>
@@ -135,7 +137,9 @@ span.prompt1:before {
          </div>
         </blockquote>
        </div>
-      </{{ section[1] }}>
+      </{{ section[1] }}>{% if sphinx_version >= (8, 1) %}
+      <div class="clearer">
+      </div>{% endif %}
      </div>
     </div>
    </div>

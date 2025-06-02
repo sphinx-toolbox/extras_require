@@ -1,6 +1,6 @@
 # stdlib
 import sys
-from typing import Any, Iterator
+from typing import Any, Dict, Iterator, List, cast
 
 # 3rd party
 import pytest
@@ -12,9 +12,18 @@ if sys.version_info >= (3, 10):
 	import types
 	types.Union = types.UnionType
 
+# stdlib
+import pathlib
+
 # 3rd party
+import sphinx
 from sphinx.application import Sphinx
-from sphinx.testing.path import path
+
+if sphinx.version_info >= (7, 2):
+	path = pathlib.Path
+else:
+	# 3rd party
+	from sphinx.testing.path import path  # type: ignore[assignment]
 
 pytest_plugins = ("coincidence", "sphinx.testing.fixtures", "sphinx_toolbox.testing")
 
@@ -99,4 +108,10 @@ def page(content: Any, request: Any) -> Iterator[BeautifulSoup]:
 	pagename = request.param
 	c = (content.outdir / pagename).read_text()
 
-	yield BeautifulSoup(c, "html5lib")
+	soup = BeautifulSoup(c, "html5lib")
+
+	for meta in cast(List[Dict], soup.find_all("meta")):
+		if meta.get("content", '') == "width=device-width, initial-scale=0.9, maximum-scale=0.9":
+			meta.extract()  # type: ignore[attr-defined]
+
+	return soup
