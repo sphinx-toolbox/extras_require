@@ -107,7 +107,6 @@ keywords:
  - documentation
 
 tox_unmanaged:
- - flake8
  - testenv
 
 third_party_version_matrix:
