@@ -23,7 +23,7 @@ if sphinx.version_info >= (7, 2):
 	path = pathlib.Path
 else:
 	# 3rd party
-	from sphinx.testing.path import path  # type: ignore[assignment]
+	from sphinx.testing.path import path  # type: ignore[misc]
 
 pytest_plugins = ("coincidence", "sphinx.testing.fixtures", "sphinx_toolbox.testing")
 
@@ -104,7 +104,7 @@ def content(the_app: Sphinx) -> Iterator[Sphinx]:
 
 
 @pytest.fixture()
-def page(content: Any, request: Any) -> Iterator[BeautifulSoup]:
+def page(content: Any, request: Any) -> BeautifulSoup:
 	pagename = request.param
 	c = (content.outdir / pagename).read_text()
 
