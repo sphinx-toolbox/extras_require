@@ -12,7 +12,6 @@ license: 'BSD'
 short_desc: 'Display a warning at the top of module documentation that it has additional requirements.'
 
 use_whey: true
-python_deploy_version: 3.6
 docs_fail_on_warning: true
 preserve_custom_theme: true
 
