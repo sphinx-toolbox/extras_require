@@ -49,7 +49,7 @@ from typing import Callable, Dict, List, Tuple
 import sphinx.environment
 from docutils.parsers.rst import directives
 from domdf_python_tools.paths import PathPlus
-from setuptools.config import read_configuration  # type: ignore[import]
+from setuptools.config import read_configuration  # type: ignore[import-untyped]
 from shippinglabel import normalize_keep_dot
 from shippinglabel.requirements import combine_requirements, parse_pyproject_extras, read_requirements
 from sphinx_toolbox.utils import flag

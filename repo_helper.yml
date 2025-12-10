@@ -14,7 +14,6 @@ short_desc: 'Display a warning at the top of module documentation that it has ad
 use_whey: true
 docs_fail_on_warning: true
 preserve_custom_theme: true
-mypy_version: 1.16
 python_deploy_version: 3.9
 
 conda_channels:

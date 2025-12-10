@@ -23,7 +23,7 @@ if sphinx.version_info >= (7, 2):
 	path = pathlib.Path
 else:
 	# 3rd party
-	from sphinx.testing.path import path  # type: ignore[misc]
+	from sphinx.testing.path import path  # type: ignore[assignment]
 
 pytest_plugins = ("coincidence", "sphinx.testing.fixtures", "sphinx_toolbox.testing")
 
