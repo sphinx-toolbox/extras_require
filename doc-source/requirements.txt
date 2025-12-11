@@ -2,6 +2,7 @@ git+https://github.com/sphinx-toolbox/sphinx-toolbox-experimental
 default-values>=0.6.0
 domdf-sphinx-theme>=0.3.0
 html-section>=0.3.0
+roman>=4.0
 seed-intersphinx-mapping>=1.2.2
 sphinx-copybutton>=0.2.12
 sphinx-debuginfo>=0.2.2

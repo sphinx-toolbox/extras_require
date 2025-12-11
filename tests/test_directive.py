@@ -104,25 +104,11 @@ def test_validate_requirements(requirements: List[str], valid_requirements: List
 		)
 def test_validate_requirements_warning(requirements: List[str], valid_requirements: List[str]) -> None:
 
-	if sys.version_info < (3, 7):
-		# Old packaging version
-		warning_msg = "Creating a LegacyVersion has been deprecated and will be removed in the next major release"
-
-		with warnings.catch_warnings():
-			warnings.simplefilter("always", DeprecationWarning)
-
-			with pytest.warns(DeprecationWarning, match=warning_msg):
-				assert validate_requirements(requirements) == valid_requirements
-
-		with pytest.raises(ValueError, match=f"Invalid requirement .*: {warning_msg}"):
-			validate_requirements(requirements)
-	else:
-		# New packaging version
-		with pytest.raises(
-				ValueError,
-				match=rf"Invalid requirement .*: Expected end or semicolon \(after version specifier\)"
-				):
-			validate_requirements(requirements)
+	# New packaging version
+	with pytest.raises(
+			ValueError, match=rf"Invalid requirement .*: Expected end or semicolon \(after version specifier\)"
+			):
+		validate_requirements(requirements)
 
 
 @pytest.mark.parametrize(
