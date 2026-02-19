@@ -27,7 +27,7 @@ from sphinxcontrib.extras_require.sources import requirements_from_file
 						["faker", "pytest"],
 						pytest.warns(UserWarning, match="Ignored invalid requirement 'tox; python<=3.6'"),
 						),
-				]
+				],
 		)
 def test_from_file(
 		tmp_pathplus: PathPlus,

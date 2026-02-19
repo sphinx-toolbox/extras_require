@@ -27,9 +27,10 @@ extra_c =
     pytest
     tox; python<=3.6
 """,
-						"extra_c", ["faker", "pytest", "tox; python<=3.6"]
+						"extra_c",
+						["faker", "pytest", "tox; python<=3.6"],
 						),
-				]
+				],
 		)
 def test_from_setup_cfg(
 		tmp_pathplus: PathPlus,
@@ -61,9 +62,10 @@ extra_c =
     pytest
     tox; python<=3.6
 """,
-						"test", ["faker", "pytest", "tox; python<=3.6"]
+						"test",
+						["faker", "pytest", "tox; python<=3.6"],
 						),
-				]
+				],
 		)
 def test_from_setup_cfg_errors(
 		tmp_pathplus: PathPlus,
@@ -87,7 +89,7 @@ def test_from_setup_cfg_errors(
 
 def test_from_setup_cfg_missing_section(tmp_pathplus: PathPlus) -> None:
 	setup_cfg_file = tmp_pathplus / "setup.cfg"
-	setup_cfg_file.write_text(f"""\
+	setup_cfg_file.write_text("""\
 [metadata]
 name = FooBar
 author = Joe Bloggs

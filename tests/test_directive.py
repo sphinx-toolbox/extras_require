@@ -1,8 +1,6 @@
 # Some text strings from https://github.com/pypa/packaging/blob/master/tests/test_requirements.py
 
 # stdlib
-import sys
-import warnings
 from typing import Dict, List, cast
 
 # 3rd party
@@ -55,8 +53,10 @@ from sphinxcontrib.extras_require.directive import get_requirements, make_node_c
 						id="complex_url_and_marker",
 						),
 				pytest.param(
-						["name[strange, quux];python_version<'2.7' and "
-							"platform_version=='2'"],
+						[
+								"name[strange, quux];python_version<'2.7' and "
+								"platform_version=='2'",
+								],
 						['name[quux,strange]; python_version < "2.7" and platform_version == "2"'],
 						id="multiple_markers",
 						),
@@ -85,7 +85,7 @@ from sphinxcontrib.extras_require.directive import get_requirements, make_node_c
 						["certifi!=2.0.1,<3.0,>0.1", 'numpy; platform_system != "Darwin"', "pytz<1.2"],
 						id="complex requirements",
 						),
-				]
+				],
 		)
 def test_validate_requirements(requirements: List[str], valid_requirements: List[str]) -> None:
 	assert validate_requirements(requirements) == valid_requirements
@@ -100,13 +100,14 @@ def test_validate_requirements(requirements: List[str], valid_requirements: List
 						['name>=1.x.y; python_version == "2.6"'],
 						id="with_legacy_version_and_marker",
 						),
-				]
+				],
 		)
 def test_validate_requirements_warning(requirements: List[str], valid_requirements: List[str]) -> None:
 
 	# New packaging version
 	with pytest.raises(
-			ValueError, match=rf"Invalid requirement .*: Expected end or semicolon \(after version specifier\)"
+			ValueError,
+			match=r"Invalid requirement .*: Expected end or semicolon \(after version specifier\)",
 			):
 		validate_requirements(requirements)
 
@@ -123,7 +124,7 @@ def test_validate_requirements_warning(requirements: List[str], valid_requiremen
 				["pygame     ?=1.2.3"],
 				["six**1.2.3"],
 				["urllib3;1.2.4, <*1.2.6"],
-				]
+				],
 		)
 def test_validate_requirements_invalid(requirements: List[str]) -> None:
 	with pytest.raises(ValueError, match="Invalid requirement"):
@@ -155,7 +156,7 @@ This can be installed as follows:
 					pytest.param(["pip", "wheel", "setuptools"], 's', id="3 requirements"),
 					pytest.param(["numpy", "scipy"], 's', id="2 requirements"),
 					pytest.param(["sphinx"], '', id="1 requirement"),
-					]
+					],
 			)
 	def test_plural(self, requirements: List[str], plural: str) -> None:
 		assert make_node_content(requirements, "my_package", "the_extra").splitlines()[0] == f"""\
@@ -177,7 +178,7 @@ def test(the_app: Sphinx) -> None:
 				"pkginfo_demo.html",
 				"manual_demo.html",
 				],
-		indirect=True
+		indirect=True,
 		)
 def test_output(page: BeautifulSoup, html_regression: HTMLRegressionFixture) -> None:
 
@@ -231,7 +232,7 @@ def test_no_requirements_demo(
 						{"flit": True, "setup.cfg": True},
 						[],
 						),
-				]
+				],
 		)
 def test_directive_multiple_sources(options: Dict[str, bool], content: List[str]) -> None:
 	with pytest.raises(ValueError, match="Please specify only one source for the extra requirements"):
@@ -244,12 +245,13 @@ def test_directive_multiple_sources(options: Dict[str, bool], content: List[str]
 
 
 @pytest.mark.parametrize(
-		"options, content", [
+		"options, content",
+		[
 				({}, []),
 				({"setup_cfg": True}, []),
 				({"pkginfo": True}, []),
 				({"flit": False}, []),
-				]
+				],
 		)
 def test_directive_no_sources(options: Dict[str, bool], content: List[str]) -> None:
 	with pytest.raises(ValueError, match="Please specify a source for the extra requirements"):

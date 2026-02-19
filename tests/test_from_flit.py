@@ -27,7 +27,8 @@ extra_c = [
     'tox; python_version <= "3.6"',
 ]
 """,
-						"extra_c", ["faker", "pytest", 'tox; python_version <= "3.6"']
+						"extra_c",
+						["faker", "pytest", 'tox; python_version <= "3.6"'],
 						),
 				(
 						"""\
@@ -37,9 +38,10 @@ test = [
 ]
 doc = ["sphinx"]
 """,
-						"test", ["pytest>=2.7.3", "pytest-cov"]
+						"test",
+						["pytest>=2.7.3", "pytest-cov"],
 						),
-				]
+				],
 		)
 def test_from_flit(tmp_pathplus: PathPlus, toml: str, extra: str, expects: List[str]) -> None:
 	pyproject_file = tmp_pathplus / "pyproject.toml"
@@ -51,7 +53,7 @@ module = "FooBar"
 
 
 [tool.flit.metadata.requires-extra]
-{toml}"""
+{toml}""",
 			)
 
 	assert requirements_from_flit(
@@ -73,7 +75,8 @@ extra_c = [
     "tox; python<=3.6",
 ]
 """,
-						"extra", ["faker", "pytest", "tox; python<=3.6"]
+						"extra",
+						["faker", "pytest", "tox; python<=3.6"],
 						),
 				(
 						"""\
@@ -83,9 +86,10 @@ test = [
 ]
 doc = ["sphinx"]
 """,
-						"testing", ["pytest >=2.7.3", "pytest-cov"]
+						"testing",
+						["pytest >=2.7.3", "pytest-cov"],
 						),
-				]
+				],
 		)
 def test_from_flit_errors(
 		tmp_pathplus: PathPlus,
@@ -102,7 +106,7 @@ module = "FooBar"
 
 
 [tool.flit.metadata.requires-extra]
-{toml}"""
+{toml}""",
 			)
 
 	with pytest.raises(ValueError, match=f"'{extra}' not found in '\\[tool.flit.metadata.requires-extra\\]"):
@@ -113,7 +117,7 @@ module = "FooBar"
 				extra=extra,
 				)
 
-	with pytest.raises(FileNotFoundError, match=f"Cannot find pyproject.toml in"):
+	with pytest.raises(FileNotFoundError, match="Cannot find pyproject.toml in"):
 		requirements_from_flit(
 				package_root=pathlib.Path('.'),
 				options={},

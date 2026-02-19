@@ -22,9 +22,12 @@ class MockBuildEnvironment:
 		"requirements, extra, expects",
 		[
 				({"extra_c": ["faker", "pytest", "tox"]}, "extra_c", ["faker", "pytest", "tox"]),
-				({"extra_c": ["faker", "pytest", "tox; python<=3.6"]},
-					"extra_c", ["faker", "pytest", "tox; python<=3.6"]),
-				]
+				(
+						{"extra_c": ["faker", "pytest", "tox; python<=3.6"]},
+						"extra_c",
+						["faker", "pytest", "tox; python<=3.6"],
+						),
+				],
 		)
 def test_from___pkginfo__(
 		tmp_pathplus: PathPlus,

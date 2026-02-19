@@ -116,7 +116,7 @@ class Sources(List[Tuple[str, Callable, Callable]]):
 			if list(signature.parameters.keys()) != self._args:
 				raise SyntaxError(
 						"The decorated function must take only the following arguments: "
-						"'package_root', 'options', 'env', and 'extra'"
+						"'package_root', 'options', 'env', and 'extra'",
 						)
 
 			self.append((option_name, function, validator))
@@ -162,7 +162,7 @@ def requirements_from_file(
 	requirements, comments = read_requirements(
 		requirements_file,
 		normalize_func=normalize_keep_dot,
-		)
+	)
 
 	return list(map(str, sorted(combine_requirements(requirements))))
 
