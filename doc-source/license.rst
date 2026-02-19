@@ -7,4 +7,4 @@ License
 .. license-info:: BSD-3-Clause
 
 .. license::
-	:py: extras_require
+	:py: extras-require

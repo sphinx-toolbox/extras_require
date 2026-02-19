@@ -69,20 +69,20 @@ extras_require
 	:target: https://www.codefactor.io/repository/github/sphinx-toolbox/extras_require
 	:alt: CodeFactor Grade
 
-.. |pypi-version| image:: https://img.shields.io/pypi/v/extras_require
-	:target: https://pypi.org/project/extras_require/
+.. |pypi-version| image:: https://img.shields.io/pypi/v/extras-require
+	:target: https://pypi.org/project/extras-require/
 	:alt: PyPI - Package Version
 
-.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/extras_require?logo=python&logoColor=white
-	:target: https://pypi.org/project/extras_require/
+.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/extras-require?logo=python&logoColor=white
+	:target: https://pypi.org/project/extras-require/
 	:alt: PyPI - Supported Python Versions
 
-.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/extras_require
-	:target: https://pypi.org/project/extras_require/
+.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/extras-require
+	:target: https://pypi.org/project/extras-require/
 	:alt: PyPI - Supported Implementations
 
-.. |wheel| image:: https://img.shields.io/pypi/wheel/extras_require
-	:target: https://pypi.org/project/extras_require/
+.. |wheel| image:: https://img.shields.io/pypi/wheel/extras-require
+	:target: https://pypi.org/project/extras-require/
 	:alt: PyPI - Wheel
 
 .. |conda-version| image:: https://img.shields.io/conda/v/domdfcoding/extras_require?logo=anaconda
@@ -108,11 +108,11 @@ extras_require
 	:target: https://github.com/sphinx-toolbox/extras_require/commit/master
 	:alt: GitHub last commit
 
-.. |maintained| image:: https://img.shields.io/maintenance/yes/2025
+.. |maintained| image:: https://img.shields.io/maintenance/yes/2026
 	:alt: Maintenance
 
-.. |pypi-downloads| image:: https://img.shields.io/pypi/dm/extras_require
-	:target: https://pypi.org/project/extras_require/
+.. |pypi-downloads| image:: https://img.shields.io/pypi/dm/extras-require
+	:target: https://pypistats.org/packages/extras-require
 	:alt: PyPI - Downloads
 
 .. end shields
@@ -206,7 +206,7 @@ To install with ``pip``:
 
 .. code-block:: bash
 
-	$ python -m pip install extras_require
+	$ python -m pip install extras-require
 
 To install with ``conda``:
 
