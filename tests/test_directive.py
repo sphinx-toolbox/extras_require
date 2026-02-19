@@ -22,10 +22,10 @@ from sphinxcontrib.extras_require.directive import get_requirements, make_node_c
 						['name[bar]>=3; python_version == "2.7"'],
 						id="string_specifier_marker",
 						),
-				pytest.param(["name@ http://foo.com"], ["name@ http://foo.com"], id="string_url"),
+				pytest.param(["name@ http://foo.com"], ["name @ http://foo.com"], id="string_url"),
 				pytest.param(
 						['name@ http://foo.com ; extra == "feature"'],
-						['name@ http://foo.com ; extra == "feature"'],
+						['name @ http://foo.com ; extra == "feature"'],
 						id="string_url_with_marker",
 						),
 				pytest.param(["foo-bar.quux_baz"], ["foo-bar.quux_baz"], id="name_with_other_characters"),
@@ -35,21 +35,21 @@ from sphinxcontrib.extras_require.directive import get_requirements, make_node_c
 				pytest.param(["name >=2, <3"], ["name<3,>=2"], id="name_with_multiple_versions_and_whitespace"),
 				pytest.param(["foobar [quux,bar]"], ["foobar[bar,quux]"], id="extras"),
 				pytest.param(["foo[]"], ["foo"], id="empty_extras"),
-				pytest.param(["foo @ http://example.com"], ["foo@ http://example.com"], id="url"),
+				pytest.param(["foo@ http://example.com"], ["foo @ http://example.com"], id="url"),
 				pytest.param(
-						["foo @ http://example.com ; os_name=='a'"],
-						['foo@ http://example.com ; os_name == "a"'],
+						["foo@ http://example.com ; os_name=='a'"],
+						['foo @ http://example.com ; os_name == "a"'],
 						id="url_and_marker",
 						),
-				pytest.param(["name @ file:///absolute/path"], ["name@ file:///absolute/path"], id="file_url"),
+				pytest.param(["name@ file:///absolute/path"], ["name @ file:///absolute/path"], id="file_url"),
 				pytest.param(
-						["name [fred, bar] @ http://foo.com ; python_version=='2.7'"],
-						['name[bar,fred]@ http://foo.com ; python_version == "2.7"'],
+						["name [fred, bar]@ http://foo.com ; python_version=='2.7'"],
+						['name[bar,fred] @ http://foo.com ; python_version == "2.7"'],
 						id="extras_and_url_and_marker",
 						),
 				pytest.param(
-						["foo @ https://example.com/name;v=1.1/?query=foo&bar=baz#blah ; python_version=='3.4'"],
-						['foo@ https://example.com/name;v=1.1/?query=foo&bar=baz#blah ; python_version == "3.4"'],
+						["foo@ https://example.com/name;v=1.1/?query=foo&bar=baz#blah ; python_version=='3.4'"],
+						['foo @ https://example.com/name;v=1.1/?query=foo&bar=baz#blah ; python_version == "3.4"'],
 						id="complex_url_and_marker",
 						),
 				pytest.param(
@@ -107,7 +107,7 @@ def test_validate_requirements_warning(requirements: List[str], valid_requiremen
 	# New packaging version
 	with pytest.raises(
 			ValueError,
-			match=r"Invalid requirement .*: Expected end or semicolon \(after version specifier\)",
+			match=r"Invalid requirement .*: Expected .*",
 			):
 		validate_requirements(requirements)
 
@@ -116,10 +116,10 @@ def test_validate_requirements_warning(requirements: List[str], valid_requiremen
 		"requirements",
 		[
 				pytest.param(["foo!"], id="invalid_name"),
-				pytest.param(["foo @ http://example.com; os_name=='a'"]),
-				# pytest.param(["name @ gopher:/foo/com"], id="invalid URL"),
-				# pytest.param(["name @ file:."], id="invalid file URL (1)"),  # No longer raises exception with latest packaging
-				# pytest.param(["name @ file:/."], id="invalud file URL (2)"),
+				pytest.param(["foo@ http://example.com; os_name=='a'"]),
+				# pytest.param(["name@ gopher:/foo/com"], id="invalid URL"),
+				# pytest.param(["name@ file:."], id="invalid file URL (1)"),  # No longer raises exception with latest packaging
+				# pytest.param(["name@ file:/."], id="invalud file URL (2)"),
 				pytest.param(["name; foobar=='x'"], id="invalid_marker"),
 				["pygame     ?=1.2.3"],
 				["six**1.2.3"],

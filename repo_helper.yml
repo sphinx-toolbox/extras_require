@@ -20,21 +20,6 @@ conda_channels:
  - conda-forge
 
 python_versions:
- 3.7:
-  matrix_exclude:
-   sphinx:
-    - 6.0
-    - 6.1
-    - 6.2
-    - 7.0
-    - 7.1
-    - 7.2
-    - 7.3
-    - 7.4
-    - 8.0
-    - 8.1
-    - 8.2
-    - latest
  3.8:
   matrix_exclude:
    sphinx:
@@ -82,26 +67,6 @@ python_versions:
     - 5.3
     - 6.0
     - 6.1
- pypy37:
-  matrix_exclude:
-   sphinx:
-    - 3.4
-    - 3.5
-    - 4.0
-    - 4.1
-    - 4.2
-    - 6.0
-    - 6.1
-    - 6.2
-    - 7.0
-    - 7.1
-    - 7.2
-    - 7.3
-    - 7.4
-    - 8.0
-    - 8.1
-    - 8.2
-    - latest
  pypy38:
   matrix_exclude:
    sphinx:
