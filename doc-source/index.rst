@@ -71,22 +71,22 @@ extras_require
 		:alt: CodeFactor Grade
 
 	.. |pypi-version| pypi-shield::
-		:project: extras_require
+		:project: extras-require
 		:version:
 		:alt: PyPI - Package Version
 
 	.. |supported-versions| pypi-shield::
-		:project: extras_require
+		:project: extras-require
 		:py-versions:
 		:alt: PyPI - Supported Python Versions
 
 	.. |supported-implementations| pypi-shield::
-		:project: extras_require
+		:project: extras-require
 		:implementations:
 		:alt: PyPI - Supported Implementations
 
 	.. |wheel| pypi-shield::
-		:project: extras_require
+		:project: extras-require
 		:wheel:
 		:alt: PyPI - Wheel
 
@@ -114,11 +114,11 @@ extras_require
 		:last-commit:
 		:alt: GitHub last commit
 
-	.. |maintained| maintained-shield:: 2025
+	.. |maintained| maintained-shield:: 2026
 		:alt: Maintenance
 
 	.. |pypi-downloads| pypi-shield::
-		:project: extras_require
+		:project: extras-require
 		:downloads: month
 		:alt: PyPI - Downloads
 
