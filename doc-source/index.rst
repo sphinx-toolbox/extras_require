@@ -172,7 +172,7 @@ The file ``./chemistry_tools/formulae/requirements.txt`` contains the additional
 							"cawdrey>=0.1.2",
 							"quantities>=0.12.4",
 							],
-					}
+					},
 			)
 
 A message can be displayed in the documentation to indicate that the subpackage has these additional requirements that must be installed.

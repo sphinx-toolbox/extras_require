@@ -96,11 +96,11 @@ class Sources(List[Tuple[str, Callable, Callable]]):
 		.. code-block:: python
 
 			def function(
-				package_root: pathlib.Path,
-				options: Dict,
-				env: sphinx.environment.BuildEnvironment,
-				extra: str,
-				) -> List[str]: ...
+					package_root: pathlib.Path,
+					options: Dict,
+					env: sphinx.environment.BuildEnvironment,
+					extra: str,
+					) -> List[str]: ...
 
 		:param option_name: A string to use in the directive to specify the source to use.
 		:param validator: A function to validate the option value provided by the user.
